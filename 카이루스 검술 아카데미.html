@@ -64,6 +64,57 @@
         }
         .info-box h3 { color: var(--accent); margin-top: 0; }
 
+        /* Schedule Table Style Added */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+        }
+        .schedule-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid #444;
+            overflow: hidden;
+        }
+        .schedule-header {
+            background: #333;
+            padding: 15px 20px;
+            font-weight: bold;
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            display: flex;
+            justify-content: space-between;
+        }
+        .schedule-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .schedule-item {
+            display: flex;
+            padding: 12px 20px;
+            border-bottom: 1px solid #383838;
+            align-items: center;
+        }
+        .schedule-item:last-child { border-bottom: none; }
+        .date {
+            width: 100px;
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+        .event {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+        .vacation {
+            background: rgba(212, 175, 55, 0.05);
+            text-align: center;
+            padding: 15px;
+            font-style: italic;
+            color: #aaa;
+        }
+
         /* Character Grid */
         .char-grid {
             display: grid;
@@ -109,10 +160,6 @@
             font-style: italic;
         }
 
-        .badge-s { color: #ff5722; font-weight: bold; }
-        .badge-a { color: #2196f3; font-weight: bold; }
-        .badge-c { color: #4caf50; font-weight: bold; }
-
         footer { text-align: center; padding: 40px; color: #777; font-size: 0.8rem; border-top: 1px solid #333; }
     </style>
 </head>
@@ -135,11 +182,51 @@
             <div class="info-box">
                 <h3>등급 시스템</h3>
                 <p>SSS부터 F급까지 존재하며, 학생 평균은 C급입니다. 등급에 따른 차별이 존재하므로 실력이 곧 권력입니다.</p>
-                <p><strong>정규 대련:</strong> 3/6/9/12월 15일에 3달 간격으로로 등급 조정 대련이 열립니다.</p>
+                <p><strong>정규 대련:</strong> 3/6/9/12월 15일에 3달 간격으로 등급 조정 대련이 열립니다.</p>
             </div>
             <div class="info-box">
                 <h3>학업 생활</h3>
                 <p>1학년(A동), 2학년(B동), 3학년(C동) 기숙사를 사용합니다. 주말과 공강 시간에는 외부 임무 및 동아리 활동이 자유로운 분위기입니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>📋 아카데미 연간 일정</h2>
+        <div class="schedule-grid">
+            <div class="schedule-card">
+                <div class="schedule-header">
+                    <span>1학기 (First Semester)</span>
+                    <span>3월 - 6월</span>
+                </div>
+                <ul class="schedule-list">
+                    <li class="schedule-item"><div class="date">3월 1일</div><div class="event">입학식 및 오리엔테이션(OT)</div></li>
+                    <li class="schedule-item"><div class="date">3월 2일</div><div class="event">학기 첫 연습 대련</div></li>
+                    <li class="schedule-item"><div class="date">3월 15일</div><div class="event"><strong>1분기 정규 대련</strong> (등급 조정)</div></li>
+                    <li class="schedule-item"><div class="date">4월 초</div><div class="event">검술 시연 1차 평가</div></li>
+                    <li class="schedule-item"><div class="date">5월 초</div><div class="event">중간 학술 및 실기 평가</div></li>
+                    <li class="schedule-item"><div class="date">6월 15일</div><div class="event"><strong>2분기 정규 대련</strong> (등급 조정)</div></li>
+                    <li class="schedule-item"><div class="date">6월 말</div><div class="event">아카데미 대축제</div></li>
+                </ul>
+                <div class="vacation">☀️ 여름 방학 (7월 ~ 8월)</div>
+            </div>
+
+            <div class="schedule-card">
+                <div class="schedule-header">
+                    <span>2학기 (Second Semester)</span>
+                    <span>9월 - 12월</span>
+                </div>
+                <ul class="schedule-list">
+                    <li class="schedule-item"><div class="date">9월 1일</div><div class="event">2학기 개강</div></li>
+                    <li class="schedule-item"><div class="date">9월 2일</div><div class="event">연습 대련 및 컨디션 체크</div></li>
+                    <li class="schedule-item"><div class="date">9월 15일</div><div class="event"><strong>3분기 정규 대련</strong> (등급 조정)</div></li>
+                    <li class="schedule-item"><div class="date">10월 초</div><div class="event">검술 시연 2차 평가</div></li>
+                    <li class="schedule-item"><div class="date">11월 초</div><div class="event">기말 최종 평가</div></li>
+                    <li class="schedule-item"><div class="date">11월 말</div><div class="event">종합 성적 산출 및 공개</div></li>
+                    <li class="schedule-item"><div class="date">12월 15일</div><div class="event"><strong>4분기 정규 대련</strong> (최종 등급 결정)</div></li>
+                    <li class="schedule-item"><div class="date">12월 말</div><div class="event">졸업식 및 진급 신고</div></li>
+                </ul>
+                <div class="vacation">❄️ 겨울 방학 (1월 ~ 2월)</div>
             </div>
         </div>
     </section>
