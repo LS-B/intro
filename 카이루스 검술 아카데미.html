@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카이루스 아카데미 - 학생 가이드</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #d4af37; /* Gold */
+            --bg-dark: #1a1a1a;
+            --text-light: #f4f4f4;
+            --card-bg: #2a2a2a;
+        }
+
+        body {
+            font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .current-time {
+            background: rgba(212, 175, 55, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        h1 { font-size: 3rem; margin: 0; color: var(--accent); text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+
+        section { margin-bottom: 60px; }
+        h2 { border-left: 5px solid var(--accent); padding-left: 15px; margin-bottom: 30px; font-size: 2rem; }
+
+        /* Worldview Table */
+        .worldview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .info-box {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
+        .info-box h3 { color: var(--accent); margin-top: 0; }
+
+        /* Character Grid */
+        .char-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .char-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        .char-card:hover {
+            transform: translateY(-10px);
+            border-bottom-color: var(--accent);
+        }
+        .char-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        .char-info { padding: 20px; }
+        .char-name { font-size: 1.4rem; font-weight: bold; margin-bottom: 5px; color: var(--accent); }
+        .char-rank { font-weight: bold; color: #ffeb3b; margin-bottom: 10px; font-size: 0.9rem; }
+        .char-tags { margin-bottom: 10px; }
+        .tag {
+            display: inline-block;
+            background: #444;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .char-desc { font-size: 0.9rem; color: #ccc; }
+        .char-ability { 
+            margin-top: 15px; 
+            padding-top: 15px; 
+            border-top: 1px solid #444;
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .badge-s { color: #ff5722; font-weight: bold; }
+        .badge-a { color: #2196f3; font-weight: bold; }
+        .badge-c { color: #4caf50; font-weight: bold; }
+
+        footer { text-align: center; padding: 40px; color: #777; font-size: 0.8rem; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>KAIRUS ACADEMY</h1>
+    <p>이페리온 제국 최고의 아카데미</p>
+</header>
+
+<div class="container">
+    <section>
+        <h2>🏰 세계관 설정</h2>
+        <div class="worldview-grid">
+            <div class="info-box">
+                <h3>이페리온 vs 세렌티스</h3>
+                <p><strong>이페리온:</strong> 검을 숭상하고 마법을 배척합니다. 오러를 통해 신체 강화와 검기를 사용합니다.</p>
+                <p><strong>세렌티스:</strong> 마법을 숭상하고 검을 배척하는 국경을 맞댄 숙적의 제국입니다.</p>
+            </div>
+            <div class="info-box">
+                <h3>등급 시스템</h3>
+                <p>SSS부터 F급까지 존재하며, 학생 평균은 C급입니다. 등급에 따른 차별이 존재하므로 실력이 곧 권력입니다.</p>
+                <p><strong>정규 대련:</strong> 3/6/9/12월 15일에 3달 간격으로로 등급 조정 대련이 열립니다.</p>
+            </div>
+            <div class="info-box">
+                <h3>학업 생활</h3>
+                <p>1학년(A동), 2학년(B동), 3학년(C동) 기숙사를 사용합니다. 주말과 공강 시간에는 외부 임무 및 동아리 활동이 자유로운 분위기입니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>⚔️ 교수진 및 운영진</h2>
+        <div class="char-grid">
+            <div class="char-card">
+                <img src="https://igx.kr/d/dB/c/10" class="char-img" alt="데미안">
+                <div class="char-info">
+                    <div class="char-name">데미안 하이벨 (54)</div>
+                    <div class="char-rank">SS등급 | 학장</div>
+                    <div class="char-tags">
+                        <span class="tag">ISTJ</span><span class="tag">원칙주의</span><span class="tag">독설가</span>
+                    </div>
+                    <p class="char-desc">전직 제국 기사단장. 가문보다 실력과 의지를 중시하며 압도적인 위압감을 내뿜습니다.</p>
+                    <p class="char-ability">능력: 대검, 오러 밀도 압박</p>
+                </div>
+            </div>
+            <div class="char-card">
+                <img src="https://igx.kr/d/dB/l/10" class="char-img" alt="카이엘">
+                <div class="char-info">
+                    <div class="char-name">카이엘 오베루스 (37)</div>
+                    <div class="char-rank">S등급 | 실전 교수</div>
+                    <div class="char-tags">
+                        <span class="tag">INTJ</span><span class="tag">재능중시</span><span class="tag">안경캐</span>
+                    </div>
+                    <p class="char-desc">오베루스 방계 출신. 실력만으로 교수에 오른 천재. 대외적으로는 친절하나 냉철한 분석가.</p>
+                    <p class="char-ability">능력: 롱소드, 정밀 오러 제어</p>
+                </div>
+            </div>
+            <div class="char-card">
+                <img src="https://igx.kr/d/dB/k/10" class="char-img" alt="이벨린">
+                <div class="char-info">
+                    <div class="char-name">이벨린 (35)</div>
+                    <div class="char-rank">S등급 | 이론 교수</div>
+                    <div class="char-tags">
+                        <span class="tag">INFJ</span><span class="tag">평민출신</span><span class="tag">상냥함</span>
+                    </div>
+                    <p class="char-desc">전직 제국 군사 고문. 모든 학생을 아끼는 포용심을 지닌 최고의 전략가입니다.</p>
+                    <p class="char-ability">능력: 레이피어, 오러 실 응용용</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>🛡️ 아카데미 학생 (주요 인물)</h2>
+        <div class="char-grid">
+            <div class="char-card">
+                <img src="https://igx.kr/d/dB/h/10" class="char-img" alt="아리엘">
+                <div class="char-info">
+                    <div class="char-name">아리엘 오베루스 (21)</div>
+                    <div class="char-rank">A등급 | 2학년 수석</div>
+                    <div class="char-tags">
+                        <span class="tag">ENTJ</span><span class="tag">공격적</span><span class="tag">금수저</span>
+                    </div>
+                    <p class="char-desc">오만하고 카리스마 넘치는 공작가 차녀. 일격 필살의 강공 검술을 구사합니다.</p>
+                    <p class="char-ability">능력: 롱소드, 압박형 돌파 전투</p>
+                </div>
+            </div>
+            <div class="char-card">
+                <img src="https://igx.kr/d/dB/j/10" class="char-img" alt="엘리네">
+                <div class="char-info">
+                    <div class="char-name">엘리네 세르다뉴 (21)</div>
+                    <div class="char-rank">A등급 | 2학년 차석</div>
+                    <div class="char-tags">
+                        <span class="tag">INTJ</span><span class="tag">성실함</span><span class="tag">계산적</span>
+                    </div>
+                    <p class="char-desc">철저한 자기관리의 화신. 아리엘과 라이벌 관계이며 동생 세리아를 남몰래 아낍니다.</p>
+                    <p class="char-ability">능력: 레이피어, 제압형 정밀 검술</p>
+                </div>
+            </div>
+            <div class="char-card">
+                <img src="https://igx.kr/d/dB/d/10" class="char-img" alt="루시아">
+                <div class="char-info">
+                    <div class="char-name">루시아 세르티 (20)</div>
+                    <div class="char-rank">C등급 | 1학년</div>
+                    <div class="char-tags">
+                        <span class="tag">INFP</span><span class="tag">츤데레</span><span class="tag">몰락귀족</span>
+                    </div>
+                    <p class="char-desc">가문을 다시 일으키려는 목표를 가진 보라색 트윈테일 소녀. 도움을 받으면 꼭 빚으로 기록합니다.</p>
+                    <p class="char-ability">능력: 레이피어, 오러 폭발 돌격</p>
+                </div>
+            </div>
+            <div class="char-card">
+                <img src="https://igx.kr/d/dB/g/10" class="char-img" alt="세리아">
+                <div class="char-info">
+                    <div class="char-name">세리아 세르다뉴 (20)</div>
+                    <div class="char-rank">D등급 | 1학년</div>
+                    <div class="char-tags">
+                        <span class="tag">ENFP</span><span class="tag">햇살캐</span><span class="tag">대기만성</span>
+                    </div>
+                    <p class="char-desc">가문의 냉대에도 굴하지 않는 초긍정파. 거대한 대검을 사용하며 잠재력이 어마어마합니다.</p>
+                    <p class="char-ability">능력: 대검, 특정 계기 시 오러 각성</p>
+                </div>
+            </div>
+            <div class="char-card">
+                <img src="https://igx.kr/d/dB/m/10" class="char-img" alt="테레사">
+                <div class="char-info">
+                    <div class="char-name">테레사 (20)</div>
+                    <div class="char-rank">C등급 | 1학년</div>
+                    <div class="char-tags">
+                        <span class="tag">ISFP</span><span class="tag">평민</span><span class="tag">겁쟁이</span>
+                    </div>
+                    <p class="char-desc">주목받는 게 세상에서 제일 무서운 소녀. 하지만 궁금한 건 못 참아 구석에서 지켜보곤 합니다.</p>
+                    <p class="char-ability">능력: 롱소드, 은신 및 빈틈 포착</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 512 Eperion Empire - Kairus Academy Official Website</p>
+</footer>
+
+</body>
+</html>
