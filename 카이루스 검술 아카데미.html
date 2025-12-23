@@ -61,10 +61,11 @@
         }
         .info-box h3 { color: var(--accent); margin-top: 0; }
 
-        /* Schedule Table Style Added */
+        /* [수정됨] 일정표 그리드 스타일 */
         .schedule-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            /* 모바일에서 튀어나오지 않도록 minmax 구조를 변경했습니다 */
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
             gap: 20px;
         }
         .schedule-card {
@@ -96,6 +97,7 @@
         .schedule-item:last-child { border-bottom: none; }
         .date {
             width: 100px;
+            flex-shrink: 0; /* 날짜 너비 고정 */
             font-weight: bold;
             color: var(--accent);
             font-size: 0.9rem;
@@ -110,6 +112,13 @@
             padding: 15px;
             font-style: italic;
             color: #aaa;
+        }
+
+        /* [추가됨] 모바일 가독성 최적화 */
+        @media (max-width: 500px) {
+            .date { width: 80px; font-size: 0.85rem; }
+            .event { font-size: 0.85rem; }
+            .schedule-header { font-size: 0.9rem; }
         }
 
         /* Character Grid */
