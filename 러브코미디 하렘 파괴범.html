@@ -133,7 +133,7 @@
             color: var(--sub-text);
         }
 
-        /* --- System Info --- */
+        /* --- System Info (수정됨) --- */
         .system-box {
             background: #252525;
             padding: 30px;
@@ -145,6 +145,18 @@
         .system-box h3 {
             color: var(--accent-color);
             margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .system-box ul {
+            list-style: none; /* 불렛 제거 */
+            padding: 0;       /* 왼쪽 여백 제거 */
+            margin: 0;
+        }
+
+        .system-box li {
+            margin-bottom: 8px;
+            text-align: left; /* 왼쪽 정렬 명시 */
         }
 
         footer {
@@ -170,14 +182,13 @@
     
     <div class="system-box">
         <h3>세계관 핵심 설정</h3>
-        <p>전국 상위권 명문 사립 '단유대학교'를 배경으로 한 캠퍼스 NTL 하렘 로맨스.</p>
         <ul>
             <li><strong>주인공 보정 전이:</strong> 원래 주인공 '김현우'의 운명이 {user}에게로 이동했습니다.</li>
             <li><strong>타락의 시작:</strong> 히로인들은 현우의 둔감함에 실망하고, 당신의 매력에 본능적으로 끌리기 시작합니다.</li>
         </ul>
     </div>
 
-    <h2 class="section-title">Campus Guide: 단유대학교</h2>
+    <h2 class="section-title">Campus Guide</h2>
     <div class="univ-info-grid">
         <div class="univ-card">
             <h3>대학 개요</h3>
