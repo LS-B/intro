@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>카이루스 아카데미 - 학생 가이드</title>
     <style>
+        /* [수정] 박스 크기 계산 방식을 고정하여 패딩이 너비를 키우지 않도록 합니다 */
+        * { box-sizing: border-box; }
+
         :root {
             --primary: #2c3e50;
             --accent: #d4af37; /* Gold */
@@ -19,6 +22,8 @@
             color: var(--text-light);
             margin: 0;
             line-height: 1.6;
+            /* 가로 스크롤 방지 */
+            overflow-x: hidden;
         }
 
         header {
@@ -42,7 +47,12 @@
 
         h1 { font-size: 3rem; margin: 0; color: var(--accent); text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
         
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 40px 20px;
+            width: 100%;
+        }
 
         section { margin-bottom: 60px; }
         h2 { border-left: 5px solid var(--accent); padding-left: 15px; margin-bottom: 30px; font-size: 2rem; }
@@ -61,18 +71,20 @@
         }
         .info-box h3 { color: var(--accent); margin-top: 0; }
 
-        /* [수정됨] 일정표 그리드 스타일 */
+        /* [수정됨] 일정표 그리드 - 모바일 잘림 방지 핵심 코드 */
         .schedule-grid {
             display: grid;
-            /* 모바일에서 튀어나오지 않도록 minmax 구조를 변경했습니다 */
+            /* 핵심 수정: 화면이 450px보다 좁으면 100% 너비를 사용 */
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
             gap: 20px;
+            width: 100%;
         }
         .schedule-card {
             background: var(--card-bg);
             border-radius: 15px;
             border: 1px solid #444;
             overflow: hidden;
+            width: 100%;
         }
         .schedule-header {
             background: #333;
@@ -82,6 +94,7 @@
             border-bottom: 2px solid var(--accent);
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap; /* 좁은 화면에서 텍스트 겹침 방지 */
         }
         .schedule-list {
             list-style: none;
@@ -97,7 +110,7 @@
         .schedule-item:last-child { border-bottom: none; }
         .date {
             width: 100px;
-            flex-shrink: 0; /* 날짜 너비 고정 */
+            flex-shrink: 0;
             font-weight: bold;
             color: var(--accent);
             font-size: 0.9rem;
@@ -105,6 +118,7 @@
         .event {
             flex: 1;
             font-size: 0.95rem;
+            word-break: keep-all;
         }
         .vacation {
             background: rgba(212, 175, 55, 0.05);
@@ -114,11 +128,12 @@
             color: #aaa;
         }
 
-        /* [추가됨] 모바일 가독성 최적화 */
+        /* [추가] 모바일 가독성 최적화 미디어 쿼리 */
         @media (max-width: 500px) {
             .date { width: 80px; font-size: 0.85rem; }
             .event { font-size: 0.85rem; }
             .schedule-header { font-size: 0.9rem; }
+            .container { padding: 20px 15px; }
         }
 
         /* Character Grid */
@@ -181,9 +196,9 @@
         <h2>세계관 설정</h2>
         <div class="worldview-grid">
             <div class="info-box">
-                <h3>이페리온 vs 세렌티스</h3>
-                <p><strong>이페리온:</strong> 검을 숭상하고 마법을 배척합니다. 오러를 통해 신체 강화와 검기를 사용합니다.</p>
-                <p><strong>세렌티스:</strong> 마법을 숭상하고 검을 배척하는 국경을 맞댄 숙적의 제국입니다.</p>
+                <h3>이페리온 제국 vs 세렌티스 제국</h3>
+                <p><strong>이페리온 제국:</strong> 검을 숭상하고 마법을 배척합니다. 오러를 통해 신체 강화와 검기를 사용합니다.</p>
+                <p><strong>세렌티스 제국:</strong> 마법을 숭상하고 검을 배척하는 국경을 맞댄 숙적의 제국입니다.</p>
             </div>
             <div class="info-box">
                 <h3>등급 시스템</h3>
