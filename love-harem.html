@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>단유대학교 : 뒤바뀐 인연</title>
+    <style>
+        :root {
+            --primary-color: #e91e63;
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --accent-color: #ff4081;
+            --sub-text: #bbb;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            font-family: 'Pretendard', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-top: 60px;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+            width: 100%;
+            padding-bottom: 10px;
+        }
+
+        /* --- University Info Section --- */
+        .univ-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .univ-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #333;
+        }
+
+        .univ-card h3 {
+            color: var(--accent-color);
+            margin-top: 0;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+        }
+
+        .univ-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .univ-list li {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .univ-list li span.label {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* --- Character Grid --- */
+        .char-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .char-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid #333;
+        }
+
+        .char-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+        }
+
+        .char-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .char-info {
+            padding: 20px;
+        }
+
+        .char-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        .char-tag {
+            display: inline-block;
+            background: var(--primary-color);
+            padding: 2px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .char-desc {
+            font-size: 0.9rem;
+            color: var(--sub-text);
+        }
+
+        /* --- System Info (수정됨) --- */
+        .system-box {
+            background: #252525;
+            padding: 30px;
+            border-left: 10px solid var(--primary-color);
+            margin-bottom: 40px;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .system-box h3 {
+            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .system-box ul {
+            list-style: none; /* 불렛 제거 */
+            padding: 0;       /* 왼쪽 여백 제거 */
+            margin: 0;
+        }
+
+        .system-box li {
+            margin-bottom: 8px;
+            text-align: left; /* 왼쪽 정렬 명시 */
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 40px;
+            background: #000;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .badge {
+            background: #444;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="system-box">
+        <h3>세계관 핵심 설정</h3>
+        <ul>
+            <li><strong>주인공 보정 전이:</strong> 원래 주인공 '김현우'의 운명이 {user}에게로 이동했습니다.</li>
+            <li><strong>타락의 시작:</strong> 히로인들은 현우의 둔감함에 실망하고, 당신의 매력에 본능적으로 끌리기 시작합니다.</li>
+        </ul>
+    </div>
+
+    <h2 class="section-title">Campus Guide</h2>
+    <div class="univ-info-grid">
+        <div class="univ-card">
+            <h3>대학 개요</h3>
+            <ul class="univ-list">
+                <li><span class="label">위치</span> <span>서울시 관악구</span></li>
+                <li><span class="label">특징</span> <span>예술·미디어·공학 강세</span></li>
+                <li><span class="label">수업</span> <span>월~금 (팀플/발표 위주)</span></li>
+            </ul>
+            <p style="font-size: 0.9rem; color: var(--sub-text);">전국 상위권 명문 사립대로서, 개강 첫날부터 당신을 기다리는 수많은 인연이 이곳에 모여 있습니다.</p>
+        </div>
+
+        <div class="univ-card">
+            <h3>주요 시설</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <span class="badge">중앙도서관</span> <span class="badge">예술관</span>
+                <span class="badge">학생회관</span>
+                <span class="badge">체육관</span> <span class="badge">운동장</span>
+                <span class="badge">기숙사</span> <span class="badge">기타</span>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--sub-text); margin-top: 15px;">캠퍼스 곳곳에서 히로인들과의 우연한 만남과 은밀한 이벤트가 발생합니다.</p>
+        </div>
+
+    </div>
+
+    <h2 class="section-title">Character</h2>
+
+    <div class="char-grid">
+        <div class="char-card">
+            <img src="https://igx.kr/d/5y/c/1" alt="김현우" class="char-img">
+            <div class="char-info">
+                <div class="char-tag">원래 주인공</div>
+                <div class="char-name">김현우 (21)</div>
+                <p class="char-desc">경영학과 2학년. ISTP. 둔감함과 우유부단함으로 히로인들을 놓치기 시작합니다. 뺏겨도 쿨한 척하는 것이 특징.</p>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="https://igx.kr/d/5y/d/5" alt="박서윤" class="char-img">
+            <div class="char-info">
+                <div class="char-tag">소꿉친구 히로인</div>
+                <div class="char-name">박서윤 (21)</div>
+                <p class="char-desc">유아교육과 2학년. ESFJ. '친구'라는 이름에 갇혀있던 그녀에게 이성으로 다가가는 순간, 무너져 내립니다.</p>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="https://igx.kr/d/5y/h/0" alt="주아영" class="char-img">
+            <div class="char-info">
+                <div class="char-tag">후배 히로인</div>
+                <div class="char-name">주아영 (20)</div>
+                <p class="char-desc">체육교육과 1학년. ESFP. 인정 욕구가 강한 그녀. 현우가 무시한 그녀의 노력을 당신이 알아봐 줄 때 사랑에 빠집니다.</p>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="https://igx.kr/d/5y/g/1" alt="정다은" class="char-img">
+            <div class="char-info">
+                <div class="char-tag">선배 히로인</div>
+                <div class="char-name">정다은 (23)</div>
+                <p class="char-desc">심리학과 4학년. ENFJ. 성숙한 누님 뒤에 숨겨진 외로움. 그녀를 여동생처럼 리드하는 당신에게 쾌감을 느낍니다.</p>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="https://igx.kr/d/5y/j/0" alt="한아린" class="char-img">
+            <div class="char-info">
+                <div class="char-tag">여동생 히로인</div>
+                <div class="char-name">한아린 (20)</div>
+                <p class="char-desc">실용음악과 1학년. INFP. 현우의 여동생. 가족이라는 금기를 깨고 싶어 하는 그녀의 본능을 자극하십시오.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2025 단유대학교: 뒤바뀐 인연 제작위원회. All Rights Reserved.</p>
+    <p>본 사이트는 성인 전용 콘텐츠를 포함하고 있습니다.</p>
+</footer>
+
+</body>
+</html>
