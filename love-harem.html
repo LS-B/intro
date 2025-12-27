@@ -3,271 +3,779 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>단유대학교 : 뒤바뀐 인연</title>
+    <title>단유대학교 : Danyu University</title>
+    <!-- 파비콘 추가 -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/0.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                    },
+                    colors: {
+                        univ: {
+                            dark: '#121212',
+                            card: '#1E1E1E',
+                            primary: '#E91E63', // Main Pink
+                            accent: '#FF4081', // Light Pink
+                            gray: '#B0B0B0',
+                            border: '#333333'
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary-color: #e91e63;
-            --dark-bg: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #ffffff;
-            --accent-color: #ff4081;
-            --sub-text: #bbb;
-        }
-
         body {
-            background-color: var(--dark-bg);
-            color: var(--text-color);
-            font-family: 'Pretendard', sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.95); /* 가독성을 위해 불투명도 약간 상향 */
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-top: 60px;
-            margin-bottom: 40px;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-bottom: 2px solid var(--primary-color);
-            display: inline-block;
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .nav-btn {
+            position: relative;
+            transition: all 0.3s;
+            white-space: nowrap; /* 줄바꿈 방지 */
+            padding-bottom: 4px; /* 밑줄 간격 확보 */
+        }
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #E91E63;
+            transition: width 0.3s;
+        }
+        .nav-btn:hover::after, .nav-btn.active::after {
             width: 100%;
-            padding-bottom: 10px;
         }
-
-        /* --- University Info Section --- */
-        .univ-info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 50px;
+        .nav-btn.active {
+            color: #E91E63;
+            font-weight: 700;
         }
-
-        .univ-card {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 15px;
-            border: 1px solid #333;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 4px; /* 가로 스크롤바 높이 줄임 */
         }
-
-        .univ-card h3 {
-            color: var(--accent-color);
-            margin-top: 0;
-            border-left: 4px solid var(--primary-color);
-            padding-left: 10px;
+        ::-webkit-scrollbar-track {
+            background: #121212;
         }
-
-        .univ-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .univ-list li {
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .univ-list li span.label {
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        /* --- Character Grid --- */
-        .char-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .char-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            border: 1px solid #333;
-        }
-
-        .char-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-color);
-        }
-
-        .char-img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
-
-        .char-info {
-            padding: 20px;
-        }
-
-        .char-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent-color);
-            margin-bottom: 5px;
-        }
-
-        .char-tag {
-            display: inline-block;
-            background: var(--primary-color);
-            padding: 2px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            margin-bottom: 10px;
-        }
-
-        .char-desc {
-            font-size: 0.9rem;
-            color: var(--sub-text);
-        }
-
-        /* --- System Info (수정됨) --- */
-        .system-box {
-            background: #252525;
-            padding: 30px;
-            border-left: 10px solid var(--primary-color);
-            margin-bottom: 40px;
-            border-radius: 0 15px 15px 0;
-        }
-
-        .system-box h3 {
-            color: var(--accent-color);
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
-
-        .system-box ul {
-            list-style: none; /* 불렛 제거 */
-            padding: 0;       /* 왼쪽 여백 제거 */
-            margin: 0;
-        }
-
-        .system-box li {
-            margin-bottom: 8px;
-            text-align: left; /* 왼쪽 정렬 명시 */
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px 40px;
-            background: #000;
-            color: #666;
-            font-size: 0.8rem;
-        }
-
-        .badge {
-            background: #444;
-            padding: 2px 8px;
+        ::-webkit-scrollbar-thumb {
+            background: #333;
             border-radius: 4px;
-            font-size: 0.85rem;
-            margin-right: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E91E63;
+        }
+        
+        /* 스크롤바 숨기기 (모바일 깔끔함 위해) */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Modal Animation */
+        .modal {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+            z-index: 100;
+        }
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal.open .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        .modal-content {
+            transform: scale(0.95) translateY(10px);
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Relationship Map Lines */
+        .relation-line {
+            stroke-dasharray: 10;
+            animation: dash 30s linear infinite;
+        }
+        .relation-line.solid {
+            stroke-dasharray: 0;
+            animation: none;
+        }
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 1000;
+            }
+        }
+        
+        /* Map Label */
+        .map-label {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid #E91E63;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+            z-index: 5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        .map-label.friend {
+            border-color: #3B82F6;
+        }
+        .map-label span {
+            color: #E91E63;
+        }
+        .map-label.friend span {
+            color: #3B82F6;
         }
     </style>
 </head>
-<body>
+<body class="font-sans antialiased flex flex-col min-h-screen">
 
-<div class="container">
-    
-    <div class="system-box">
-        <h3>세계관 핵심 설정</h3>
-        <ul>
-            <li><strong>주인공 보정 전이:</strong> 원래 주인공 '김현우'의 운명이 {user}에게로 이동했습니다.</li>
-            <li><strong>타락의 시작:</strong> 히로인들은 현우의 둔감함에 실망하고, 당신의 매력에 본능적으로 끌리기 시작합니다.</li>
-        </ul>
+    <!-- Navigation Header (Modified Layout) -->
+    <nav class="fixed w-full z-50 glass-panel flex flex-col md:flex-row items-center md:justify-between px-4 py-2 md:px-12 md:h-20 gap-2 md:gap-0">
+        <!-- Logo Area -->
+        <div class="flex items-center justify-between w-full md:w-auto h-12 md:h-auto shrink-0">
+            <div class="flex items-center gap-4 cursor-pointer" onclick="switchTab('univ-intro')">
+                <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/0.png" alt="Danyu University Logo" class="h-10 md:h-12 w-auto object-contain">
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold tracking-tight text-white leading-none">단유대학교</h1>
+                    <span class="text-[10px] md:text-xs text-univ-gray tracking-wider block">DANYU UNIVERSITY</span>
+                </div>
+            </div>
+            
+            <!-- Mobile Login Status (Visible only on mobile top right) -->
+            <div class="flex lg:hidden items-center gap-2 text-[10px] border border-univ-border rounded-full px-2 py-0.5 bg-univ-card">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-gray-300">ON</span>
+            </div>
+        </div>
+
+        <!-- Scrollable Navigation Tabs (Always Visible) -->
+        <div class="w-full md:w-auto overflow-x-auto hide-scrollbar border-t border-univ-border/30 md:border-none pt-2 md:pt-0">
+            <div class="flex items-center md:justify-end gap-6 md:gap-8 text-sm uppercase tracking-wider font-medium text-gray-400 px-1 pb-1">
+                <button onclick="switchTab('univ-intro')" class="nav-btn active px-1" data-tab="univ-intro">대학 소개</button>
+                <button onclick="switchTab('worldview')" class="nav-btn px-1" data-tab="worldview">세계관 설정</button>
+                <button onclick="switchTab('characters')" class="nav-btn px-1" data-tab="characters">재학생</button>
+                <button onclick="switchTab('relationship')" class="nav-btn px-1 text-univ-primary" data-tab="relationship">관계도</button>
+            </div>
+        </div>
+        
+        <!-- Desktop Login Status -->
+        <div class="hidden lg:flex items-center gap-2 text-xs border border-univ-border rounded-full px-3 py-1 bg-univ-card">
+            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            <span class="text-gray-300">USER: CONNECTED</span>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <!-- 패딩 조정: 모바일 헤더가 두 줄이 될 수 있으므로 상단 여백(pt)을 넉넉히 조정 -->
+    <main class="flex-grow pt-32 md:pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+
+        <!-- Tab 1: University Intro -->
+        <section id="univ-intro" class="tab-content active">
+            <!-- Hero Banner -->
+            <div class="relative rounded-3xl overflow-hidden mb-10 h-[300px] md:h-[400px] border border-univ-border">
+                <div class="absolute inset-0 bg-[url('https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/1.png')] bg-cover bg-center"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-univ-dark via-univ-dark/70 to-transparent"></div>
+                <div class="absolute inset-0 flex flex-col justify-center px-8 md:px-16">
+                    <span class="text-univ-primary font-bold tracking-widest mb-2 text-sm md:text-base">STORY BEGINS HERE</span>
+                    <h2 class="text-3xl md:text-6xl font-black mb-4 leading-tight break-keep">
+                        단유대학교,<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">당신이 주인공이다.</span>
+                    </h2>
+                    <p class="text-gray-300 max-w-xl text-sm md:text-base leading-relaxed break-keep">
+                        평범했던 일상이 장르가 바뀌는 순간. 이곳의 모든 우연과 필연은 오직 당신을 위해 설계되었습니다.
+                    </p>
+                </div>
+            </div>
+            <!-- Univ Info Grid (생략 없이 유지) -->
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="bg-univ-card border border-univ-border rounded-2xl p-8 shadow-lg">
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2 border-b border-univ-border pb-4">
+                        <i class="fas fa-university text-univ-primary"></i> 대학 개요
+                    </h3>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex justify-between"><span class="text-gray-500 font-medium">위치</span><span>서울특별시 관악구</span></li>
+                        <li class="flex justify-between"><span class="text-gray-500 font-medium">설립 이념</span><span>자유, 진리, <span class="text-univ-primary">본능</span></span></li>
+                        <li class="flex justify-between"><span class="text-gray-500 font-medium">특성화</span><span>미디어/예술/공학</span></li>
+                        <li class="flex justify-between"><span class="text-gray-500 font-medium">학풍</span><span>실무 중심 (팀플/발표)</span></li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-2 bg-[#1a1a1a] border border-univ-border rounded-2xl p-8 shadow-lg">
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2 border-b border-univ-border pb-4">
+                        <i class="fas fa-map-marked-alt text-univ-primary"></i> 캠퍼스 맵 & 시설
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div onclick="openFacilityModal('library')" class="bg-univ-dark p-4 rounded-xl text-center hover:bg-gray-800 transition group cursor-pointer border border-univ-border/50 hover:border-univ-primary"><i class="fas fa-book text-3xl text-gray-600 group-hover:text-white mb-3 transition"></i><div class="font-medium text-sm">중앙도서관</div></div>
+                        <div onclick="openFacilityModal('art')" class="bg-univ-dark p-4 rounded-xl text-center hover:bg-gray-800 transition group cursor-pointer border border-univ-border/50 hover:border-univ-primary"><i class="fas fa-palette text-3xl text-gray-600 group-hover:text-white mb-3 transition"></i><div class="font-medium text-sm">예술관</div></div>
+                        <div onclick="openFacilityModal('engineering')" class="bg-univ-dark p-4 rounded-xl text-center hover:bg-gray-800 transition group cursor-pointer border border-univ-border/50 hover:border-univ-primary"><i class="fas fa-flask text-3xl text-gray-600 group-hover:text-white mb-3 transition"></i><div class="font-medium text-sm">공학관</div></div>
+                        <div onclick="openFacilityModal('union')" class="bg-univ-dark p-4 rounded-xl text-center hover:bg-gray-800 transition group cursor-pointer border border-univ-border/50 hover:border-univ-primary"><i class="fas fa-users text-3xl text-gray-600 group-hover:text-white mb-3 transition"></i><div class="font-medium text-sm">학생회관</div></div>
+                        <div onclick="openFacilityModal('gym')" class="bg-univ-dark p-4 rounded-xl text-center hover:bg-gray-800 transition group cursor-pointer border border-univ-border/50 hover:border-univ-primary"><i class="fas fa-dumbbell text-3xl text-gray-600 group-hover:text-white mb-3 transition"></i><div class="font-medium text-sm">체육관</div></div>
+                        <div onclick="openFacilityModal('dorm')" class="bg-univ-dark p-4 rounded-xl text-center hover:bg-gray-800 transition group cursor-pointer border border-univ-border/50 hover:border-univ-primary"><i class="fas fa-bed text-3xl text-gray-600 group-hover:text-white mb-3 transition"></i><div class="font-medium text-sm">기숙사</div></div>
+                    </div>
+                    <p class="mt-4 text-xs text-gray-500 text-right">* 각 시설을 클릭하여 상세 정보를 확인하세요.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 2: Worldview Setting -->
+        <section id="worldview" class="tab-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <span class="inline-block px-3 py-1 border border-univ-primary text-univ-primary text-xs font-bold tracking-widest rounded-full mb-4">SYSTEM ALERT</span>
+                    <h2 class="text-3xl md:text-4xl font-black mb-4">세계관 설정</h2>
+                    <p class="text-gray-400">당신이 접속한 이 세계의 숨겨진 규칙입니다.</p>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-univ-card border-l-4 border-univ-primary p-6 md:p-8 rounded-r-xl shadow-lg hover:bg-[#252525] transition">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-gray-800 p-3 rounded-full text-yellow-400 shrink-0"><i class="fas fa-bolt text-xl"></i></div>
+                            <div><h3 class="text-xl font-bold text-white mb-2">주인공 보정 전이</h3><p class="text-gray-400 leading-relaxed text-sm md:text-base">원래 이 세계는 '김현우'라는 인물을 중심으로 돌아가고 있었습니다. 하지만 알 수 없는 이유로 <strong>절대적인 주인공의 운명과 행운</strong>이 플레이어(당신)에게로 완전히 이동했습니다. 이제 세계의 우연은 당신을 위해 작용합니다.</p></div>
+                        </div>
+                    </div>
+                    <div class="bg-univ-card border-l-4 border-purple-500 p-6 md:p-8 rounded-r-xl shadow-lg hover:bg-[#252525] transition">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-gray-800 p-3 rounded-full text-purple-500 shrink-0"><i class="fas fa-heart-broken text-xl"></i></div>
+                            <div><h3 class="text-xl font-bold text-white mb-2">관계의 균열과 타락</h3><p class="text-gray-400 leading-relaxed text-sm md:text-base">히로인들은 원래 김현우를 좋아했으나, 그의 고질적인 둔감함과 우유부단함에 깊은 실망을 느끼고 있습니다. 반면, <strong>당신에게는 거부할 수 없는 본능적인 매력</strong>을 느끼며, 기존의 도덕관념이 무너지고 새로운 욕망에 눈뜨게 됩니다.</p></div>
+                        </div>
+                    </div>
+                    <div class="bg-univ-card border-l-4 border-blue-500 p-6 md:p-8 rounded-r-xl shadow-lg hover:bg-[#252525] transition">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-gray-800 p-3 rounded-full text-blue-500 shrink-0"><i class="fas fa-calendar-alt text-xl"></i></div>
+                            <div><h3 class="text-xl font-bold text-white mb-2">캠퍼스 라이프 루틴</h3><p class="text-gray-400 leading-relaxed text-sm md:text-base">월~금요일은 팀 프로젝트와 수업 위주로 진행되며, 학생들과의 자연스러운 교류가 발생합니다. 주말이나 방과 후에는 특정 장소에서 히로인들과의 <strong>시크릿 이벤트</strong>가 해금됩니다.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 3: Character Intro -->
+        <section id="characters" class="tab-content">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-4 border-b border-univ-border pb-6">
+                <div>
+                    <h2 class="text-3xl font-bold mb-2">재학생 및 관계자</h2>
+                    <p class="text-gray-400 text-sm">캐릭터를 클릭하면 상세 프로필을 확인할 수 있습니다.</p>
+                </div>
+                <div class="flex gap-2">
+                    <span class="text-xs bg-univ-primary text-white px-2 py-1 rounded">NEW 5</span>
+                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">TOTAL 5</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                <!-- Kim Hyun-woo (Restore Original Image) -->
+                <div onclick="openCharacterModal('hyunwoo')" class="bg-univ-card rounded-xl overflow-hidden border border-univ-border group hover:border-gray-500 transition-all duration-300 cursor-pointer">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://igx.kr/d/5y/c/1" onerror="this.src='https://placehold.co/300x400/333/999?text=Hyunwoo'" alt="김현우" class="w-full h-full object-cover object-[50%_20%] group-hover:scale-110 transition duration-500">
+                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/90 to-transparent flex items-end p-4"><span class="text-xs font-bold text-gray-300 bg-gray-800 px-2 py-0.5 rounded">ISTP</span></div>
+                    </div>
+                    <div class="p-4"><div class="text-xs font-bold text-gray-500 mb-1">경영학과 2학년</div><h3 class="text-lg font-bold text-white mb-2">김현우 <span class="text-sm font-normal text-gray-400">(21)</span></h3><p class="text-xs text-gray-400 leading-relaxed border-t border-gray-700 pt-2"><span class="text-red-400 font-bold">[원래 주인공]</span> 둔감함과 우유부단함의 아이콘.</p></div>
+                </div>
+                <!-- Park Seo-yoon (Restore Original Image & Flip) -->
+                <div onclick="openCharacterModal('seoyoon')" class="bg-univ-card rounded-xl overflow-hidden border border-univ-border group hover:border-univ-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(233,30,99,0.2)] cursor-pointer">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://igx.kr/d/5y/d/5" onerror="this.src='https://placehold.co/300x400/333/FF4081?text=Seoyoon'" alt="박서윤" class="w-full h-full object-cover object-[80%_10%] scale-x-[-1] group-hover:scale-x-[-1] group-hover:scale-110 transition duration-500">
+                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-univ-primary/90 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition duration-300"><span class="text-white font-bold text-sm">"우리... 그냥 친구 맞지?"</span></div>
+                    </div>
+                    <div class="p-4 relative"><div class="absolute -top-3 right-4 bg-univ-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow">소꿉친구</div><div class="text-xs font-bold text-univ-accent mb-1">유아교육과 2학년</div><h3 class="text-lg font-bold text-white mb-2">박서윤 <span class="text-sm font-normal text-gray-400">(21)</span></h3><p class="text-xs text-gray-400 leading-relaxed border-t border-gray-700 pt-2">친구라는 선을 넘는 순간 무너지는 방어기제. ESFJ.</p></div>
+                </div>
+                <!-- Ju A-young (Restore Original Image) -->
+                <div onclick="openCharacterModal('ayoung')" class="bg-univ-card rounded-xl overflow-hidden border border-univ-border group hover:border-univ-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(233,30,99,0.2)] cursor-pointer">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://igx.kr/d/5y/h/0" onerror="this.src='https://placehold.co/300x400/333/FF4081?text=Ayoung'" alt="주아영" class="w-full h-full object-cover object-[50%_20%] group-hover:scale-110 transition duration-500">
+                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-univ-primary/90 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition duration-300"><span class="text-white font-bold text-sm">"선배님만 날 알아봐주네요..."</span></div>
+                    </div>
+                    <div class="p-4 relative"><div class="absolute -top-3 right-4 bg-univ-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow">체대 후배</div><div class="text-xs font-bold text-univ-accent mb-1">체육교육과 1학년</div><h3 class="text-lg font-bold text-white mb-2">주아영 <span class="text-sm font-normal text-gray-400">(20)</span></h3><p class="text-xs text-gray-400 leading-relaxed border-t border-gray-700 pt-2">노력을 알아주는 사람에게 약한 타입. ESFP.</p></div>
+                </div>
+                <!-- Jeong Da-eun (Restore Original Image & Flip) -->
+                <div onclick="openCharacterModal('daeun')" class="bg-univ-card rounded-xl overflow-hidden border border-univ-border group hover:border-univ-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(233,30,99,0.2)] cursor-pointer">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://igx.kr/d/5y/g/1" onerror="this.src='https://placehold.co/300x400/333/FF4081?text=Daeun'" alt="정다은" class="w-full h-full object-cover object-[80%_10%] scale-x-[-1] group-hover:scale-x-[-1] group-hover:scale-110 transition duration-500">
+                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-univ-primary/90 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition duration-300"><span class="text-white font-bold text-sm">"누나라고 부르지 마... 떨리니까."</span></div>
+                    </div>
+                    <div class="p-4 relative"><div class="absolute -top-3 right-4 bg-univ-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow">심리학과 선배</div><div class="text-xs font-bold text-univ-accent mb-1">심리학과 4학년</div><h3 class="text-lg font-bold text-white mb-2">정다은 <span class="text-sm font-normal text-gray-400">(23)</span></h3><p class="text-xs text-gray-400 leading-relaxed border-t border-gray-700 pt-2">리드 당하고 싶은 외로운 누님. ENFJ.</p></div>
+                </div>
+                <!-- Han A-rin (Restore Original Image & Flip) -->
+                <div onclick="openCharacterModal('arin')" class="bg-univ-card rounded-xl overflow-hidden border border-univ-border group hover:border-univ-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(233,30,99,0.2)] cursor-pointer">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://igx.kr/d/5y/j/0" onerror="this.src='https://placehold.co/300x400/333/FF4081?text=Arin'" alt="한아린" class="w-full h-full object-cover object-[80%_10%] scale-x-[-1] group-hover:scale-x-[-1] group-hover:scale-110 transition duration-500">
+                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-univ-primary/90 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition duration-300"><span class="text-white font-bold text-sm">"오빠는 정말... 나빠요."</span></div>
+                    </div>
+                    <div class="p-4 relative"><div class="absolute -top-3 right-4 bg-univ-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow">주인공 여동생</div><div class="text-xs font-bold text-univ-accent mb-1">실용음악과 1학년</div><h3 class="text-lg font-bold text-white mb-2">한아린 <span class="text-sm font-normal text-gray-400">(20)</span></h3><p class="text-xs text-gray-400 leading-relaxed border-t border-gray-700 pt-2">가족이라는 금기를 깨고 싶은 본능. INFP.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 4: Relationship Map -->
+        <section id="relationship" class="tab-content">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-2">인물 관계도</h2>
+                <p class="text-gray-400 text-sm">주인공 보정 전이로 인해 변화된 관계를 확인하세요.</p>
+            </div>
+            
+            <div class="relative w-full h-[600px] md:h-[700px] bg-[#1a1a1a] rounded-3xl border border-univ-border overflow-hidden shadow-2xl mx-auto max-w-5xl select-none">
+                <!-- SVG Layer for Lines -->
+                <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+                    <defs>
+                        <marker id="arrow-pink" markerWidth="10" markerHeight="10" refX="20" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#E91E63" />
+                        </marker>
+                        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="20" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#3B82F6" />
+                        </marker>
+                        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="20" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#6B7280" />
+                        </marker>
+                    </defs>
+                    
+                    <!-- Lines from Hyun-woo (Loser) -->
+                    <line x1="50%" y1="85%" x2="20%" y2="25%" stroke="#4B5563" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" opacity="0.5" /> 
+                    <line x1="50%" y1="85%" x2="80%" y2="25%" stroke="#4B5563" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" opacity="0.5" /> 
+                    <line x1="50%" y1="85%" x2="15%" y2="55%" stroke="#4B5563" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" opacity="0.5" /> 
+                    <line x1="50%" y1="85%" x2="85%" y2="55%" stroke="#4B5563" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" opacity="0.5" /> 
+                    <line x1="50%" y1="85%" x2="50%" y2="40%" stroke="#3B82F6" stroke-width="3" marker-end="url(#arrow-blue)" /> 
+
+                    <!-- Lines from User (Harem) -->
+                    <line x1="50%" y1="40%" x2="20%" y2="25%" stroke="#E91E63" stroke-width="3" class="relation-line solid" /> 
+                    <line x1="50%" y1="40%" x2="80%" y2="25%" stroke="#E91E63" stroke-width="3" class="relation-line solid" /> 
+                    <line x1="50%" y1="40%" x2="15%" y2="55%" stroke="#E91E63" stroke-width="3" class="relation-line solid" /> 
+                    <line x1="50%" y1="40%" x2="85%" y2="55%" stroke="#E91E63" stroke-width="3" class="relation-line solid" /> 
+                </svg>
+
+                <!-- Labels on Lines (Calculated Midpoints) -->
+                <!-- User -> Seoyoon (50,40 -> 20,25) Mid: 35, 32.5 -->
+                <div class="map-label" style="left: 35%; top: 32.5%;">짝사랑 <span>→ 새로운 설렘</span></div>
+
+                <!-- User -> Daeun (50,40 -> 80,25) Mid: 65, 32.5 -->
+                <div class="map-label" style="left: 65%; top: 32.5%;">아끼는 후배 <span>→ 의지하고픈 남자</span></div>
+
+                <!-- User -> Ayoung (50,40 -> 15,55) Mid: 32.5, 47.5 -->
+                <div class="map-label" style="left: 32.5%; top: 47.5%;">동경의 대상 <span>→ 인정욕구</span></div>
+
+                <!-- User -> Arin (50,40 -> 85,55) Mid: 67.5, 47.5 -->
+                <div class="map-label" style="left: 67.5%; top: 47.5%;">가족 <span>→ 금기의 욕망</span></div>
+
+                 <!-- Hyunwoo -> User (50,85 -> 50,40) Mid: 50, 62.5 -->
+                 <div class="map-label friend" style="left: 50%; top: 62.5%;"><span>베스트 프렌드</span></div>
+
+                <!-- Nodes -->
+                <!-- User (Center) -->
+                <div class="absolute left-1/2 top-[40%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group">
+                    <div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-univ-primary bg-black flex items-center justify-center shadow-[0_0_30px_rgba(233,30,99,0.5)] z-10 relative overflow-hidden">
+                        <i class="fas fa-user text-4xl text-univ-primary"></i>
+                        <div class="absolute inset-0 bg-univ-primary/20 animate-pulse-slow"></div>
+                    </div>
+                    <div class="mt-2 bg-univ-primary text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">YOU (PLAYER)</div>
+                </div>
+
+                <!-- Kim Hyun-woo (Bottom Center) -->
+                <div class="absolute left-1/2 top-[85%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('hyunwoo')">
+                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-gray-600 bg-gray-800 overflow-hidden shadow-lg hover:border-gray-400 transition grayscale hover:grayscale-0">
+                        <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/6.png" class="w-full h-full object-cover object-[50%_20%]" alt="Kim Hyun-woo">
+                    </div>
+                    <div class="mt-2 bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-xs font-bold">김현우 (원래 주인공)</div>
+                </div>
+
+                <!-- Park Seo-yoon (Top Left) -->
+                <div class="absolute left-[20%] top-[25%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('seoyoon')">
+                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-univ-accent overflow-hidden shadow-lg hover:scale-110 transition duration-300">
+                        <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/2.png" class="w-full h-full object-cover" alt="Park Seo-yoon">
+                    </div>
+                    <div class="mt-2 bg-univ-card border border-univ-accent text-white px-3 py-1 rounded-full text-xs font-bold">박서윤</div>
+                </div>
+
+                <!-- Jeong Da-eun (Top Right) -->
+                <div class="absolute left-[80%] top-[25%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('daeun')">
+                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-univ-accent overflow-hidden shadow-lg hover:scale-110 transition duration-300">
+                        <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/3.png" class="w-full h-full object-cover" alt="Jeong Da-eun">
+                    </div>
+                    <div class="mt-2 bg-univ-card border border-univ-accent text-white px-3 py-1 rounded-full text-xs font-bold">정다은</div>
+                </div>
+
+                <!-- Ju A-young (Mid Left) -->
+                <div class="absolute left-[15%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('ayoung')">
+                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-univ-accent overflow-hidden shadow-lg hover:scale-110 transition duration-300">
+                        <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/4.png" class="w-full h-full object-cover" alt="Ju A-young">
+                    </div>
+                    <div class="mt-2 bg-univ-card border border-univ-accent text-white px-3 py-1 rounded-full text-xs font-bold">주아영</div>
+                </div>
+
+                <!-- Han A-rin (Mid Right) -->
+                <div class="absolute left-[85%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('arin')">
+                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-univ-accent overflow-hidden shadow-lg hover:scale-110 transition duration-300">
+                        <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/5.png" class="w-full h-full object-cover" alt="Han A-rin">
+                    </div>
+                    <div class="mt-2 bg-univ-card border border-univ-accent text-white px-3 py-1 rounded-full text-xs font-bold">한아린</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-univ-border bg-[#0a0a0a] py-8 text-center text-xs text-gray-600">
+        <div class="flex justify-center items-center gap-2 mb-2 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition">
+             <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/0.png" alt="Danyu University Logo" class="h-6 w-auto">
+             <span class="font-bold">DANYU UNIV.</span>
+        </div>
+        <p class="mb-1">&copy; 2025 단유대학교 : 뒤바뀐 인연 제작위원회.</p>
+    </footer>
+
+    <!-- Facility Modal -->
+    <div id="facility-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeFacilityModal()"></div>
+        <div class="modal-content relative bg-[#1E1E1E] border border-univ-border rounded-2xl p-8 max-w-md w-full shadow-2xl">
+            <button onclick="closeFacilityModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div id="modal-icon-bg" class="w-16 h-16 rounded-full bg-univ-dark border border-univ-border flex items-center justify-center mx-auto mb-4">
+                    <i id="modal-icon" class="fas fa-university text-2xl text-univ-primary"></i>
+                </div>
+                <h3 id="modal-title" class="text-2xl font-bold text-white">시설 이름</h3>
+                <span id="modal-subtitle" class="text-xs text-univ-primary font-bold tracking-widest uppercase block mt-1">Facility Info</span>
+            </div>
+            <div class="space-y-4">
+                <p id="modal-desc" class="text-gray-300 text-center leading-relaxed text-sm">
+                    시설 설명이 들어갑니다.
+                </p>
+            </div>
+            <button onclick="closeFacilityModal()" class="w-full mt-6 bg-univ-primary hover:bg-univ-accent text-white font-bold py-3 rounded-xl transition text-sm">
+                확인
+            </button>
+        </div>
     </div>
 
-    <h2 class="section-title">Campus Guide</h2>
-    <div class="univ-info-grid">
-        <div class="univ-card">
-            <h3>대학 개요</h3>
-            <ul class="univ-list">
-                <li><span class="label">위치</span> <span>서울시 관악구</span></li>
-                <li><span class="label">특징</span> <span>예술·미디어·공학 강세</span></li>
-                <li><span class="label">수업</span> <span>월~금 (팀플/발표 위주)</span></li>
-            </ul>
-            <p style="font-size: 0.9rem; color: var(--sub-text);">전국 상위권 명문 사립대로서, 개강 첫날부터 당신을 기다리는 수많은 인연이 이곳에 모여 있습니다.</p>
-        </div>
-
-        <div class="univ-card">
-            <h3>주요 시설</h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                <span class="badge">중앙도서관</span> <span class="badge">예술관</span>
-                <span class="badge">학생회관</span>
-                <span class="badge">체육관</span> <span class="badge">운동장</span>
-                <span class="badge">기숙사</span> <span class="badge">기타</span>
+    <!-- Character Modal -->
+    <div id="character-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeCharacterModal()"></div>
+        <div class="modal-content relative bg-[#1E1E1E] border border-univ-border rounded-2xl overflow-hidden max-w-4xl w-full shadow-2xl flex flex-col md:flex-row">
+            <button onclick="closeCharacterModal()" class="absolute top-4 right-4 z-10 text-white/70 hover:text-white bg-black/50 hover:bg-black/80 rounded-full w-8 h-8 flex items-center justify-center transition">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <!-- Modal Left: Image -->
+            <div class="w-full md:w-2/5 h-64 md:h-auto relative bg-black">
+                <!-- 초기 클래스는 제거하고 JS에서 주입 -->
+                <img id="char-img" src="" alt="Character Image" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#1E1E1E] to-transparent md:hidden"></div>
+                <div class="hidden md:block absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-[#1E1E1E] to-transparent"></div>
             </div>
-            <p style="font-size: 0.9rem; color: var(--sub-text); margin-top: 15px;">캠퍼스 곳곳에서 히로인들과의 우연한 만남과 은밀한 이벤트가 발생합니다.</p>
-        </div>
+            
+            <!-- Modal Right: Details -->
+            <div class="w-full md:w-3/5 p-8 md:p-10 flex flex-col">
+                <div class="mb-6">
+                    <div class="flex items-center gap-2 mb-2">
+                         <span id="char-role" class="text-xs font-bold text-univ-dark bg-univ-primary px-2 py-1 rounded">ROLE</span>
+                         <span id="char-mbti" class="text-xs font-bold text-gray-400 border border-gray-600 px-2 py-1 rounded">MBTI</span>
+                    </div>
+                    <h2 id="char-name" class="text-3xl font-black text-white mb-1">이름</h2>
+                    <p id="char-sub" class="text-gray-400 text-sm">학과 / 학년</p>
+                </div>
 
+                <div class="flex-grow space-y-4 text-sm overflow-y-auto pr-2 custom-scroll">
+                    <!-- Section: Appearance -->
+                    <div>
+                        <h4 class="text-univ-primary font-bold mb-1 flex items-center gap-2">
+                            <i class="fas fa-user-circle"></i> 외형
+                        </h4>
+                        <p id="char-appearance" class="text-gray-300 leading-relaxed"></p>
+                    </div>
+
+                    <!-- Section: Personality & Tone -->
+                    <div>
+                        <h4 class="text-univ-primary font-bold mb-1 flex items-center gap-2">
+                            <i class="fas fa-heart"></i> 성격 및 말투
+                        </h4>
+                        <p id="char-personality" class="text-gray-300 leading-relaxed"></p>
+                    </div>
+
+                    <!-- Section: Trait/Complex -->
+                    <div>
+                        <h4 class="text-univ-primary font-bold mb-1 flex items-center gap-2">
+                            <i class="fas fa-fingerprint"></i> 특징 및 콤플렉스
+                        </h4>
+                        <p id="char-trait" class="text-gray-300 leading-relaxed"></p>
+                    </div>
+
+                    <!-- Section: Conflict/Trigger (Only for heroines) -->
+                    <div id="char-conflict-box" class="bg-[#121212] p-4 rounded-lg border border-univ-border/50">
+                        <h4 class="text-red-400 font-bold mb-2 flex items-center gap-2 text-xs uppercase tracking-widest">
+                            <i class="fas fa-exclamation-triangle"></i> Conflict & Trigger
+                        </h4>
+                        <div class="space-y-2">
+                            <p class="text-gray-400 text-xs"><strong class="text-gray-300">남주와의 문제:</strong> <span id="char-issue"></span></p>
+                            <p class="text-gray-400 text-xs"><strong class="text-univ-accent">공략 트리거:</strong> <span id="char-trigger"></span></p>
+                        </div>
+                    </div>
+                    
+                     <!-- Section: Future (Only for Hyunwoo) -->
+                    <div id="char-future-box" class="bg-[#121212] p-4 rounded-lg border border-univ-border/50 hidden">
+                        <h4 class="text-gray-400 font-bold mb-2 flex items-center gap-2 text-xs uppercase tracking-widest">
+                            <i class="fas fa-hourglass-end"></i> Future
+                        </h4>
+                        <p id="char-future" class="text-gray-400 text-xs"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <h2 class="section-title">Character</h2>
+    <script>
+        // Facility Data
+        const facilityData = {
+            'library': {
+                title: '중앙도서관',
+                icon: 'fa-book',
+                desc: '24시간 불이 꺼지지 않는 학문의 전당입니다. 시험 기간에는 자리 맡기가 전쟁터를 방불케 하지만, 4층 구석진 열람실에서는 종종 기이한 만남이 이루어진다는 소문이 있습니다.'
+            },
+            'art': {
+                title: '예술관',
+                icon: 'fa-palette',
+                desc: '창의적인 에너지가 넘치는 곳입니다. 밤늦게까지 실기실에서 작업하는 예술대 학생들의 열정을 느낄 수 있으며, 복도에는 학생들의 작품이 전시되어 있습니다.'
+            },
+            'engineering': {
+                title: '공학관',
+                icon: 'fa-flask',
+                desc: '최첨단 장비와 실험실이 모여 있는 곳입니다. 항상 커피 향과 밤샘에 지친 공대생들의 한숨 소리가 끊이지 않지만, 그만큼 혁신적인 아이디어가 탄생하는 곳이기도 합니다.'
+            },
+            'union': {
+                title: '학생회관',
+                icon: 'fa-users',
+                desc: '동아리방과 학생 식당, 매점이 모여 있는 캠퍼스의 활력소입니다. 점심시간이면 모든 학과 학생들이 모여들어 정보 교류와 만남의 장이 됩니다.'
+            },
+            'gym': {
+                title: '체육관',
+                icon: 'fa-dumbbell',
+                desc: '땀과 열정이 가득한 공간입니다. 농구 코트와 피트니스 센터가 완비되어 있으며, 체육교육과 학생들의 활기찬 모습을 언제나 볼 수 있습니다.'
+            },
+            'dorm': {
+                title: '기숙사',
+                icon: 'fa-bed',
+                desc: '학생들의 안식처이자 가장 사적인 공간입니다. 통금 시간이 존재하지만, 왠지 모르게 새벽에 몰래 빠져나가는 학생들도 있다는 소문이 돕니다.'
+            }
+        };
 
-    <div class="char-grid">
-        <div class="char-card">
-            <img src="https://igx.kr/d/5y/c/1" alt="김현우" class="char-img">
-            <div class="char-info">
-                <div class="char-tag">원래 주인공</div>
-                <div class="char-name">김현우 (21)</div>
-                <p class="char-desc">경영학과 2학년. ISTP. 둔감함과 우유부단함으로 히로인들을 놓치기 시작합니다. 뺏겨도 쿨한 척하는 것이 특징.</p>
-            </div>
-        </div>
+        // Character Data (Restored to High-Res Images)
+        const characterData = {
+            'hyunwoo': {
+                name: '김현우',
+                sub: '경영학과 2학년 (21세)',
+                role: '원래 주인공',
+                mbti: 'ISTP',
+                img: 'https://igx.kr/d/5y/c/1', // Restored
+                flip: false, 
+                align: 'object-[50%_20%]', 
+                appearance: '짧은 흑발에 검은 눈. 전체적으로 순한 인상에 왜소한 체형을 가졌다. 평소 흰 셔츠에 청바지, 느슨하게 멘 넥타이를 착용한다.',
+                personality: '둔감하고 우유부단하며 책임지는 것을 회피한다. 관계에 소극적이며 겉으로는 무심하고 쿨한 척 행동한다. 말투는 정중하지만 결정적인 순간에 말을 흐리는 버릇이 있다.',
+                trait: '플레이어와는 고교 시절부터 절친. 성적 관심이 없는 척하는 것을 멋이라고 착각한다. 히로인을 뺏기면 질투하고 부러워하지만 절대 표현하지 않으며, 패배해도 쿨한 척하며 스스로를 합리화한다.',
+                future: '모든 히로인을 잃은 뒤 자신이 특별했고 둔감했는지 뒤늦게 깨닫고 후회하게 된다.',
+                isProtagonist: true
+            },
+            'seoyoon': {
+                name: '박서윤',
+                sub: '유아교육과 2학년 (21세)',
+                role: '소꿉친구',
+                mbti: 'ESFJ',
+                img: 'https://igx.kr/d/5y/d/5', // Restored
+                flip: true, // Restored Flip
+                align: 'object-[80%_10%]', // Restored Align
+                appearance: '갈색 단발머리에 부드러운 갈색 눈매. 전체적으로 부드럽고 육덕진 몸매에 큰 가슴을 가졌다. 하얀 원피스에 갈색 가디건을 즐겨 입는다.',
+                personality: '배려심 깊고 다정하지만 약간의 츤데레 기질이 있다. 허물없는 말투를 쓰며 속마음을 숨기는 편.',
+                trait: '김현우와 유치원 때부터 소꿉친구로 대학 입학 후에도 가장 친한 이성 친구다. 가장 오래 그를 좋아했으며 진정한 관계에 대한 집착이 있다.',
+                issue: '김현우에게 그녀의 호의는 단순한 \'친구\'의 영역으로 치부된다. \'당연한\' 존재로 취급받는 것에 대한 열등감과 불안함을 느낀다.',
+                trigger: '친구라는 선을 넘어, 그녀를 여성으로 인식하고 진심을 직시하며 거리낌 없이 이성적으로 접근할 때.',
+                isProtagonist: false
+            },
+            'ayoung': {
+                name: '주아영',
+                sub: '체육교육과 1학년 (20세)',
+                role: '체대 후배',
+                mbti: 'ESFP',
+                img: 'https://igx.kr/d/5y/h/0', // Restored
+                flip: false,
+                align: 'object-[50%_20%]', 
+                appearance: '흑색 장발에 회색 눈, 약간 올라간 눈매. 탄탄한 체형에 큰 가슴이 돋보인다. 검은색 크롭 바람막이와 스포츠 브라, 레깅스를 착용한다.',
+                personality: '순수하고 활동적이며 인정 욕구가 강하다. 장난기 넘치고 활발한 말투를 쓰며 칭찬에 반응이 크다.',
+                trait: '성 지식이 부족하고 스킨십이 잦다. 원 주인공을 이상적인 선배로 동경하며 헌신적으로 돕는다.',
+                issue: '김현우는 그녀의 호의와 노력을 무시하고 헌신을 당연시하여, 그녀는 존재 가치를 인정받지 못한다고 느낀다.',
+                trigger: '김현우가 놓친 사소한 노력까지 알아보고 칭찬하며, 그녀에게 확실한 존재 가치를 심어줄 때.',
+                isProtagonist: false
+            },
+            'daeun': {
+                name: '정다은',
+                sub: '심리학과 4학년 (23세)',
+                role: '학과 선배',
+                mbti: 'ENFJ',
+                img: 'https://igx.kr/d/5y/g/1', // Restored
+                flip: true, // Restored Flip
+                align: 'object-[80%_10%]', // Restored Align
+                appearance: '갈색 장발에 부드러운 갈색 눈. 육덕진 몸매와 큰 가슴, 눈 밑의 눈물점이 특징. 흰색 터틀넥과 검은색 미니 스커트를 입는다.',
+                personality: '성숙하고 포용력 있으며 따뜻한 현실주의자. 누님계 말투를 쓰며 다정함 속에 명령조가 섞여 있다.',
+                trait: '동급생들의 고민을 들어주는 등 인기가 많지만, 자신의 외로움은 철저히 숨긴다. 항상 누군가를 돌봐야 한다는 부담감을 가지고 있다.',
+                issue: '김현우에게서는 이성적으로 의지할 면을 찾지 못해 단순한 \'선후배\' 관계에 머물러 있다.',
+                trigger: '성숙한 가면 뒤의 외로움을 꿰뚫어 보고, 선배가 아닌 한 명의 여성으로 대할 때.',
+                isProtagonist: false
+            },
+            'arin': {
+                name: '한아린',
+                sub: '실용음악과 1학년 (20세)',
+                role: '여동생',
+                mbti: 'INFP',
+                img: 'https://igx.kr/d/5y/j/0', // Restored
+                flip: true, // Restored Flip
+                align: 'object-[80%_10%]', // Restored Align
+                appearance: '검은색 낮은 포니테일에 올라간 눈매. 작고 아담한 체형에 작은 가슴, 눈물점이 있다. 흰 셔츠와 V넥 니트, 회색 치마를 입는다.',
+                personality: '의존적이고 응석받이이며 독점욕이 강하다. 애정과 집착이 혼재되어 있으며, 오빠에게 어리광 섞인 반말과 징징거림을 시전한다.',
+                trait: '가족이라는 안전한 관계에 묶여 있지만, 이성으로서 더욱 사랑받고 싶어 한다. 가족이라는 경계에 갇힌 것에 대한 반항심이 있다.',
+                issue: '김현우가 절대 가족의 선을 넘지 않아 내적 욕망이 억눌려 있다.',
+                trigger: '그녀의 내재된 금기, 독점욕, 그리고 이성적 욕망을 자극하는 도발을 할 때.',
+                isProtagonist: false
+            }
+        };
 
-        <div class="char-card">
-            <img src="https://igx.kr/d/5y/d/5" alt="박서윤" class="char-img">
-            <div class="char-info">
-                <div class="char-tag">소꿉친구 히로인</div>
-                <div class="char-name">박서윤 (21)</div>
-                <p class="char-desc">유아교육과 2학년. ESFJ. '친구'라는 이름에 갇혀있던 그녀에게 이성으로 다가가는 순간, 무너져 내립니다.</p>
-            </div>
-        </div>
+        function openFacilityModal(type) {
+            const data = facilityData[type];
+            if (!data) return;
 
-        <div class="char-card">
-            <img src="https://igx.kr/d/5y/h/0" alt="주아영" class="char-img">
-            <div class="char-info">
-                <div class="char-tag">후배 히로인</div>
-                <div class="char-name">주아영 (20)</div>
-                <p class="char-desc">체육교육과 1학년. ESFP. 인정 욕구가 강한 그녀. 현우가 무시한 그녀의 노력을 당신이 알아봐 줄 때 사랑에 빠집니다.</p>
-            </div>
-        </div>
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-desc').textContent = data.desc;
+            
+            // Icon handling
+            const iconEl = document.getElementById('modal-icon');
+            iconEl.className = `fas ${data.icon} text-2xl text-univ-primary`;
+            
+            document.getElementById('facility-modal').classList.add('open');
+        }
 
-        <div class="char-card">
-            <img src="https://igx.kr/d/5y/g/1" alt="정다은" class="char-img">
-            <div class="char-info">
-                <div class="char-tag">선배 히로인</div>
-                <div class="char-name">정다은 (23)</div>
-                <p class="char-desc">심리학과 4학년. ENFJ. 성숙한 누님 뒤에 숨겨진 외로움. 그녀를 여동생처럼 리드하는 당신에게 쾌감을 느낍니다.</p>
-            </div>
-        </div>
+        function closeFacilityModal() {
+            document.getElementById('facility-modal').classList.remove('open');
+        }
 
-        <div class="char-card">
-            <img src="https://igx.kr/d/5y/j/0" alt="한아린" class="char-img">
-            <div class="char-info">
-                <div class="char-tag">여동생 히로인</div>
-                <div class="char-name">한아린 (20)</div>
-                <p class="char-desc">실용음악과 1학년. INFP. 현우의 여동생. 가족이라는 금기를 깨고 싶어 하는 그녀의 본능을 자극하십시오.</p>
-            </div>
-        </div>
-    </div>
+        function openCharacterModal(id) {
+            const char = characterData[id];
+            if (!char) return;
 
-</div>
+            // Fill Data
+            const imgEl = document.getElementById('char-img');
+            imgEl.src = char.img;
+            
+            // Reset and Set classes
+            imgEl.className = 'absolute inset-0 w-full h-full object-cover';
+            if (char.align) {
+                imgEl.classList.add(char.align);
+            }
+            if (char.flip) {
+                imgEl.classList.add('scale-x-[-1]');
+            }
 
-<footer>
-    <p>&copy; 2025 단유대학교: 뒤바뀐 인연 제작위원회. All Rights Reserved.</p>
-    <p>본 사이트는 성인 전용 콘텐츠를 포함하고 있습니다.</p>
-</footer>
+            document.getElementById('char-name').innerText = char.name;
+            document.getElementById('char-sub').innerText = char.sub;
+            document.getElementById('char-role').innerText = char.role;
+            document.getElementById('char-mbti').innerText = char.mbti;
+            document.getElementById('char-appearance').innerText = char.appearance;
+            document.getElementById('char-personality').innerText = char.personality;
+            document.getElementById('char-trait').innerText = char.trait;
 
+            // Toggle Sections based on protagonist status
+            const conflictBox = document.getElementById('char-conflict-box');
+            const futureBox = document.getElementById('char-future-box');
+
+            if (char.isProtagonist) {
+                conflictBox.classList.add('hidden');
+                futureBox.classList.remove('hidden');
+                document.getElementById('char-future').innerText = char.future;
+            } else {
+                conflictBox.classList.remove('hidden');
+                futureBox.classList.add('hidden');
+                document.getElementById('char-issue').innerText = char.issue;
+                document.getElementById('char-trigger').innerText = char.trigger;
+            }
+
+            document.getElementById('character-modal').classList.add('open');
+        }
+
+        function closeCharacterModal() {
+            document.getElementById('character-modal').classList.remove('open');
+        }
+
+        function switchTab(tabId) {
+            // 1. Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // 2. Remove active style from all buttons (desktop & mobile)
+            document.querySelectorAll('button[onclick^="switchTab"]').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.remove('text-univ-primary'); // Mobile active text color remove
+                btn.classList.add('text-gray-300'); // Reset to default gray
+            });
+            
+            // 3. Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+
+            // 4. Add active style to clicked buttons
+            // Find buttons that link to this tabId
+            document.querySelectorAll(`button[onclick="switchTab('${tabId}')"]`).forEach(btn => {
+                btn.classList.add('active');
+                btn.classList.remove('text-gray-300');
+                if(!btn.classList.contains('nav-btn')) { // Mobile menu specific
+                     btn.classList.add('text-univ-primary');
+                }
+            });
+
+            // 5. Hide mobile menu if open
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.add('hidden');
+            }
+            
+            // 6. Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
