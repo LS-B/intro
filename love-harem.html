@@ -49,7 +49,7 @@
             overflow-x: hidden;
         }
         .glass-panel {
-            background: rgba(18, 18, 18, 0.95); /* 가독성을 위해 불투명도 약간 상향 */
+            background: rgba(18, 18, 18, 0.95);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -63,8 +63,8 @@
         .nav-btn {
             position: relative;
             transition: all 0.3s;
-            white-space: nowrap; /* 줄바꿈 방지 */
-            padding-bottom: 4px; /* 밑줄 간격 확보 */
+            white-space: nowrap;
+            padding-bottom: 4px;
         }
         .nav-btn::after {
             content: '';
@@ -86,7 +86,7 @@
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
-            height: 4px; /* 가로 스크롤바 높이 줄임 */
+            height: 4px;
         }
         ::-webkit-scrollbar-track {
             background: #121212;
@@ -99,7 +99,6 @@
             background: #E91E63;
         }
         
-        /* 스크롤바 숨기기 (모바일 깔끔함 위해) */
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -150,7 +149,7 @@
         .map-label {
             position: absolute;
             transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.85); /* 배경 불투명도 약간 상향 */
             border: 1px solid #E91E63;
             color: white;
             padding: 4px 8px;
@@ -158,8 +157,9 @@
             font-size: 11px;
             font-weight: bold;
             white-space: nowrap;
-            z-index: 5;
+            z-index: 20; /* 노드(10)보다 높게 설정하여 가림 방지 */
             box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            pointer-events: none; /* 클릭 통과 */
         }
         .map-label.friend {
             border-color: #3B82F6;
@@ -174,7 +174,7 @@
 </head>
 <body class="font-sans antialiased flex flex-col min-h-screen">
 
-    <!-- Navigation Header (Modified Layout) -->
+    <!-- Navigation Header -->
     <nav class="fixed w-full z-50 glass-panel flex flex-col md:flex-row items-center md:justify-between px-4 py-2 md:px-12 md:h-20 gap-2 md:gap-0">
         <!-- Logo Area -->
         <div class="flex items-center justify-between w-full md:w-auto h-12 md:h-auto shrink-0">
@@ -186,14 +186,13 @@
                 </div>
             </div>
             
-            <!-- Mobile Login Status (Visible only on mobile top right) -->
             <div class="flex lg:hidden items-center gap-2 text-[10px] border border-univ-border rounded-full px-2 py-0.5 bg-univ-card">
                 <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
                 <span class="text-gray-300">ON</span>
             </div>
         </div>
 
-        <!-- Scrollable Navigation Tabs (Always Visible) -->
+        <!-- Scrollable Navigation Tabs -->
         <div class="w-full md:w-auto overflow-x-auto hide-scrollbar border-t border-univ-border/30 md:border-none pt-2 md:pt-0">
             <div class="flex items-center md:justify-end gap-6 md:gap-8 text-sm uppercase tracking-wider font-medium text-gray-400 px-1 pb-1">
                 <button onclick="switchTab('univ-intro')" class="nav-btn active px-1" data-tab="univ-intro">대학 소개</button>
@@ -203,7 +202,6 @@
             </div>
         </div>
         
-        <!-- Desktop Login Status -->
         <div class="hidden lg:flex items-center gap-2 text-xs border border-univ-border rounded-full px-3 py-1 bg-univ-card">
             <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
             <span class="text-gray-300">USER: CONNECTED</span>
@@ -211,12 +209,10 @@
     </nav>
 
     <!-- Main Content Area -->
-    <!-- 패딩 조정: 모바일 헤더가 두 줄이 될 수 있으므로 상단 여백(pt)을 넉넉히 조정 -->
     <main class="flex-grow pt-32 md:pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
 
         <!-- Tab 1: University Intro -->
         <section id="univ-intro" class="tab-content active">
-            <!-- Hero Banner -->
             <div class="relative rounded-3xl overflow-hidden mb-10 h-[300px] md:h-[400px] border border-univ-border">
                 <div class="absolute inset-0 bg-[url('https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/1.png')] bg-cover bg-center"></div>
                 <div class="absolute inset-0 bg-gradient-to-r from-univ-dark via-univ-dark/70 to-transparent"></div>
@@ -231,7 +227,7 @@
                     </p>
                 </div>
             </div>
-            <!-- Univ Info Grid (생략 없이 유지) -->
+            
             <div class="grid lg:grid-cols-3 gap-8">
                 <div class="bg-univ-card border border-univ-border rounded-2xl p-8 shadow-lg">
                     <h3 class="text-xl font-bold mb-6 flex items-center gap-2 border-b border-univ-border pb-4">
@@ -305,15 +301,26 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-                <!-- Kim Hyun-woo (Restore Original Image) -->
+                <!-- Kim Hyun-woo -->
                 <div onclick="openCharacterModal('hyunwoo')" class="bg-univ-card rounded-xl overflow-hidden border border-univ-border group hover:border-gray-500 transition-all duration-300 cursor-pointer">
                     <div class="h-64 overflow-hidden relative">
                         <img src="https://igx.kr/d/5y/c/1" onerror="this.src='https://placehold.co/300x400/333/999?text=Hyunwoo'" alt="김현우" class="w-full h-full object-cover object-[50%_20%] group-hover:scale-110 transition duration-500">
-                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/90 to-transparent flex items-end p-4"><span class="text-xs font-bold text-gray-300 bg-gray-800 px-2 py-0.5 rounded">ISTP</span></div>
+                        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/90 to-transparent flex items-end p-4">
+                            <!-- ISTP 제거 -->
+                        </div>
                     </div>
-                    <div class="p-4"><div class="text-xs font-bold text-gray-500 mb-1">경영학과 2학년</div><h3 class="text-lg font-bold text-white mb-2">김현우 <span class="text-sm font-normal text-gray-400">(21)</span></h3><p class="text-xs text-gray-400 leading-relaxed border-t border-gray-700 pt-2"><span class="text-red-400 font-bold">[원래 주인공]</span> 둔감함과 우유부단함의 아이콘.</p></div>
+                    <div class="p-4 relative">
+                        <!-- 관계 태그 추가: 베스트 프렌드 -->
+                        <div class="absolute -top-3 right-4 bg-gray-700 text-gray-300 text-[10px] font-bold px-2 py-1 rounded shadow border border-gray-600">베스트 프렌드</div>
+                        
+                        <div class="text-xs font-bold text-gray-500 mb-1">경영학과 2학년</div>
+                        <h3 class="text-lg font-bold text-white mb-2">김현우 <span class="text-sm font-normal text-gray-400">(21)</span></h3>
+                        <p class="text-xs text-gray-400 leading-relaxed border-t border-gray-700 pt-2">
+                            <span class="text-red-400 font-bold">[원래 주인공]</span> 둔감함과 우유부단함의 아이콘.
+                        </p>
+                    </div>
                 </div>
-                <!-- Park Seo-yoon (Restore Original Image & Flip) -->
+                <!-- Park Seo-yoon -->
                 <div onclick="openCharacterModal('seoyoon')" class="bg-univ-card rounded-xl overflow-hidden border border-univ-border group hover:border-univ-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(233,30,99,0.2)] cursor-pointer">
                     <div class="h-64 overflow-hidden relative">
                         <img src="https://igx.kr/d/5y/d/5" onerror="this.src='https://placehold.co/300x400/333/FF4081?text=Seoyoon'" alt="박서윤" class="w-full h-full object-cover object-[80%_10%] scale-x-[-1] group-hover:scale-x-[-1] group-hover:scale-110 transition duration-500">
@@ -321,7 +328,7 @@
                     </div>
                     <div class="p-4 relative"><div class="absolute -top-3 right-4 bg-univ-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow">소꿉친구</div><div class="text-xs font-bold text-univ-accent mb-1">유아교육과 2학년</div><h3 class="text-lg font-bold text-white mb-2">박서윤 <span class="text-sm font-normal text-gray-400">(21)</span></h3><p class="text-xs text-gray-400 leading-relaxed border-t border-gray-700 pt-2">친구라는 선을 넘는 순간 무너지는 방어기제. ESFJ.</p></div>
                 </div>
-                <!-- Ju A-young (Restore Original Image) -->
+                <!-- Ju A-young -->
                 <div onclick="openCharacterModal('ayoung')" class="bg-univ-card rounded-xl overflow-hidden border border-univ-border group hover:border-univ-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(233,30,99,0.2)] cursor-pointer">
                     <div class="h-64 overflow-hidden relative">
                         <img src="https://igx.kr/d/5y/h/0" onerror="this.src='https://placehold.co/300x400/333/FF4081?text=Ayoung'" alt="주아영" class="w-full h-full object-cover object-[50%_20%] group-hover:scale-110 transition duration-500">
@@ -329,7 +336,7 @@
                     </div>
                     <div class="p-4 relative"><div class="absolute -top-3 right-4 bg-univ-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow">체대 후배</div><div class="text-xs font-bold text-univ-accent mb-1">체육교육과 1학년</div><h3 class="text-lg font-bold text-white mb-2">주아영 <span class="text-sm font-normal text-gray-400">(20)</span></h3><p class="text-xs text-gray-400 leading-relaxed border-t border-gray-700 pt-2">노력을 알아주는 사람에게 약한 타입. ESFP.</p></div>
                 </div>
-                <!-- Jeong Da-eun (Restore Original Image & Flip) -->
+                <!-- Jeong Da-eun -->
                 <div onclick="openCharacterModal('daeun')" class="bg-univ-card rounded-xl overflow-hidden border border-univ-border group hover:border-univ-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(233,30,99,0.2)] cursor-pointer">
                     <div class="h-64 overflow-hidden relative">
                         <img src="https://igx.kr/d/5y/g/1" onerror="this.src='https://placehold.co/300x400/333/FF4081?text=Daeun'" alt="정다은" class="w-full h-full object-cover object-[80%_10%] scale-x-[-1] group-hover:scale-x-[-1] group-hover:scale-110 transition duration-500">
@@ -337,7 +344,7 @@
                     </div>
                     <div class="p-4 relative"><div class="absolute -top-3 right-4 bg-univ-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow">심리학과 선배</div><div class="text-xs font-bold text-univ-accent mb-1">심리학과 4학년</div><h3 class="text-lg font-bold text-white mb-2">정다은 <span class="text-sm font-normal text-gray-400">(23)</span></h3><p class="text-xs text-gray-400 leading-relaxed border-t border-gray-700 pt-2">리드 당하고 싶은 외로운 누님. ENFJ.</p></div>
                 </div>
-                <!-- Han A-rin (Restore Original Image & Flip) -->
+                <!-- Han A-rin -->
                 <div onclick="openCharacterModal('arin')" class="bg-univ-card rounded-xl overflow-hidden border border-univ-border group hover:border-univ-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.3)] hover:shadow-[0_0_20px_rgba(233,30,99,0.2)] cursor-pointer">
                     <div class="h-64 overflow-hidden relative">
                         <img src="https://igx.kr/d/5y/j/0" onerror="this.src='https://placehold.co/300x400/333/FF4081?text=Arin'" alt="한아린" class="w-full h-full object-cover object-[80%_10%] scale-x-[-1] group-hover:scale-x-[-1] group-hover:scale-110 transition duration-500">
@@ -348,106 +355,114 @@
             </div>
         </section>
 
-        <!-- Tab 4: Relationship Map -->
+        <!-- Tab 4: Relationship Map (Modified for Mobile Scrolling) -->
         <section id="relationship" class="tab-content">
             <div class="text-center mb-8">
                 <h2 class="text-3xl font-bold mb-2">인물 관계도</h2>
                 <p class="text-gray-400 text-sm">주인공 보정 전이로 인해 변화된 관계를 확인하세요.</p>
+                <!-- Mobile Only Instruction -->
+                <p class="md:hidden text-xs text-univ-primary mt-2 animate-pulse">
+                    <i class="fas fa-hand-pointer mr-1"></i> 좌우로 드래그하여 전체 관계도를 확인하세요
+                </p>
             </div>
             
-            <div class="relative w-full h-[600px] md:h-[700px] bg-[#1a1a1a] rounded-3xl border border-univ-border overflow-hidden shadow-2xl mx-auto max-w-5xl select-none">
-                <!-- SVG Layer for Lines -->
-                <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
-                    <defs>
-                        <marker id="arrow-pink" markerWidth="10" markerHeight="10" refX="20" refY="3" orient="auto" markerUnits="strokeWidth">
-                            <path d="M0,0 L0,6 L9,3 z" fill="#E91E63" />
-                        </marker>
-                        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="20" refY="3" orient="auto" markerUnits="strokeWidth">
-                            <path d="M0,0 L0,6 L9,3 z" fill="#3B82F6" />
-                        </marker>
-                        <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="20" refY="3" orient="auto" markerUnits="strokeWidth">
-                            <path d="M0,0 L0,6 L9,3 z" fill="#6B7280" />
-                        </marker>
-                    </defs>
-                    
-                    <!-- Lines from Hyun-woo (Loser) -->
-                    <line x1="50%" y1="85%" x2="20%" y2="25%" stroke="#4B5563" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" opacity="0.5" /> 
-                    <line x1="50%" y1="85%" x2="80%" y2="25%" stroke="#4B5563" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" opacity="0.5" /> 
-                    <line x1="50%" y1="85%" x2="15%" y2="55%" stroke="#4B5563" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" opacity="0.5" /> 
-                    <line x1="50%" y1="85%" x2="85%" y2="55%" stroke="#4B5563" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" opacity="0.5" /> 
-                    <line x1="50%" y1="85%" x2="50%" y2="40%" stroke="#3B82F6" stroke-width="3" marker-end="url(#arrow-blue)" /> 
+            <!-- Mobile Scrollable Container -->
+            <div class="w-full overflow-x-auto pb-4 hide-scrollbar">
+                <!-- min-w-[800px] ensures the map maintains aspect ratio on mobile -->
+                <div class="relative min-w-[800px] md:min-w-full w-full h-[600px] md:h-[700px] bg-[#1a1a1a] rounded-3xl border border-univ-border overflow-hidden shadow-2xl mx-auto max-w-5xl select-none">
+                    <!-- SVG Layer for Lines -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+                        <defs>
+                            <marker id="arrow-pink" markerWidth="10" markerHeight="10" refX="20" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#E91E63" />
+                            </marker>
+                            <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="20" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#3B82F6" />
+                            </marker>
+                            <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="20" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#6B7280" />
+                            </marker>
+                        </defs>
+                        
+                        <!-- Lines from Hyun-woo (Loser) -->
+                        <line x1="50%" y1="85%" x2="20%" y2="25%" stroke="#4B5563" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" opacity="0.5" /> 
+                        <line x1="50%" y1="85%" x2="80%" y2="25%" stroke="#4B5563" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" opacity="0.5" /> 
+                        <line x1="50%" y1="85%" x2="15%" y2="55%" stroke="#4B5563" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" opacity="0.5" /> 
+                        <line x1="50%" y1="85%" x2="85%" y2="55%" stroke="#4B5563" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" opacity="0.5" /> 
+                        <line x1="50%" y1="85%" x2="50%" y2="40%" stroke="#3B82F6" stroke-width="3" marker-end="url(#arrow-blue)" /> 
 
-                    <!-- Lines from User (Harem) -->
-                    <line x1="50%" y1="40%" x2="20%" y2="25%" stroke="#E91E63" stroke-width="3" class="relation-line solid" /> 
-                    <line x1="50%" y1="40%" x2="80%" y2="25%" stroke="#E91E63" stroke-width="3" class="relation-line solid" /> 
-                    <line x1="50%" y1="40%" x2="15%" y2="55%" stroke="#E91E63" stroke-width="3" class="relation-line solid" /> 
-                    <line x1="50%" y1="40%" x2="85%" y2="55%" stroke="#E91E63" stroke-width="3" class="relation-line solid" /> 
-                </svg>
+                        <!-- Lines from User (Harem) -->
+                        <line x1="50%" y1="40%" x2="20%" y2="25%" stroke="#E91E63" stroke-width="3" class="relation-line solid" /> 
+                        <line x1="50%" y1="40%" x2="80%" y2="25%" stroke="#E91E63" stroke-width="3" class="relation-line solid" /> 
+                        <line x1="50%" y1="40%" x2="15%" y2="55%" stroke="#E91E63" stroke-width="3" class="relation-line solid" /> 
+                        <line x1="50%" y1="40%" x2="85%" y2="55%" stroke="#E91E63" stroke-width="3" class="relation-line solid" /> 
+                    </svg>
 
-                <!-- Labels on Lines (Calculated Midpoints) -->
-                <!-- User -> Seoyoon (50,40 -> 20,25) Mid: 35, 32.5 -->
-                <div class="map-label" style="left: 35%; top: 32.5%;">짝사랑 <span>→ 새로운 설렘</span></div>
+                    <!-- Labels on Lines (Calculated Midpoints) -->
+                    <!-- User -> Seoyoon (50,40 -> 20,25) Mid: 35, 32.5 -->
+                    <div class="map-label" style="left: 35%; top: 32.5%;">짝사랑 <span>→ 새로운 설렘</span></div>
 
-                <!-- User -> Daeun (50,40 -> 80,25) Mid: 65, 32.5 -->
-                <div class="map-label" style="left: 65%; top: 32.5%;">아끼는 후배 <span>→ 의지하고픈 남자</span></div>
+                    <!-- User -> Daeun (50,40 -> 80,25) Mid: 65, 32.5 -->
+                    <div class="map-label" style="left: 65%; top: 32.5%;">아끼는 후배 <span>→ 의지하고픈 남자</span></div>
 
-                <!-- User -> Ayoung (50,40 -> 15,55) Mid: 32.5, 47.5 -->
-                <div class="map-label" style="left: 32.5%; top: 47.5%;">동경의 대상 <span>→ 인정욕구</span></div>
+                    <!-- User -> Ayoung (50,40 -> 15,55) Mid: 32.5, 47.5 -->
+                    <div class="map-label" style="left: 32.5%; top: 47.5%;">동경의 대상 <span>→ 인정욕구</span></div>
 
-                <!-- User -> Arin (50,40 -> 85,55) Mid: 67.5, 47.5 -->
-                <div class="map-label" style="left: 67.5%; top: 47.5%;">가족 <span>→ 금기의 욕망</span></div>
+                    <!-- User -> Arin (50,40 -> 85,55) Mid: 67.5, 47.5 -->
+                    <div class="map-label" style="left: 67.5%; top: 47.5%;">가족 <span>→ 금기의 욕망</span></div>
 
-                 <!-- Hyunwoo -> User (50,85 -> 50,40) Mid: 50, 62.5 -->
-                 <div class="map-label friend" style="left: 50%; top: 62.5%;"><span>베스트 프렌드</span></div>
+                    <!-- Hyunwoo -> User (50,85 -> 50,40) Mid: 50, 62.5 -->
+                    <div class="map-label friend" style="left: 50%; top: 62.5%;"><span>베스트 프렌드</span></div>
 
-                <!-- Nodes -->
-                <!-- User (Center) -->
-                <div class="absolute left-1/2 top-[40%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group">
-                    <div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-univ-primary bg-black flex items-center justify-center shadow-[0_0_30px_rgba(233,30,99,0.5)] z-10 relative overflow-hidden">
-                        <i class="fas fa-user text-4xl text-univ-primary"></i>
-                        <div class="absolute inset-0 bg-univ-primary/20 animate-pulse-slow"></div>
+                    <!-- Nodes -->
+                    <!-- User (Center) -->
+                    <div class="absolute left-1/2 top-[40%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group">
+                        <div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-univ-primary bg-black flex items-center justify-center shadow-[0_0_30px_rgba(233,30,99,0.5)] z-10 relative overflow-hidden">
+                            <i class="fas fa-user text-4xl text-univ-primary"></i>
+                            <div class="absolute inset-0 bg-univ-primary/20 animate-pulse-slow"></div>
+                        </div>
+                        <div class="mt-2 bg-univ-primary text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">YOU (PLAYER)</div>
                     </div>
-                    <div class="mt-2 bg-univ-primary text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">YOU (PLAYER)</div>
-                </div>
 
-                <!-- Kim Hyun-woo (Bottom Center) -->
-                <div class="absolute left-1/2 top-[85%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('hyunwoo')">
-                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-gray-600 bg-gray-800 overflow-hidden shadow-lg hover:border-gray-400 transition grayscale hover:grayscale-0">
-                        <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/6.png" class="w-full h-full object-cover object-[50%_20%]" alt="Kim Hyun-woo">
+                    <!-- Kim Hyun-woo (Bottom Center) -->
+                    <div class="absolute left-1/2 top-[85%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('hyunwoo')">
+                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-gray-600 bg-gray-800 overflow-hidden shadow-lg hover:border-gray-400 transition grayscale hover:grayscale-0">
+                            <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/6.png" class="w-full h-full object-cover object-[50%_20%]" alt="Kim Hyun-woo">
+                        </div>
+                        <div class="mt-2 bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-xs font-bold">김현우 (원래 주인공)</div>
                     </div>
-                    <div class="mt-2 bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-xs font-bold">김현우 (원래 주인공)</div>
-                </div>
 
-                <!-- Park Seo-yoon (Top Left) -->
-                <div class="absolute left-[20%] top-[25%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('seoyoon')">
-                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-univ-accent overflow-hidden shadow-lg hover:scale-110 transition duration-300">
-                        <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/2.png" class="w-full h-full object-cover" alt="Park Seo-yoon">
+                    <!-- Park Seo-yoon (Top Left) -->
+                    <div class="absolute left-[20%] top-[25%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('seoyoon')">
+                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-univ-accent overflow-hidden shadow-lg hover:scale-110 transition duration-300">
+                            <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/2.png" class="w-full h-full object-cover" alt="Park Seo-yoon">
+                        </div>
+                        <div class="mt-2 bg-univ-card border border-univ-accent text-white px-3 py-1 rounded-full text-xs font-bold">박서윤</div>
                     </div>
-                    <div class="mt-2 bg-univ-card border border-univ-accent text-white px-3 py-1 rounded-full text-xs font-bold">박서윤</div>
-                </div>
 
-                <!-- Jeong Da-eun (Top Right) -->
-                <div class="absolute left-[80%] top-[25%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('daeun')">
-                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-univ-accent overflow-hidden shadow-lg hover:scale-110 transition duration-300">
-                        <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/3.png" class="w-full h-full object-cover" alt="Jeong Da-eun">
+                    <!-- Jeong Da-eun (Top Right) -->
+                    <div class="absolute left-[80%] top-[25%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('daeun')">
+                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-univ-accent overflow-hidden shadow-lg hover:scale-110 transition duration-300">
+                            <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/3.png" class="w-full h-full object-cover" alt="Jeong Da-eun">
+                        </div>
+                        <div class="mt-2 bg-univ-card border border-univ-accent text-white px-3 py-1 rounded-full text-xs font-bold">정다은</div>
                     </div>
-                    <div class="mt-2 bg-univ-card border border-univ-accent text-white px-3 py-1 rounded-full text-xs font-bold">정다은</div>
-                </div>
 
-                <!-- Ju A-young (Mid Left) -->
-                <div class="absolute left-[15%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('ayoung')">
-                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-univ-accent overflow-hidden shadow-lg hover:scale-110 transition duration-300">
-                        <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/4.png" class="w-full h-full object-cover" alt="Ju A-young">
+                    <!-- Ju A-young (Mid Left) -->
+                    <div class="absolute left-[15%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('ayoung')">
+                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-univ-accent overflow-hidden shadow-lg hover:scale-110 transition duration-300">
+                            <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/4.png" class="w-full h-full object-cover" alt="Ju A-young">
+                        </div>
+                        <div class="mt-2 bg-univ-card border border-univ-accent text-white px-3 py-1 rounded-full text-xs font-bold">주아영</div>
                     </div>
-                    <div class="mt-2 bg-univ-card border border-univ-accent text-white px-3 py-1 rounded-full text-xs font-bold">주아영</div>
-                </div>
 
-                <!-- Han A-rin (Mid Right) -->
-                <div class="absolute left-[85%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('arin')">
-                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-univ-accent overflow-hidden shadow-lg hover:scale-110 transition duration-300">
-                        <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/5.png" class="w-full h-full object-cover" alt="Han A-rin">
+                    <!-- Han A-rin (Mid Right) -->
+                    <div class="absolute left-[85%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center group cursor-pointer" onclick="openCharacterModal('arin')">
+                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-univ-accent overflow-hidden shadow-lg hover:scale-110 transition duration-300">
+                            <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/5.png" class="w-full h-full object-cover" alt="Han A-rin">
+                        </div>
+                        <div class="mt-2 bg-univ-card border border-univ-accent text-white px-3 py-1 rounded-full text-xs font-bold">한아린</div>
                     </div>
-                    <div class="mt-2 bg-univ-card border border-univ-accent text-white px-3 py-1 rounded-full text-xs font-bold">한아린</div>
                 </div>
             </div>
         </section>
