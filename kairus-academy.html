@@ -3,367 +3,499 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>카이루스 아카데미 - 학생 가이드</title>
+    <title>카이루스 검술 아카데미 | Kairus Swordmaster Academy</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/0.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kairus: { dark: '#0A0A0B', card: '#131315', primary: '#00D4FF', accent: '#FFD700', border: '#2A2A2E' }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* [수정] 박스 크기 계산 방식을 고정하여 패딩이 너비를 키우지 않도록 합니다 */
-        * { box-sizing: border-box; }
+        body { background-color: #0A0A0B; color: #ffffff; font-family: 'Noto Sans KR', sans-serif; overflow-x: hidden; }
+        .glass-nav { background: rgba(10, 10, 11, 0.9); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 212, 255, 0.1); }
+        .nav-link { color: #94a3b8; transition: 0.3s; font-size: 0.875rem; position: relative; }
+        .nav-link.active { color: #00D4FF; font-weight: 700; }
+        .nav-link.active::after { content: ''; position: absolute; bottom: -6px; left: 0; width: 100%; height: 2px; background: #00D4FF; }
+        /* 모바일 메뉴 스타일 추가 */
+        .mobile-menu { display: none; }
+        .mobile-menu.open { display: block; animation: slideDown 0.3s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        :root {
-            --primary: #2c3e50;
-            --accent: #d4af37; /* Gold */
-            --bg-dark: #1a1a1a;
-            --text-light: #f4f4f4;
-            --card-bg: #2a2a2a;
-        }
-
-        body {
-            font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            margin: 0;
-            line-height: 1.6;
-            /* 가로 스크롤 방지 */
-            overflow-x: hidden;
-        }
-
-        header {
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border-bottom: 4px solid var(--accent);
-        }
-
-        .current-time {
-            background: rgba(212, 175, 55, 0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-            border: 1px solid var(--accent);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        h1 { font-size: 3rem; margin: 0; color: var(--accent); text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 40px 20px;
-            width: 100%;
-        }
+        /* 모달 스타일 수정: 모바일 스크롤 확보 */
+        .modal { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.92); backdrop-filter: blur(10px); padding: 20px; overflow-y: auto; }
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        /* 모바일에서 모달이 화면보다 길 경우 상단 정렬 */
+        @media (max-height: 800px) { .modal.active { align-items: flex-start; padding-top: 40px; } }
 
-        section { margin-bottom: 60px; }
-        h2 { border-left: 5px solid var(--accent); padding-left: 15px; margin-bottom: 30px; font-size: 2rem; }
-
-        /* Worldview Table */
-        .worldview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .info-box {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #444;
-        }
-        .info-box h3 { color: var(--accent); margin-top: 0; }
-
-        /* [수정됨] 일정표 그리드 - 모바일 잘림 방지 핵심 코드 */
-        .schedule-grid {
-            display: grid;
-            /* 핵심 수정: 화면이 450px보다 좁으면 100% 너비를 사용 */
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
-            gap: 20px;
-            width: 100%;
-        }
-        .schedule-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            border: 1px solid #444;
-            overflow: hidden;
-            width: 100%;
-        }
-        .schedule-header {
-            background: #333;
-            padding: 15px 20px;
-            font-weight: bold;
-            color: var(--accent);
-            border-bottom: 2px solid var(--accent);
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap; /* 좁은 화면에서 텍스트 겹침 방지 */
-        }
-        .schedule-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .schedule-item {
-            display: flex;
-            padding: 12px 20px;
-            border-bottom: 1px solid #383838;
-            align-items: center;
-        }
-        .schedule-item:last-child { border-bottom: none; }
-        .date {
-            width: 100px;
-            flex-shrink: 0;
-            font-weight: bold;
-            color: var(--accent);
-            font-size: 0.9rem;
-        }
-        .event {
-            flex: 1;
-            font-size: 0.95rem;
-            word-break: keep-all;
-        }
-        .vacation {
-            background: rgba(212, 175, 55, 0.05);
-            text-align: center;
-            padding: 15px;
-            font-style: italic;
-            color: #aaa;
-        }
-
-        /* [추가] 모바일 가독성 최적화 미디어 쿼리 */
-        @media (max-width: 500px) {
-            .date { width: 80px; font-size: 0.85rem; }
-            .event { font-size: 0.85rem; }
-            .schedule-header { font-size: 0.9rem; }
-            .container { padding: 20px 15px; }
-        }
-
-        /* Character Grid */
-        .char-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .char-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            border-bottom: 3px solid transparent;
-        }
-        .char-card:hover {
-            transform: translateY(-10px);
-            border-bottom-color: var(--accent);
-        }
-        .char-img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-        }
-        .char-info { padding: 20px; }
-        .char-name { font-size: 1.4rem; font-weight: bold; margin-bottom: 5px; color: var(--accent); }
-        .char-rank { font-weight: bold; color: #ffeb3b; margin-bottom: 10px; font-size: 0.9rem; }
-        .char-tags { margin-bottom: 10px; }
-        .tag {
-            display: inline-block;
-            background: #444;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-right: 5px;
-            margin-bottom: 5px;
-        }
-        .char-desc { font-size: 0.9rem; color: #ccc; }
-        .char-ability { 
-            margin-top: 15px; 
-            padding-top: 15px; 
-            border-top: 1px solid #444;
-            font-size: 0.85rem;
-            font-style: italic;
-        }
-
-        footer { text-align: center; padding: 40px; color: #777; font-size: 0.8rem; border-top: 1px solid #333; }
+        .facility-btn { cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(255,255,255,0.05); }
+        .facility-btn:hover { background: rgba(0, 212, 255, 0.05); border-color: #00D4FF; }
+        .facility-btn.active { background: #00D4FF; color: #0A0A0B; border-color: #00D4FF; box-shadow: 0 0 15px rgba(0,212,255,0.3); }
+        .char-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; }
+        .char-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .grade-tag { text-shadow: 0 0 10px currentColor; }
     </style>
 </head>
-<body>
+<body class="antialiased flex flex-col min-h-screen">
 
-<header>
-    <h1>KAIRUS ACADEMY</h1>
-    <p>이페리온 제국 최고의 아카데미</p>
-</header>
-
-<div class="container">
-    <section>
-        <h2>세계관 설정</h2>
-        <div class="worldview-grid">
-            <div class="info-box">
-                <h3>이페리온 vs 세렌티스</h3>
-                <p><strong>이페리온 제국:</strong> 검을 숭상하고 마법을 배척합니다. 오러를 통해 신체 강화와 검기를 사용합니다.</p>
-                <p><strong>세렌티스 제국:</strong> 마법을 숭상하고 검을 배척하는 국경을 맞댄 숙적의 제국입니다.</p>
-            </div>
-            <div class="info-box">
-                <h3>등급 시스템</h3>
-                <p><strong>등급:</strong> SSS부터 F급까지 존재하며, 학생 평균은 C급입니다. 등급에 따른 차별이 존재하므로 실력이 곧 권력입니다.</p>
-                <p><strong>정규 대련:</strong> 3/6/9/12월 15일에 3달 간격으로 등급 조정 대련이 열립니다.</p>
-            </div>
-            <div class="info-box">
-                <h3>학업 생활</h3>
-                <p>1학년(A동), 2학년(B동), 3학년(C동) 기숙사를 사용합니다. 주말과 공강 시간에는 외부 임무 및 동아리 활동이 자유로운 분위기입니다.</p>
+    <!-- 네비게이션 -->
+    <nav class="fixed w-full z-50 glass-nav h-20 flex items-center justify-between px-6 md:px-16">
+        <div class="flex items-center cursor-pointer" onclick="switchTab('main')">
+            <div>
+                <h1 class="text-xl font-black tracking-tighter">KAIRUS <span class="text-kairus-primary">ACADEMY</span></h1>
+                <p class="text-[9px] tracking-[0.3em] text-gray-500 uppercase">Imperial Swordmaster Institute</p>
             </div>
         </div>
-    </section>
-
-    <section>
-        <h2>아카데미 연간 일정</h2>
-        <div class="schedule-grid">
-            <div class="schedule-card">
-                <div class="schedule-header">
-                    <span>1학기 (First Semester)</span>
-                    <span>3월 - 6월</span>
-                </div>
-                <ul class="schedule-list">
-                    <li class="schedule-item"><div class="date">3월 1일</div><div class="event">입학식 및 오리엔테이션(OT)</div></li>
-                    <li class="schedule-item"><div class="date">3월 2일</div><div class="event">학기 첫 연습 대련</div></li>
-                    <li class="schedule-item"><div class="date">3월 15일</div><div class="event"><strong>1분기 정규 대련</strong> (등급 조정)</div></li>
-                    <li class="schedule-item"><div class="date">4월 초</div><div class="event">검술 시연 1차 평가</div></li>
-                    <li class="schedule-item"><div class="date">5월 초</div><div class="event">중간 학술 및 실기 평가</div></li>
-                    <li class="schedule-item"><div class="date">6월 15일</div><div class="event"><strong>2분기 정규 대련</strong> (등급 조정)</div></li>
-                    <li class="schedule-item"><div class="date">6월 말</div><div class="event">아카데미 대축제</div></li>
-                </ul>
-                <div class="vacation">☀️ 여름 방학 (7월 ~ 8월)</div>
-            </div>
-
-            <div class="schedule-card">
-                <div class="schedule-header">
-                    <span>2학기 (Second Semester)</span>
-                    <span>9월 - 12월</span>
-                </div>
-                <ul class="schedule-list">
-                    <li class="schedule-item"><div class="date">9월 1일</div><div class="event">2학기 개강</div></li>
-                    <li class="schedule-item"><div class="date">9월 2일</div><div class="event">연습 대련 및 컨디션 체크</div></li>
-                    <li class="schedule-item"><div class="date">9월 15일</div><div class="event"><strong>3분기 정규 대련</strong> (등급 조정)</div></li>
-                    <li class="schedule-item"><div class="date">10월 초</div><div class="event">검술 시연 2차 평가</div></li>
-                    <li class="schedule-item"><div class="date">11월 초</div><div class="event">기말 최종 평가</div></li>
-                    <li class="schedule-item"><div class="date">11월 말</div><div class="event">종합 성적 산출 및 공개</div></li>
-                    <li class="schedule-item"><div class="date">12월 15일</div><div class="event"><strong>4분기 정규 대련</strong> (최종 등급 결정)</div></li>
-                    <li class="schedule-item"><div class="date">12월 말</div><div class="event">졸업식 및 진급 신고</div></li>
-                </ul>
-                <div class="vacation">❄️ 겨울 방학 (1월 ~ 2월)</div>
-            </div>
+        
+        <!-- 데스크탑 메뉴 -->
+        <div class="hidden md:flex gap-10">
+            <button onclick="switchTab('main')" class="nav-link active" data-target="main">아카데미 개요</button>
+            <button onclick="switchTab('schedule')" class="nav-link" data-target="schedule">학사 일정</button>
+            <button onclick="switchTab('characters')" class="nav-link" data-target="characters">등장 인물</button>
         </div>
-    </section>
 
-    <section>
-        <h2>교수진 및 운영진</h2>
-        <div class="char-grid">
-            <div class="char-card">
-                <img src="https://igx.kr/d/dB/c/10" class="char-img" alt="데미안">
-                <div class="char-info">
-                    <div class="char-name">데미안 하이벨 (54)</div>
-                    <div class="char-rank">SS등급 | 학장</div>
-                    <div class="char-tags">
-                        <span class="tag">ISTJ</span><span class="tag">원칙주의</span><span class="tag">독설가</span>
-                    </div>
-                    <p class="char-desc">전직 제국 기사단장. 가문보다 실력과 의지를 중시하며 압도적인 위압감을 내뿜습니다.</p>
-                    <p class="char-ability">능력: 대검, 오러 밀도 압박</p>
-                </div>
-            </div>
-            <div class="char-card">
-                <img src="https://igx.kr/d/dB/l/10" class="char-img" alt="카이엘">
-                <div class="char-info">
-                    <div class="char-name">카이엘 오베루스 (37)</div>
-                    <div class="char-rank">S등급 | 실전 교수</div>
-                    <div class="char-tags">
-                        <span class="tag">INTJ</span><span class="tag">재능중시</span><span class="tag">안경캐</span>
-                    </div>
-                    <p class="char-desc">오베루스 방계 출신. 실력만으로 교수에 오른 천재. 대외적으로는 친절하나 냉철한 분석가.</p>
-                    <p class="char-ability">능력: 롱소드, 정밀 오러 제어</p>
-                </div>
-            </div>
-            <div class="char-card">
-                <img src="https://igx.kr/d/dB/k/10" class="char-img" alt="이벨린">
-                <div class="char-info">
-                    <div class="char-name">이벨린 (35)</div>
-                    <div class="char-rank">S등급 | 이론 교수</div>
-                    <div class="char-tags">
-                        <span class="tag">INFJ</span><span class="tag">평민출신</span><span class="tag">상냥함</span>
-                    </div>
-                    <p class="char-desc">전직 제국 군사 고문. 모든 학생을 아끼는 포용심을 지닌 최고의 전략가입니다.</p>
-                    <p class="char-ability">능력: 레이피어, 오러 실 응용용</p>
-                </div>
-            </div>
+        <!-- 모바일 햄버거 버튼 -->
+        <button class="md:hidden text-gray-300 hover:text-white text-2xl" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- 모바일 드롭다운 메뉴 -->
+    <div id="mobile-menu" class="mobile-menu fixed top-20 left-0 w-full glass-nav z-40 border-t border-white/5 md:hidden">
+        <div class="flex flex-col p-6 gap-4">
+            <button onclick="switchTab('main')" class="text-left text-sm font-bold text-gray-300 hover:text-kairus-primary py-2">아카데미 개요</button>
+            <button onclick="switchTab('schedule')" class="text-left text-sm font-bold text-gray-300 hover:text-kairus-primary py-2">학사 일정</button>
+            <button onclick="switchTab('characters')" class="text-left text-sm font-bold text-gray-300 hover:text-kairus-primary py-2">등장 인물</button>
         </div>
-    </section>
+    </div>
 
-    <section>
-        <h2> 아카데미 학생 (주요 인물)</h2>
-        <div class="char-grid">
-            <div class="char-card">
-                <img src="https://igx.kr/d/dB/h/10" class="char-img" alt="아리엘">
-                <div class="char-info">
-                    <div class="char-name">아리엘 오베루스 (21)</div>
-                    <div class="char-rank">A등급 | 2학년 수석</div>
-                    <div class="char-tags">
-                        <span class="tag">ENTJ</span><span class="tag">공격적</span><span class="tag">금수저</span>
-                    </div>
-                    <p class="char-desc">오만하고 카리스마 넘치는 공작가 차녀. 일격 필살의 강공 검술을 구사합니다.</p>
-                    <p class="char-ability">능력: 롱소드, 압박형 돌파 전투</p>
+    <main class="flex-grow pt-28 pb-16 px-4 md:px-6 max-w-7xl mx-auto w-full">
+        <section id="main" class="tab-content active">
+            <!-- Hero 섹션: 모바일 텍스트 크기 및 여백 조정 -->
+            <div class="relative rounded-3xl overflow-hidden mb-12 h-[300px] md:h-[400px] border border-kairus-border">
+                <div class="absolute inset-0 bg-[url('https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/8.jpg')] bg-cover bg-center opacity-60"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-kairus-dark via-kairus-dark/40 to-transparent"></div>
+                <div class="absolute bottom-8 left-8 md:bottom-12 md:left-12">
+                    <h2 class="text-3xl md:text-5xl font-black mb-4 md:mb-6 leading-tight">검의 성채<br><span class="text-kairus-primary">카이루스 아카데미</span></h2>
+                    <p class="text-gray-300 text-sm md:text-base max-w-2xl leading-relaxed hidden sm:block">제국 최고의 학문 기관, 카이루스 아카데미.<br>오직 실력만이 당신의 가치를 증명하는 검사들의 요람입니다.</p>
+                    <p class="text-gray-300 text-xs md:hidden leading-relaxed">제국 최고의 학문 기관.<br>오직 실력만이 가치를 증명합니다.</p>
                 </div>
             </div>
-            <div class="char-card">
-                <img src="https://igx.kr/d/dB/j/10" class="char-img" alt="엘리네">
-                <div class="char-info">
-                    <div class="char-name">엘리네 세르다뉴 (21)</div>
-                    <div class="char-rank">A등급 | 2학년 차석</div>
-                    <div class="char-tags">
-                        <span class="tag">INTJ</span><span class="tag">성실함</span><span class="tag">계산적</span>
+
+            <div class="grid md:grid-cols-2 gap-6 md:gap-8 mb-8">
+                <div class="bg-kairus-card p-6 md:p-8 rounded-3xl border border-kairus-border">
+                    <h3 class="text-lg md:text-xl font-bold mb-6 md:mb-8 flex items-center gap-3"><i class="fas fa-map-marked-alt text-kairus-primary"></i> 아카데미 주요 시설</h3>
+                    <div class="grid grid-cols-2 gap-3 mb-6 md:mb-8">
+                        <button onclick="updateMap(0)" id="map-btn-0" class="facility-btn p-3 md:p-4 rounded-xl text-left active">
+                            <i class="fas fa-khanda mb-2 block"></i>
+                            <span class="text-xs md:text-sm font-bold">제1연무장</span>
+                        </button>
+                        <button onclick="updateMap(1)" id="map-btn-1" class="facility-btn p-3 md:p-4 rounded-xl text-left">
+                            <i class="fas fa-chalkboard-teacher mb-2 block"></i>
+                            <span class="text-xs md:text-sm font-bold">강의실</span>
+                        </button>
+                        <button onclick="updateMap(2)" id="map-btn-2" class="facility-btn p-3 md:p-4 rounded-xl text-left">
+                            <i class="fas fa-hotel mb-2 block"></i>
+                            <span class="text-xs md:text-sm font-bold">학생 기숙사</span>
+                        </button>
+                        <button onclick="updateMap(3)" id="map-btn-3" class="facility-btn p-3 md:p-4 rounded-xl text-left">
+                            <i class="fas fa-utensils mb-2 block"></i>
+                            <span class="text-xs md:text-sm font-bold">아스테리아 식당</span>
+                        </button>
                     </div>
-                    <p class="char-desc">철저한 자기관리의 화신. 아리엘과 라이벌 관계이며 동생 세리아를 남몰래 아낍니다.</p>
-                    <p class="char-ability">능력: 레이피어, 제압형 정밀 검술</p>
+                    <div id="map-content" class="bg-white/5 rounded-2xl p-5 md:p-6 min-h-[140px] md:min-h-[160px] flex flex-col justify-center border-l-4 border-kairus-primary transition-all duration-300">
+                    </div>
+                </div>
+
+                <div class="bg-kairus-card p-6 md:p-8 rounded-3xl border border-kairus-border relative overflow-hidden">
+                    <h3 class="text-lg md:text-xl font-bold mb-6 flex items-center gap-3"><i class="fas fa-shield-alt text-kairus-accent"></i> 제국 주요 세력</h3>
+                    <div class="space-y-3 md:space-y-4">
+                        <div class="p-3 md:p-4 bg-white/5 rounded-2xl flex justify-between items-center border border-white/5">
+                            <span class="text-gray-400 text-xs md:text-sm">이페리온 황실</span>
+                            <span class="font-bold text-white text-xs md:text-sm">제국의 절대 지배자</span>
+                        </div>
+                        <div class="p-3 md:p-4 bg-white/5 rounded-2xl flex justify-between items-center border border-white/5">
+                            <span class="text-gray-400 text-xs md:text-sm">세르다뉴 vs 오베루스</span>
+                            <span class="font-bold text-kairus-primary text-xs md:text-sm">공작가 숙적 관계</span>
+                        </div>
+                        <div class="p-3 md:p-4 bg-white/5 rounded-2xl flex justify-between items-center border border-white/5">
+                            <span class="text-gray-400 text-xs md:text-sm">세르티 자작가</span>
+                            <span class="text-gray-500 font-bold text-xs md:text-sm">몰락한 귀족 가문</span>
+                        </div>
+                        <div class="p-3 md:p-4 bg-kairus-primary/5 rounded-2xl flex justify-between items-center border border-kairus-primary/20">
+                            <span class="text-gray-500 font-bold text-xs md:text-sm">수도 카일로스</span>
+                            <span class="text-white text-[10px] uppercase tracking-widest border border-kairus-primary/30 px-2 py-1 rounded">Main Capital</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="char-card">
-                <img src="https://igx.kr/d/dB/d/10" class="char-img" alt="루시아">
-                <div class="char-info">
-                    <div class="char-name">루시아 세르티 (20)</div>
-                    <div class="char-rank">C등급 | 1학년</div>
-                    <div class="char-tags">
-                        <span class="tag">INFP</span><span class="tag">츤데레</span><span class="tag">몰락귀족</span>
+
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                <div class="bg-kairus-card p-6 md:p-8 rounded-3xl border border-kairus-border">
+                    <h3 class="text-lg font-black mb-6 text-kairus-primary uppercase tracking-tighter italic">스킬 숙련도</h3>
+                    <div class="space-y-4">
+                        <p class="text-xs text-gray-400 leading-relaxed">D → S+ 등급까지 성장이 가능합니다. 수련·기연·장비 사용에 따라 등급이 상승하며, 성능 강화 및 패널티가 완화됩니다.</p>
+                        <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden mt-4">
+                            <div class="h-full bg-kairus-primary w-[65%]"></div>
+                        </div>
+                        <div class="flex justify-between text-[10px] font-bold text-gray-500 uppercase">
+                            <span>Beginner</span>
+                            <span>Expert</span>
+                        </div>
                     </div>
-                    <p class="char-desc">가문을 다시 일으키려는 목표를 가진 보라색 트윈테일 소녀. 도움을 받으면 꼭 빚으로 기록합니다.</p>
-                    <p class="char-ability">능력: 레이피어, 오러 폭발 돌격</p>
+                </div>
+                <div class="bg-kairus-card p-6 md:p-8 rounded-3xl border border-kairus-border">
+                    <h3 class="text-lg font-black mb-6 text-kairus-accent uppercase tracking-tighter italic">오러 활용</h3>
+                    <ul class="text-xs space-y-4">
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-gray-500 rounded-full"></span> 신체 강화 (Physical)</li>
+                        <li class="flex items-center gap-3 font-bold text-kairus-primary"><span class="w-1.5 h-1.5 bg-kairus-primary rounded-full shadow-[0_0_5px_#00D4FF]"></span> 검기 (Aura Blade)</li>
+                        <li class="flex items-center gap-3 font-black text-kairus-accent"><span class="w-1.5 h-1.5 bg-kairus-accent rounded-full shadow-[0_0_5px_#FFD700]"></span> 검강 (Aura Soul)</li>
+                    </ul>
+                </div>
+                <div class="bg-kairus-card p-6 md:p-8 rounded-3xl border border-kairus-border">
+                    <h3 class="text-lg font-black mb-6 text-white uppercase tracking-tighter italic">주간 시간표</h3>
+                    <div class="text-[10px] text-gray-500 space-y-3 uppercase tracking-widest font-bold">
+                        <div class="flex justify-between"><span>오전 수업</span><span class="text-white">08:00 - 12:00</span></div>
+                        <div class="flex justify-between"><span>점심 식사</span><span class="text-white">12:00 - 13:00</span></div>
+                        <div class="flex justify-between"><span>오후 수업</span><span class="text-white">13:00 - 16:00</span></div>
+                        <div class="flex justify-between"><span>자율 활동</span><span class="text-kairus-primary">After 16:00</span></div>
+                    </div>
                 </div>
             </div>
-            <div class="char-card">
-                <img src="https://igx.kr/d/dB/g/10" class="char-img" alt="세리아">
-                <div class="char-info">
-                    <div class="char-name">세리아 세르다뉴 (20)</div>
-                    <div class="char-rank">D등급 | 1학년</div>
-                    <div class="char-tags">
-                        <span class="tag">ENFP</span><span class="tag">햇살캐</span><span class="tag">대기만성</span>
+        </section>
+
+        <section id="schedule" class="tab-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-8 md:mb-12 text-center">
+                    <h2 class="text-2xl md:text-3xl font-black mb-4">ACADEMY CALENDAR</h2>
+                    <div class="h-1 w-20 bg-kairus-primary mx-auto rounded-full"></div>
+                </div>
+                
+                <div class="grid gap-8">
+                    <div class="bg-kairus-card border border-kairus-border rounded-3xl overflow-hidden shadow-2xl">
+                        <div class="bg-gradient-to-r from-kairus-primary/20 to-transparent p-5 md:p-6 border-b border-white/5 flex justify-between items-center">
+                            <h4 class="font-black tracking-widest text-base md:text-lg">1학기 : 3월 - 6월</h4>
+                            <span class="text-[10px] md:text-xs bg-kairus-primary/20 text-kairus-primary px-3 py-1 rounded-full font-bold">Spring/Summer</span>
+                        </div>
+                        <div class="p-6 md:p-8 grid md:grid-cols-2 gap-4">
+                            <!-- 일정 항목: 모바일 간격 조정 -->
+                            <div class="space-y-3">
+                                <div class="flex justify-between p-3 md:p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <span class="text-gray-400 text-xs md:text-sm font-bold">03. 01</span>
+                                    <span class="font-bold text-white text-xs md:text-sm">입학식 및 OT</span>
+                                </div>
+                                <div class="flex justify-between p-3 md:p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <span class="text-gray-400 text-xs md:text-sm font-bold">03. 02</span>
+                                    <span class="font-bold text-kairus-primary text-xs md:text-sm">연습 대련</span>
+                                </div>
+                                <div class="flex justify-between p-3 md:p-4 bg-kairus-primary/10 rounded-xl border border-kairus-primary/30">
+                                    <span class="text-kairus-primary text-xs md:text-sm font-bold">03. 중</span>
+                                    <span class="font-black text-white text-xs md:text-sm">정규 대련 (1분기)</span>
+                                </div>
+                                <div class="flex justify-between p-3 md:p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <span class="text-gray-400 text-xs md:text-sm font-bold">04. 초</span>
+                                    <span class="font-bold text-white text-xs md:text-sm">검술 시연 1차</span>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex justify-between p-3 md:p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <span class="text-gray-400 text-xs md:text-sm font-bold">05. 초</span>
+                                    <span class="font-bold text-kairus-accent text-xs md:text-sm">중간 평가</span>
+                                </div>
+                                <div class="flex justify-between p-3 md:p-4 bg-kairus-primary/10 rounded-xl border border-kairus-primary/30">
+                                    <span class="text-kairus-primary text-xs md:text-sm font-bold">06. 중</span>
+                                    <span class="font-black text-white text-xs md:text-sm">정규 대련 (2분기)</span>
+                                </div>
+                                <div class="flex justify-between p-3 md:p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <span class="text-gray-400 text-xs md:text-sm font-bold">06. 말</span>
+                                    <span class="font-bold text-white text-xs md:text-sm">아카데미 축제</span>
+                                </div>
+                                <div class="text-center py-3 border-2 border-dashed border-white/10 rounded-xl">
+                                    <span class="text-[10px] text-gray-500 font-bold tracking-widest uppercase italic">07 - 08 여름 방학 (Summer Vacation)</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <p class="char-desc">가문의 냉대에도 굴하지 않는 초긍정파. 거대한 대검을 사용하며 잠재력이 어마어마합니다.</p>
-                    <p class="char-ability">능력: 대검, 특정 계기 시 오러 각성</p>
+
+                    <div class="bg-kairus-card border border-kairus-border rounded-3xl overflow-hidden shadow-2xl">
+                        <div class="bg-gradient-to-r from-kairus-accent/20 to-transparent p-5 md:p-6 border-b border-white/5 flex justify-between items-center">
+                            <h4 class="font-black tracking-widest text-base md:text-lg">2학기 : 9월 - 12월</h4>
+                            <span class="text-[10px] md:text-xs bg-kairus-accent/20 text-kairus-accent px-3 py-1 rounded-full font-bold">Fall/Winter</span>
+                        </div>
+                        <div class="p-6 md:p-8 grid md:grid-cols-2 gap-4">
+                            <div class="space-y-3">
+                                <div class="flex justify-between p-3 md:p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <span class="text-gray-400 text-xs md:text-sm font-bold">09. 01</span>
+                                    <span class="font-bold text-white text-xs md:text-sm">2학기 개강</span>
+                                </div>
+                                <div class="flex justify-between p-3 md:p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <span class="text-gray-400 text-xs md:text-sm font-bold">09. 02</span>
+                                    <span class="font-bold text-kairus-primary text-xs md:text-sm">연습 대련</span>
+                                </div>
+                                <div class="flex justify-between p-3 md:p-4 bg-kairus-primary/10 rounded-xl border border-kairus-primary/30">
+                                    <span class="text-kairus-primary text-xs md:text-sm font-bold">09. 중</span>
+                                    <span class="font-black text-white text-xs md:text-sm">정규 대련 (3분기)</span>
+                                </div>
+                                <div class="flex justify-between p-3 md:p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <span class="text-gray-400 text-xs md:text-sm font-bold">10. 초</span>
+                                    <span class="font-bold text-white text-xs md:text-sm">검술 시연 2차</span>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex justify-between p-3 md:p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <span class="text-gray-400 text-xs md:text-sm font-bold">11. 초</span>
+                                    <span class="font-bold text-kairus-accent text-xs md:text-sm">기말 평가</span>
+                                </div>
+                                <div class="flex justify-between p-3 md:p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <span class="text-gray-400 text-xs md:text-sm font-bold">11. 말</span>
+                                    <span class="font-bold text-white text-xs md:text-sm">종합 성적 공개</span>
+                                </div>
+                                <div class="flex justify-between p-3 md:p-4 bg-kairus-primary/10 rounded-xl border border-kairus-primary/30">
+                                    <span class="text-kairus-primary text-xs md:text-sm font-bold">12. 중</span>
+                                    <span class="font-black text-white text-xs md:text-sm">최종 정규 대련</span>
+                                </div>
+                                <div class="flex justify-between p-3 md:p-4 bg-kairus-accent/20 rounded-xl border border-kairus-accent/40">
+                                    <span class="text-kairus-accent text-xs md:text-sm font-bold">12. 말</span>
+                                    <span class="font-black text-white text-xs md:text-sm uppercase">졸업 및 진급</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="char-card">
-                <img src="https://igx.kr/d/dB/m/10" class="char-img" alt="테레사">
-                <div class="char-info">
-                    <div class="char-name">테레사 (20)</div>
-                    <div class="char-rank">C등급 | 1학년</div>
-                    <div class="char-tags">
-                        <span class="tag">ISFP</span><span class="tag">평민</span><span class="tag">겁쟁이</span>
-                    </div>
-                    <p class="char-desc">주목받는 게 세상에서 제일 무서운 소녀. 하지만 궁금한 건 못 참아 구석에서 지켜보곤 합니다.</p>
-                    <p class="char-ability">능력: 롱소드, 은신 및 빈틈 포착</p>
+        </section>
+        
+        <section id="characters" class="tab-content">
+            <div class="flex items-end justify-between mb-8 md:mb-12">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-black italic tracking-tighter uppercase mb-2">Kairus <span class="text-kairus-primary">Personas</span></h2>
+                    <p class="text-gray-500 text-[10px] md:text-xs tracking-widest uppercase font-bold">Faculty and Students Registry</p>
+                </div>
+                <div class="h-1 flex-grow mx-4 md:mx-8 bg-gradient-to-r from-kairus-primary/50 to-transparent mb-4 opacity-20"></div>
+            </div>
+            
+            <div class="space-y-16 md:space-y-20">
+                <div>
+                    <h3 class="text-xs font-black text-gray-500 uppercase tracking-[0.3em] mb-6 md:mb-8 flex items-center gap-4">
+                        <span class="w-8 h-[1px] bg-kairus-primary"></span> 교수진 (Faculty)
+                    </h3>
+                    <div id="grid-faculty" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black text-gray-500 uppercase tracking-[0.3em] mb-6 md:mb-8 flex items-center gap-4">
+                        <span class="w-8 h-[1px] bg-kairus-primary"></span> 2학년 (Advanced)
+                    </h3>
+                    <div id="grid-year2" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6"></div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-black text-gray-500 uppercase tracking-[0.3em] mb-6 md:mb-8 flex items-center gap-4">
+                        <span class="w-8 h-[1px] bg-kairus-primary"></span> 1학년 (Aspirants)
+                    </h3>
+                    <div id="grid-year1" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
                 </div>
             </div>
+        </section>
+    </main>
+
+    <!-- 모달: 모바일에서 스크롤 가능하도록 구조 변경 -->
+    <div id="char-modal" class="modal" onclick="closeModal('char-modal')">
+        <!-- 모달 컨텐츠 wrapper에 my-auto margin-auto 추가 및 max-height 설정 -->
+        <div id="char-detail" class="modal-content bg-kairus-card w-full max-w-4xl flex flex-col md:flex-row rounded-3xl overflow-hidden border-2 border-kairus-border shadow-[0_0_50px_rgba(0,0,0,0.8)] relative" onclick="event.stopPropagation()">
+            <!-- JS로 내용이 채워짐 -->
         </div>
-    </section>
-</div>
+    </div>
 
-<footer>
-    <p>&copy; 512 Eperion Empire - Kairus Academy Official Website</p>
-</footer>
+    <footer class="border-t border-kairus-border bg-black/50 py-12 text-center mt-auto">
+        <h2 class="text-xs font-black tracking-[0.5em] mb-3 uppercase">Kairus Academy Official</h2>
+        <p class="text-[9px] text-gray-700 tracking-widest uppercase">&copy; 512 EPERION EMPIRE. ALL RIGHTS RESERVED.</p>
+    </footer>
 
+    <script>
+        // 모바일 메뉴 토글
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+            // 메뉴 열릴 때 아이콘 변경 효과 등을 줄 수 있음
+        }
+
+        const mapData = [
+            { title: "중앙 제1연무장", desc: "아카데미의 심장부로, 마법 방어 진지가 구축된 거대한 대련장입니다. 학생들의 실무 평가와 정규 대련이 이곳에서 치러집니다.", icon: "fa-khanda" },
+            { title: "통합 강의실", desc: "이론 수업 및 전략 전술 교육이 이루어지는 장소입니다. 기사과 과정에 필요한 검술 이론, 오러 활용, 신체 구조 등을 배웁니다.", icon: "fa-chalkboard-teacher" },
+            { title: "학생 기숙사", desc: "학년별로 동이 나뉩니다. 1학년은 A동, 2학년은 B동, 3학년은 C동을 사용합니다. 주말에는 이곳에서 휴식을 취하거나 동아리 활동을 준비합니다.", icon: "fa-hotel" },
+            { title: "아스테리아 식당", desc: "기사들을 위한 고열량 영양 식단이 제공되는 곳입니다. 세르다뉴 공가에서 기증한 최고급 식재료들이 매일 배달되어 학생들의 기력을 보충합니다.", icon: "fa-utensils" }
+        ];
+
+        function updateMap(index) {
+            const content = document.getElementById('map-content');
+            const data = mapData[index];
+            document.querySelectorAll('.facility-btn').forEach((btn, i) => {
+                if(i === index) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            content.style.opacity = 0;
+            content.style.transform = "translateX(-10px)";
+            setTimeout(() => {
+                content.innerHTML = `
+                    <div class="flex items-center gap-4 mb-3">
+                        <i class="fas ${data.icon} text-2xl text-kairus-primary"></i>
+                        <h4 class="text-lg md:text-xl text-white font-black uppercase italic tracking-tighter">${data.title}</h4>
+                    </div>
+                    <p class="text-xs md:text-sm text-gray-400 leading-relaxed font-medium">${data.desc}</p>
+                `;
+                content.style.opacity = 1;
+                content.style.transform = "translateX(0)";
+            }, 150);
+        }
+
+        const characters = [
+            { id: 'demian', cat: 'faculty', name: '데미안 하이벨', age: 54, role: '학장 / 하이벨 후작가 가주', sex: '남성', grade: 'SS', mbti: 'ISTJ', weapon: '대검', 
+              appearance: '회색눈, 회색 올백 머리, 근육질의 거대한 몸, 제복', personality: '철저함, 공정함, 독설가, 엄격한 원칙주의',
+              desc: '전직 제국 기사단장. 실력과 의지를 최우선으로 하며 권위적인 위엄을 유지합니다.', 
+              feature: '오러 밀도만으로 주변을 압박하는 절대적 위압감.', img: 'https://igx.kr/d/dB/c/10', color: '#FFD700' },
+            { id: 'kaiel', cat: 'faculty', name: '카이엘 오베루스', age: 37, role: '교수 / 오베루스 방계 출신', sex: '남성', grade: 'S', mbti: 'INTJ', weapon: '롱소드', 
+              appearance: '파란색눈, 단정한 은색 머리, 기사 제복, 반무테 안경', personality: '철저함, 대외적 친절함, 능력보단 재능 중시',
+              desc: '본가에 기대지 않고 실력만으로 교수 자리에 오른 실전파 검사입니다.', 
+              feature: '고밀도 오러를 정밀하게 제어하는 안정형 검술.', img: 'https://igx.kr/d/dB/l/10', color: '#00D4FF' },
+            { id: 'evelyn', cat: 'faculty', name: '이벨린', age: 35, role: '교수 / 평민 출신', sex: '여성', grade: 'S', mbti: 'INFJ', weapon: '레이피어', 
+              appearance: '초록색눈, 검은색 포니테일, 눈물점, 정장 치마', personality: '꼼꼼함, 근면성실, 상냥함, 엄마 같은 포용심',
+              desc: '제국 최고의 전략가였던 전직 군사 고문입니다. 모든 학생을 아낍니다.', 
+              feature: '오러를 실처럼 뽑아 상대의 움직임을 제약하는 기술.', img: 'https://igx.kr/d/dB/k/10', color: '#10b981' },
+            { id: 'eline', cat: 'year2', name: '엘리네 세르다뉴', age: 21, role: '2학년 차석 / 세르다뉴 공작가 차녀', sex: '여성', grade: 'A', mbti: 'INTJ', weapon: '레이피어', 
+              appearance: '푸른눈, 은빛 긴생머리, 풍만한 체형, 교복 위 제복', personality: '목표지향적, 성실함, 계산적 사고',
+              desc: '오베루스에 강한 경쟁 의식을 가졌으나 동생 세리아를 남몰래 아낍니다.', 
+              feature: '상대의 움직임을 봉쇄하는 정밀 제압형 검술.', img: 'https://igx.kr/d/dB/j/10', color: '#3b82f6' },
+            { id: 'ariel', cat: 'year2', name: '아리엘 오베루스', age: 21, role: '2학년 수석 / 오베루스 공작가 차녀', sex: '여성', grade: 'A', mbti: 'ENTJ', weapon: '롱소드', 
+              appearance: '금빛눈, 백금빛 단발머리, 풍만한 체형, 교복 위 제복', personality: '오만함, 약자멸시, 공격적, 카리스마',
+              desc: '정면 승부를 선호하며 자신보다 낮은 등급은 철저히 깔봅니다.', 
+              feature: '고출력 오러를 실은 강공 위주의 압박형 전투.', img: 'https://igx.kr/d/dB/h/10', color: '#eab308' },
+            { id: 'lucia', cat: 'year1', name: '루시아 세르티', age: 20, role: '1학년 / 세르티 자작가 장녀', sex: '여성', grade: 'C', mbti: 'INFP', weapon: '레이피어', 
+              appearance: '보라색눈, 보라색 트윈테일, 아담한 체형, 교복', personality: '츤데레, 자존심 강함, 책임감 과다',
+              desc: '몰락한 가문을 일으키는 것이 목표입니다. 도움을 받으면 빚으로 기록합니다.', 
+              feature: '순간적인 오러 폭발을 동반한 돌파형 스타일.', img: 'https://igx.kr/d/dB/d/10', color: '#a855f7' },
+            { id: 'seria', cat: 'year1', name: '세리아 세르다뉴', age: 20, role: '1학년 / 세르다뉴 공작가 삼녀', sex: '여성', grade: 'D', mbti: 'ENFP', weapon: '대검', 
+              appearance: '노란색눈, 핑크&민트 투톤 단발, 네이비 베레모', personality: '초긍정, 햇살캐, 귀여움, 호기심',
+              desc: '가문의 냉대에도 굴하지 않는 긍정파입니다. 로맨스 소설을 좋아합니다.', 
+              feature: '대기만성형 천재. 각성 시 폭발하는 잠재 오러.', img: 'https://igx.kr/d/dB/g/10', color: '#f97316' },
+            { id: 'teresa', cat: 'year1', name: '테레사', age: 20, role: '1학년 / 평민 출신', sex: '여성', grade: 'C', mbti: 'ISFP', weapon: '롱소드', 
+              appearance: '갈색눈, 갈색 한쪽 땋은머리, 풍만한 체형', personality: '겁 많음, 부끄럼 많음, 평화주의',
+              desc: '싸움을 무서워해 숨어 지내지만 궁금한 건 참지 못해 지켜보곤 합니다.', 
+              feature: '본능적인 기척 은신과 정확한 빈틈 포착.', img: 'https://igx.kr/d/dB/m/10', color: '#6b7280' }
+        ];
+
+        function switchTab(id) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            // 모바일 메뉴 닫기
+            document.getElementById('mobile-menu').classList.remove('open');
+            
+            // 버튼 상태 업데이트 (데스크탑)
+            document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
+            const activeBtns = document.querySelectorAll(`.nav-link[data-target="${id}"]`); // 수정된 부분: data-target 사용 가능
+            
+            // 기존 onclick 매칭 방식 유지 (단순화)
+            Array.from(document.querySelectorAll('.nav-link')).forEach(btn => {
+                if(btn.onclick.toString().includes(id)) btn.classList.add('active');
+            });
+
+            document.getElementById(id).classList.add('active');
+            window.scrollTo({top:0});
+        }
+
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        function renderCharacters() {
+            const facultyGrid = document.getElementById('grid-faculty');
+            const year2Grid = document.getElementById('grid-year2');
+            const year1Grid = document.getElementById('grid-year1');
+
+            characters.forEach(char => {
+                const card = document.createElement('div');
+                card.className = `char-card bg-kairus-card rounded-2xl overflow-hidden border border-white/10 group cursor-pointer`;
+                card.innerHTML = `
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="${char.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute bottom-4 left-4 z-10">
+                            <div class="grade-tag text-[10px] font-black tracking-widest px-2 py-0.5 rounded-sm mb-1" style="background:${char.color}33; color:${char.color}; border: 1px solid ${char.color}55">
+                                ${char.grade} GRADE
+                            </div>
+                            <h3 class="text-xl font-black text-white">${char.name}</h3>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-kairus-card relative z-10">
+                        <div class="text-[9px] font-bold text-gray-500 uppercase tracking-widest mb-2">${char.role.split('/')[0]}</div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] bg-white/5 px-2 py-1 rounded text-gray-400 font-bold border border-white/5">${char.mbti}</span>
+                            <i class="fas fa-arrow-right text-xs text-gray-700 group-hover:text-kairus-primary transition-colors"></i>
+                        </div>
+                    </div>
+                `;
+                card.onclick = () => openCharModal(char);
+                if(char.cat === 'faculty') facultyGrid.appendChild(card);
+                else if(char.cat === 'year2') year2Grid.appendChild(card);
+                else if(char.cat === 'year1') year1Grid.appendChild(card);
+            });
+        }
+
+        function openCharModal(char) {
+            const detail = document.getElementById('char-detail');
+            detail.style.borderColor = char.color;
+            // 모바일에서는 이미지 높이를 줄이고(h-48), 데스크탑에선 복구(md:h-auto)
+            detail.innerHTML = `
+                <div class="w-full md:w-[45%] h-48 md:h-auto flex-shrink-0 relative">
+                    <img src="${char.img}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-transparent to-kairus-card"></div>
+                    <button onclick="closeModal('char-modal')" class="absolute top-4 right-4 text-white bg-black/50 p-2 rounded-full md:hidden z-20"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="w-full md:w-[55%] p-6 md:p-12 relative bg-kairus-card">
+                    <button onclick="closeModal('char-modal')" class="hidden md:block absolute top-6 right-6 text-gray-500 hover:text-white transition"><i class="fas fa-times text-xl"></i></button>
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] px-2 py-1 rounded border" style="border-color:${char.color}; color:${char.color}">${char.grade} Grade</span>
+                        <span class="text-[10px] md:text-[11px] text-gray-500 font-bold uppercase tracking-widest">${char.role}</span>
+                    </div>
+                    <h3 class="text-3xl md:text-4xl font-black mb-1 tracking-tighter">${char.name} <span class="text-base md:text-lg font-normal text-gray-600">(${char.age}세)</span></h3>
+                    <p class="text-kairus-primary font-bold text-xs md:text-sm mb-6 md:mb-8 uppercase tracking-widest">${char.mbti} Type</p>
+                    <div class="space-y-6 text-sm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                            <div>
+                                <p class="text-gray-500 text-[10px] uppercase font-black mb-2 tracking-widest">외형</p>
+                                <p class="text-gray-300 leading-relaxed font-medium text-xs md:text-sm">${char.appearance}</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500 text-[10px] uppercase font-black mb-2 tracking-widest">성격</p>
+                                <p class="text-gray-300 leading-relaxed font-medium text-xs md:text-sm">${char.personality}</p>
+                            </div>
+                        </div>
+                        <div class="bg-white/[0.03] p-4 md:p-6 rounded-2xl border border-white/5">
+                            <p class="text-gray-500 text-[10px] uppercase font-black mb-2 tracking-widest">배경</p>
+                            <p class="text-gray-200 leading-relaxed text-xs md:text-sm">${char.desc}</p>
+                        </div>
+                        <div class="p-4 md:p-6 rounded-2xl border-l-4 relative overflow-hidden bg-gradient-to-br from-white/[0.02] to-transparent" style="border-left-color:${char.color}">
+                            <p class="text-gray-500 text-[10px] uppercase font-black mb-2 tracking-widest">전투 방식: ${char.weapon}</p>
+                            <p class="text-white text-sm md:text-base font-bold italic leading-relaxed">${char.feature}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('char-modal').classList.add('active');
+        }
+
+        window.onload = () => {
+            updateMap(0);
+            renderCharacters();
+        }
+    </script>
 </body>
 </html>
