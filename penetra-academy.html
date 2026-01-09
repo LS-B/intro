@@ -145,14 +145,14 @@
             </div>
 
             <div class="grid md:grid-cols-2 gap-6 md:gap-8 mb-8">
-                <!-- 시설 소개 -->
+                <!-- 시설 소개 (수정됨: 대련장 아이콘 변경) -->
                 <div class="bg-penetra-card p-5 md:p-8 rounded-3xl border border-penetra-border shadow-lg">
                     <h3 class="text-lg md:text-xl font-bold mb-6 flex items-center gap-3 font-serif">
                         <i class="fas fa-map-marked-alt text-penetra-primary"></i> CAMPUS FACILITIES
                     </h3>
                     <div class="grid grid-cols-2 gap-3 mb-6">
                         <button onclick="updateMap(0)" id="map-btn-0" class="facility-btn p-3 md:p-4 rounded-xl text-left active">
-                            <i class="fas fa-swords mb-2 block"></i>
+                            <i class="fas fa-fist-raised mb-2 block"></i>
                             <span class="text-xs md:text-sm font-bold">대련장</span>
                         </button>
                         <button onclick="updateMap(1)" id="map-btn-1" class="facility-btn p-3 md:p-4 rounded-xl text-left">
@@ -417,9 +417,9 @@
             menu.classList.toggle('open');
         }
 
-        // 맵 데이터
+        // 맵 데이터 (수정됨: 아이콘 변경)
         const mapData = [
-            { title: "중앙 대련장", desc: "실전 대련 수업과 정규 랭킹전이 열리는 곳입니다. 에드먼 교수의 호탕한 웃음소리와 학생들의 기합 소리가 끊이지 않습니다.", icon: "fa-swords" },
+            { title: "중앙 대련장", desc: "실전 대련 수업과 정규 랭킹전이 열리는 곳입니다. 에드먼 교수의 호탕한 웃음소리와 학생들의 기합 소리가 끊이지 않습니다.", icon: "fa-fist-raised" },
             { title: "강의동 & 도서관", desc: "대륙의 모든 지식이 모인 도서관과 이론 수업이 진행되는 강의동입니다. 이사벨 교수의 추리 수업이 이곳에서 열립니다.", icon: "fa-book-reader" },
             { title: "학생 기숙사", desc: "1인 1실이 원칙이며, 학년별로 A동(1학년), B동(2학년), C동(3학년)으로 나뉩니다. 등급에 따른 차별은 없으나 묘한 긴장감이 흐릅니다.", icon: "fa-bed" },
             { title: "아카데미 식당", desc: "모든 학생과 교직원이 이용하는 대형 식당입니다. 영양 잡힌 식단이 제공되며, 가끔 앨리스가 이상한 디저트를 들고 나타납니다.", icon: "fa-utensils" }
