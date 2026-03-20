@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>단유고등학교 2학년 7반</title>
+    <!-- 파비콘 (학교 로고) -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/0.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome & Google Fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                        title: ['Jua', 'sans-serif'],
+                    },
+                    colors: {
+                        school: {
+                            pink: '#FF6B8B',     // 메인 핑크
+                            lightpink: '#FFF0F5', // 배경용 연분홍
+                            blue: '#4A90E2',      // 남학생(주인공) 포인트 컬러
+                            text: '#2D3436',      // 기본 텍스트
+                            gray: '#636E72',      // 서브 텍스트
+                            card: '#FFFFFF',      // 카드 배경
+                            border: '#FFEAA7'     // 테두리
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FDFBFB;
+            background-image: radial-gradient(#FFD1DC 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: #2D3436;
+            overflow-x: hidden;
+        }
+        
+        /* Glassmorphism Header */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid rgba(255, 107, 139, 0.2);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        /* 탭 시스템 */
+        .tab-content { display: none; }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* 네비게이션 버튼 (귀여운 밑줄 액션) */
+        .nav-btn {
+            position: relative;
+            transition: all 0.3s;
+            white-space: nowrap;
+            padding-bottom: 4px;
+            color: #636E72;
+        }
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0%;
+            height: 3px;
+            background-color: #FF6B8B;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+        .nav-btn:hover { color: #FF6B8B; }
+        .nav-btn:hover::after, .nav-btn.active::after { width: 100%; }
+        .nav-btn.active { color: #FF6B8B; font-weight: 700; }
+
+        /* 커스텀 스크롤바 (핑크) */
+        ::-webkit-scrollbar { width: 8px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #FFF0F5; }
+        ::-webkit-scrollbar-thumb { background: #FFB6C1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF6B8B; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 모달 애니메이션 */
+        .modal {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+            z-index: 100;
+        }
+        .modal.open { opacity: 1; visibility: visible; }
+        .modal.open .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        .modal-content {
+            transform: scale(0.95) translateY(20px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- 상단 네비게이션바 -->
+    <nav class="fixed w-full z-50 glass-panel px-4 py-2 md:px-12 md:h-20 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-0 transition-all">
+        <!-- 로고 영역 -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+            <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/0.png" alt="학교 로고" class="h-10 md:h-12 w-auto object-contain">
+            <div>
+                <h1 class="font-title text-xl md:text-2xl text-school-pink tracking-wide leading-none pt-1">단유고등학교</h1>
+                <span class="text-[10px] font-bold text-school-blue tracking-widest block mt-1">2학년 7반 공식 홈페이지</span>
+            </div>
+        </div>
+
+        <!-- 스크롤 탭 메뉴 -->
+        <div class="w-full md:w-auto overflow-x-auto hide-scrollbar pt-2 md:pt-0">
+            <div class="flex items-center md:justify-end gap-6 md:gap-8 text-sm md:text-base font-medium px-2 pb-2">
+                <button onclick="switchTab('home')" class="nav-btn active" data-tab="home">홈</button>
+                <button onclick="switchTab('worldview')" class="nav-btn" data-tab="worldview">학급 규칙(세계관)</button>
+                <button onclick="switchTab('characters')" class="nav-btn" data-tab="characters">우리 반 친구들</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 메인 컨텐츠 영역 -->
+    <main class="flex-grow pt-32 md:pt-28 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+
+        <!-- 탭 1: 홈 (소개) -->
+        <section id="home" class="tab-content active">
+            <!-- 메인 배너 -->
+            <div class="relative rounded-3xl overflow-hidden mb-12 h-[350px] md:h-[450px] shadow-xl border-4 border-white bg-gradient-to-br from-school-lightpink to-pink-200">
+                <div class="absolute inset-0 flex flex-col items-center justify-center px-6 text-center z-10">
+                    <span class="bg-school-pink text-white text-xs md:text-sm font-bold px-3 py-1 rounded-full mb-4 shadow-md animate-bounce-slow">✨ Welcome to Danyu High ✨</span>
+                    <h2 class="font-title text-4xl md:text-6xl text-school-text mb-4 drop-shadow-md">
+                        우당탕탕 <span class="text-school-pink">남녀역전</span> 라이프!
+                    </h2>
+                    <p class="text-school-gray text-base md:text-lg max-w-2xl bg-white/70 px-6 py-3 rounded-2xl backdrop-blur-sm border border-white/50 shadow-sm">
+                        여학생들의 적극적인 대시와 조신한 남학생들의 일상!<br>
+                        오직 핑크빛 러브코미디만 가득한 이곳에서!<br>
+                        당신의 새 학기가 시작됩니다.
+                    </p>
+                </div>
+                <!-- 배경 장식 -->
+                <i class="fas fa-heart absolute text-white/40 text-9xl -bottom-10 -right-10 rotate-12"></i>
+                <i class="fas fa-star absolute text-white/50 text-6xl top-10 left-10 -rotate-12"></i>
+            </div>
+            
+            <!-- 학교 시설 그리드 -->
+            <h3 class="font-title text-2xl md:text-3xl text-center text-school-pink mb-6"><i class="fas fa-school mr-2"></i> 주요 캠퍼스 스팟</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div onclick="openFacilityModal('class')" class="bg-white p-6 rounded-2xl text-center hover:-translate-y-2 transition-transform cursor-pointer shadow-sm border border-pink-100 hover:border-school-pink hover:shadow-md group">
+                    <div class="w-16 h-16 mx-auto bg-school-lightpink rounded-full flex items-center justify-center mb-3 group-hover:bg-school-pink transition-colors">
+                        <i class="fas fa-chalkboard text-2xl text-school-pink group-hover:text-white"></i>
+                    </div>
+                    <div class="font-bold text-school-text">2학년 7반 교실</div>
+                </div>
+                <div onclick="openFacilityModal('rest')" class="bg-white p-6 rounded-2xl text-center hover:-translate-y-2 transition-transform cursor-pointer shadow-sm border border-pink-100 hover:border-school-pink hover:shadow-md group">
+                    <div class="w-16 h-16 mx-auto bg-blue-50 rounded-full flex items-center justify-center mb-3 group-hover:bg-school-blue transition-colors">
+                        <i class="fas fa-shield-alt text-2xl text-school-blue group-hover:text-white"></i>
+                    </div>
+                    <div class="font-bold text-school-text">남학생 전용 휴게실</div>
+                </div>
+                <div onclick="openFacilityModal('roof')" class="bg-white p-6 rounded-2xl text-center hover:-translate-y-2 transition-transform cursor-pointer shadow-sm border border-pink-100 hover:border-school-pink hover:shadow-md group">
+                    <div class="w-16 h-16 mx-auto bg-yellow-50 rounded-full flex items-center justify-center mb-3 group-hover:bg-yellow-400 transition-colors">
+                        <i class="fas fa-cloud-sun text-2xl text-yellow-500 group-hover:text-white"></i>
+                    </div>
+                    <div class="font-bold text-school-text">비밀의 옥상</div>
+                </div>
+                <div onclick="openFacilityModal('store')" class="bg-white p-6 rounded-2xl text-center hover:-translate-y-2 transition-transform cursor-pointer shadow-sm border border-pink-100 hover:border-school-pink hover:shadow-md group">
+                    <div class="w-16 h-16 mx-auto bg-green-50 rounded-full flex items-center justify-center mb-3 group-hover:bg-green-400 transition-colors">
+                        <i class="fas fa-hamburger text-2xl text-green-500 group-hover:text-white"></i>
+                    </div>
+                    <div class="font-bold text-school-text">매점 (전쟁터)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 탭 2: 세계관 -->
+        <section id="worldview" class="tab-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-10">
+                    <h2 class="font-title text-3xl md:text-4xl text-school-pink mb-3"><i class="fas fa-book-open"></i> 이 세계의 상식 가이드</h2>
+                    <p class="text-school-gray">우리가 알던 세상과는 조금 다른, 짜릿하고 재밌는 역전 세계!</p>
+                </div>
+                <div class="space-y-6">
+                    <!-- 설정 1 -->
+                    <div class="bg-white border-l-8 border-school-pink p-6 rounded-r-2xl shadow-sm hover:shadow-md transition duration-300">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-school-lightpink p-4 rounded-full text-school-pink shrink-0"><i class="fas fa-sync-alt text-2xl"></i></div>
+                            <div>
+                                <h3 class="font-title text-2xl text-school-text mb-2">상식이 뒤집힌 성별 역할</h3>
+                                <p class="text-school-gray leading-relaxed text-sm md:text-base">이 세계에서 여성은 사회, 경제, 정치의 주도층입니다. 남성은 보호받고 배려받아야 할 소중한 존재로 여겨지며, 여학생들은 데이트 신청부터 고백, 스킨십까지 모든 연애를 적극적으로 주도합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 설정 2 -->
+                    <div class="bg-white border-l-8 border-yellow-400 p-6 rounded-r-2xl shadow-sm hover:shadow-md transition duration-300">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-yellow-50 p-4 rounded-full text-yellow-500 shrink-0"><i class="fas fa-laugh-beam text-2xl"></i></div>
+                            <div>
+                                <h3 class="font-title text-2xl text-school-text mb-2">평화로운 시트콤 무드 (피폐 금지!)</h3>
+                                <p class="text-school-gray leading-relaxed text-sm md:text-base">심각한 증오, 폭력, 피폐한 갈등은 절대 발생하지 않습니다. 히로인들 간의 '질투'나 '독점욕'조차 서로에 대한 귀여운 '부러움'이나 투정으로 승화되는 가볍고 유쾌한 분위기를 지향합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 설정 3 -->
+                    <div class="bg-white border-l-8 border-school-blue p-6 rounded-r-2xl shadow-sm hover:shadow-md transition duration-300">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-blue-50 p-4 rounded-full text-school-blue shrink-0"><i class="fas fa-user-shield text-2xl"></i></div>
+                            <div>
+                                <h3 class="font-title text-2xl text-school-text mb-2">남학생 특별 보호 구역</h3>
+                                <p class="text-school-gray leading-relaxed text-sm md:text-base">연약한(?) 남학생들을 위해 교내에는 남학생 전용 휴게실과 철저히 보호되는 탈의실이 운영됩니다. 여학생들은 남학생 앞에서 예의를 차리고 매너를 보여주는 것이 최고의 덕목입니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 탭 3: 캐릭터 -->
+        <section id="characters" class="tab-content">
+            <div class="text-center mb-10 border-b-2 border-pink-100 pb-6">
+                <h2 class="font-title text-3xl md:text-4xl text-school-pink mb-2"><i class="fas fa-users"></i> 우리 반 친구들 명부</h2>
+                <p class="text-school-gray">캐릭터 카드를 클릭하면 상세 프로필과 비밀을 확인할 수 있습니다!</p>
+            </div>
+            
+            <!-- 캐릭터 그리드 (예시 코드의 세련된 UI 적용) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                
+                <!-- 캐릭터 목록은 JS에서 자동 생성됩니다 -->
+                <div id="character-grid-container" class="contents"></div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="border-t border-pink-100 bg-white py-8 text-center text-sm text-school-gray mt-auto">
+        <div class="flex justify-center items-center gap-2 mb-2">
+             <i class="fas fa-school text-school-pink text-xl"></i>
+             <span class="font-title text-lg text-school-text">단유고등학교</span>
+        </div>
+        <p>&copy; 2026 단유고 2학년 7반. 유쾌하고 핑크빛인 일상을 응원합니다.</p>
+    </footer>
+
+    <!-- 시설 안내 모달 -->
+    <div id="facility-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-school-text/50 backdrop-blur-sm" onclick="closeFacilityModal()"></div>
+        <div class="modal-content relative bg-white border-4 border-school-lightpink rounded-3xl p-8 max-w-sm w-full shadow-2xl">
+            <button onclick="closeFacilityModal()" class="absolute top-4 right-4 text-school-gray hover:text-school-pink transition">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div id="modal-icon-bg" class="w-16 h-16 rounded-full bg-school-lightpink flex items-center justify-center mx-auto mb-4">
+                    <i id="modal-icon" class="fas fa-school text-3xl text-school-pink"></i>
+                </div>
+                <h3 id="modal-title" class="font-title text-2xl text-school-text">시설 이름</h3>
+            </div>
+            <p id="modal-desc" class="text-school-gray text-center leading-relaxed text-sm bg-gray-50 p-4 rounded-xl border border-gray-100">
+                시설 설명이 들어갑니다.
+            </p>
+        </div>
+    </div>
+
+    <!-- 캐릭터 상세 모달 (매우 중요!) -->
+    <div id="character-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
+        <div class="absolute inset-0 bg-school-text/60 backdrop-blur-sm" onclick="closeCharacterModal()"></div>
+        <div class="modal-content relative bg-white rounded-3xl overflow-hidden max-w-4xl w-full shadow-2xl flex flex-col md:flex-row border-4 border-school-lightpink">
+            <!-- 닫기 버튼 -->
+            <button onclick="closeCharacterModal()" class="absolute top-4 right-4 z-20 bg-white/80 backdrop-blur text-school-gray hover:text-school-pink hover:bg-white rounded-full w-10 h-10 flex items-center justify-center transition shadow-md">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <!-- 왼쪽: 캐릭터 이미지 영역 -->
+            <div class="w-full md:w-2/5 h-[300px] md:h-auto relative bg-school-lightpink">
+                <img id="char-img" src="" alt="캐릭터 이미지" class="absolute inset-0 w-full h-full object-cover">
+                <!-- 그라데이션 오버레이 -->
+                <div class="absolute inset-0 bg-gradient-to-t from-school-text/80 via-transparent to-transparent"></div>
+                <!-- 팝업 내 한줄 대사 -->
+                <div class="absolute bottom-4 left-4 right-4 text-center">
+                    <span id="char-quote" class="text-white font-title text-lg md:text-xl drop-shadow-md italic">"대사"</span>
+                </div>
+            </div>
+            
+            <!-- 오른쪽: 프로필 상세 정보 -->
+            <div class="w-full md:w-3/5 p-6 md:p-8 flex flex-col max-h-[60vh] md:max-h-none overflow-y-auto hide-scrollbar bg-white">
+                <div class="mb-5 border-b-2 border-pink-50 pb-4">
+                    <div class="flex items-center gap-2 mb-2 flex-wrap" id="char-badges">
+                         <!-- 뱃지들이 동적으로 들어감 -->
+                    </div>
+                    <h2 id="char-name" class="font-title text-4xl text-school-text mb-1">이름</h2>
+                    <p id="char-sub" class="text-school-pink font-bold text-sm">2학년 7반</p>
+                </div>
+
+                <div class="space-y-5 text-sm">
+                    <!-- 외형 -->
+                    <div>
+                        <h4 class="text-school-blue font-bold mb-2 flex items-center gap-2 bg-blue-50 p-2 rounded-lg w-max px-3">
+                            <i class="fas fa-tshirt"></i> 외형
+                        </h4>
+                        <p id="char-appearance" class="text-school-gray leading-relaxed pl-2"></p>
+                    </div>
+
+                    <!-- 성격/말투 -->
+                    <div>
+                        <h4 class="text-yellow-500 font-bold mb-2 flex items-center gap-2 bg-yellow-50 p-2 rounded-lg w-max px-3">
+                            <i class="fas fa-comment-dots"></i> 성격 및 말투
+                        </h4>
+                        <p id="char-personality" class="text-school-gray leading-relaxed pl-2"></p>
+                    </div>
+
+                    <!-- 특징 -->
+                    <div>
+                        <h4 class="text-green-500 font-bold mb-2 flex items-center gap-2 bg-green-50 p-2 rounded-lg w-max px-3">
+                            <i class="fas fa-star"></i> 특징
+                        </h4>
+                        <p id="char-trait" class="text-school-gray leading-relaxed pl-2"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. 학교 시설 데이터
+        const facilityData = {
+            'class': { title: '2학년 7반 교실', icon: 'fa-chalkboard', desc: '주인공이 소속된 반입니다. 여학생들의 시선이 항상 뒷자리(당신)를 향해 집중되어 있어 묘한 긴장감과 하트가 날아다닙니다.' },
+            'rest': { title: '남학생 휴게실', icon: 'fa-shield-alt', desc: '교내 소수인 남학생들을 위해 마련된 안전 구역. 안마의자와 스킨케어 도구들이 완비되어 있습니다. 여학생 출입 엄금!' },
+            'roof': { title: '비밀의 옥상', icon: 'fa-cloud-sun', desc: '점심시간에 누군가의 데이트 신청을 받거나, 혹은 남몰래 둘만의 도시락을 까먹기 좋은 달콤한 장소입니다.' },
+            'store': { title: '매점', icon: 'fa-hamburger', desc: '쉬는 시간 여학생들의 피 터지는 빵 셔틀 레이스가 열리는 곳. 당신에게 가장 맛있는 빵을 바치기 위해 다들 필사적입니다.' }
+        };
+
+        // 2. 캐릭터 데이터 (제공해주신 설정 완벽 반영)
+        const characterData = {
+            'summer': {
+                id: 'c', name: '한여름', sub: '일진녀',
+                tags: ['메스가키', '능글맞음', '도발적', '조롱반말'],
+                quote: "야, 쫄았냐? 꼴에 남자라고 귀엽네~",
+                appearance: '검은색 양갈래 땋은머리, 흑안. 날카로운 고양이 눈매와 눈물점. 아담한 체형에 작은 가슴. 교복 치마를 매우 짧게 줄여 입음.',
+                personality: '능글맞고 도발적인 메스가키. 상대를 얕잡아보는 애교 섞인 반말을 길게 늘여 쓰며, 상대의 반응을 즐기는 타입.',
+                trait: '조신한 남학생들을 툭툭 건드리며 괴롭히는 것을 즐긴다. 은근히 승부욕이 강해서 자기가 밀리는 상황을 절대 못 견디고 얼굴이 붉어진다.'
+            },
+            'dahee': {
+                id: 'd', name: '이다희', sub: '반장 겸 전교 학생회장',
+                tags: ['쿨데레', '원칙주의', '내로남불', '존댓말'],
+                quote: "복장 불량입니다. ...근데 당신에겐 좀 어울리네요.",
+                appearance: '검은색 긴 생머리, 흑안. 날카롭게 올라간 눈매. 얇은 허리와 큰 가슴. 넥타이까지 꽉 조인 단정한 교복 풀세팅.',
+                personality: '깐깐한 원칙주의자에 완벽주의 모범생. 차갑고 논리적이며 냉정하고 단호한 존댓말을 구사한다.',
+                trait: '겉으로는 단정하고 조신한 남학생이 이상형이라 말하지만, 속으로는 야생마 같이 거칠고 마초적인 페로몬에 이끌리는 내로남불 성향이 있다.'
+            },
+            'hana': {
+                id: 'g', name: '윤하나', sub: '분위기 메이커',
+                tags: ['메가데레', '하이텐션', '순수함', '숨겨진소유욕'],
+                quote: "우와! 너도 이거 먹을래? 아~ 해봐, 아~!",
+                appearance: '갈색 웨이브 단발, 청록안. 항상 웃음 짓고 있는 반달 눈매. 중간 가슴. 시원한 반팔 셔츠 교복 차림.',
+                personality: '해맑고 사교적인 하이텐션. 애정이 듬뿍 담겨 듣기만 해도 기분 좋아지는 생동감 넘치고 귀여운 반말을 쓴다.',
+                trait: '먹는 걸 좋아하며 모두에게 예쁨받는다. 마음에 드는 상대가 다른 사람과 있어 자신을 방치하면, 억지로라도 관심을 끌려 노력하는 숨겨진 소유욕(갭모에)이 있다.'
+            },
+            'yejin': {
+                id: 'h', name: '차예진', sub: '대기업 회장 손녀',
+                tags: ['오만함', '츤데레', '연애허당', '금수저'],
+                quote: "원하는 거 다 말해! 내 돈으로 안 되는 남자는 없...어?",
+                appearance: '백금색 단발, 청안. 고양이 눈매에 모델 체형, 큰 가슴. 소매를 걷은 셔츠에 베이지 베스트, 검은색 초커 장착.',
+                personality: '고압적이고 명령조이며 남을 깔보는 도도한 말투. 하지만 당황하면 얼굴이 새빨개지며 말을 심하게 더듬는다.',
+                trait: '돈과 권력이면 모든 남자를 다룰 수 있다 맹신하지만, 굽히지 않는 거친 반항아에게 유독 약하다. 돈으로 환심을 사려다 헛발질을 하는 귀여운 연애 허당.'
+            },
+            'yuna': {
+                id: 'j', name: '서유나', sub: '여왕벌',
+                tags: ['여왕벌', '돈미새', '계산적', '과시욕'],
+                quote: "날 봐. 내 옆에 서는 걸 영광으로 알라고, 알겠니?",
+                appearance: '금색 긴 생머리에 갈라진 앞머리. 사람을 홀리는 여우 눈매. 은은한 고급 향수 냄새, 큰 가슴, 세련되게 수선한 교복과 베이지 가디건.',
+                personality: '겉으로는 상냥하지만 묘하게 우위를 점하며 사람을 부리는 나긋나긋하고 비웃는 듯한 말투를 구사한다.',
+                trait: '모든 남자가 자신을 우러러보는 것을 당연하게 여긴다. 자신을 투명인간 취급하는 남자에게 자존심 스크래치를 입으며, 부러움을 한 몸에 받는 과시형 연애를 추구한다.'
+            },
+            'seoa': {
+                id: 'k', name: '채서아', sub: '오타쿠 아웃사이더',
+                tags: ['소심함', '아웃사이더', '풍부한상상력', '만화방데이트'],
+                quote: "저, 저기... 혹시 이, 이 게임... 좋아해...?",
+                appearance: '흑색 단발, 눈을 덮은 덥수룩한 앞머리. 아담한 체형에 의외로 큰 가슴. 평범한 교복 차림.',
+                personality: '항상 시선을 바닥에 깔고 말을 더듬는 기어들어 가는 말투. 하지만 관심사(게임/애니)가 겹치면 갑자기 말이 엄청나게 많아진다.',
+                trait: '여학생 특유의 주도성이나 거침이 없어 교실 생태계 최하위에 겉돈다. 만화방에서 밤샘 데이트 같은 소소한 순애보 연애를 꿈꾼다.'
+            },
+            'woojin': {
+                id: 'l', name: '강우진', sub: '육상부 에이스',
+                tags: ['보이시', '직진녀', '단순무식', '솔직함'],
+                quote: "복잡한 건 딱 질색이야! 일단 손부터 잡고 뛰자!",
+                appearance: '헝클어진 흑색 숏컷, 맑은 흑안에 쌍꺼풀 짙은 강아지 눈매. 큰 가슴. 눈물점. 항상 소매를 걷어붙인 교복.',
+                personality: '매우 직설적이고 시원시원한 반말을 사용한다. 에너지가 넘치고 털털한 성격.',
+                trait: '머리 쓰는 기싸움이나 어장관리는 전혀 모른다. 연애 경험 전무. 하지만 지기 싫어하는 경쟁심이 발동하면, 남의 눈치 보지 않고 거침없이 스킨십을 돌진한다.'
+            },
+            'jimin': {
+                id: 'm', name: '유지민', sub: '남성혐오(?) 마이웨이',
+                tags: ['독설가', '입덕부정기', '시니컬', '마이웨이'],
+                quote: "귀찮게 굴지 말고 꺼져. ...아니, 조금만 더 있던가.",
+                appearance: '은색 장발에 사이드 포니테일, 청안. 반쯤 감은 눈과 눈물점. 큰 가슴. 교복 위에 검은색 후드티를 눌러쓰고 다님.',
+                personality: '매사에 귀찮은 듯 툭툭 내뱉으며 상대의 뼈를 때리는 차갑고 까칠한 반말.',
+                trait: '징징대는 남학생들을 싫어해 철벽을 친다. 하지만 자신의 상식을 부수고 거칠게 다가오는 남성(플레이어)에게 극심한 이성적 떨림을 느끼며 지독한 입덕 부정기를 겪는다.'
+            }
+        };
+
+        // 3. 캐릭터 카드 동적 생성 (그리드에 뿌리기)
+        function renderCharacters() {
+            const container = document.getElementById('character-grid-container');
+            let html = '';
+            
+            for (const key in characterData) {
+                const char = characterData[key];
+                // 이미지 URL 생성 (상태 0 기본)
+                const imgUrl = `https://igx.kr/d/MR/${char.id}/0`;
+                
+                html += `
+                <div onclick="openCharacterModal('${key}')" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-pink-50 hover:border-school-pink transition-all duration-300 cursor-pointer group">
+                    <div class="h-60 overflow-hidden relative bg-school-lightpink">
+                        <img src="${imgUrl}" alt="${char.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-school-text/80 to-transparent">
+                            <span class="text-white font-bold text-sm bg-school-pink/90 px-2 py-1 rounded-md inline-block mb-1">${char.sub}</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-title text-2xl text-school-text group-hover:text-school-pink transition-colors mb-2">${char.name}</h3>
+                        <div class="flex flex-wrap gap-1">
+                            ${char.tags.slice(0,2).map(tag => `<span class="text-xs font-bold text-school-gray bg-gray-100 px-2 py-1 rounded-full border border-gray-200">#${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        // 4. 모달 및 탭 제어 함수
+        function openFacilityModal(type) {
+            const data = facilityData[type];
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-desc').textContent = data.desc;
+            document.getElementById('modal-icon').className = `fas ${data.icon} text-3xl text-school-pink`;
+            document.getElementById('facility-modal').classList.add('open');
+        }
+        function closeFacilityModal() { document.getElementById('facility-modal').classList.remove('open'); }
+
+        function openCharacterModal(key) {
+            const char = characterData[key];
+            const imgUrl = `https://igx.kr/d/MR/${char.id}/0`;
+            
+            document.getElementById('char-img').src = imgUrl;
+            document.getElementById('char-quote').textContent = `"${char.quote}"`;
+            document.getElementById('char-name').textContent = char.name;
+            document.getElementById('char-sub').textContent = char.sub;
+            
+            // 뱃지 생성
+            const badgesHtml = char.tags.map(tag => `<span class="text-xs font-bold text-school-pink bg-school-lightpink border border-pink-200 px-2 py-1 rounded-full shadow-sm">#${tag}</span>`).join('');
+            document.getElementById('char-badges').innerHTML = badgesHtml;
+            
+            document.getElementById('char-appearance').textContent = char.appearance;
+            document.getElementById('char-personality').textContent = char.personality;
+            document.getElementById('char-trait').textContent = char.trait;
+
+            document.getElementById('character-modal').classList.add('open');
+        }
+        function closeCharacterModal() { document.getElementById('character-modal').classList.remove('open'); }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll(`[data-tab="${tabId}"]`).forEach(btn => btn.classList.add('active'));
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 페이지 로드 시 캐릭터 렌더링
+        window.onload = () => {
+            renderCharacters();
+        };
+    </script>
+</body>
+</html>
