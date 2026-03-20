@@ -50,6 +50,11 @@
         }
     </script>
     <style>
+        /* ★ 추가된 부분: 스크롤바 유무에 따른 좌우 흔들림 방지 */
+        html {
+            overflow-y: scroll;
+        }
+
         body {
             background-color: #FDFBFB;
             background-image: radial-gradient(#FFD1DC 1px, transparent 1px);
@@ -159,12 +164,11 @@
                 <div class="absolute inset-0 flex flex-col items-center justify-center px-6 text-center z-10">
                     <span class="bg-school-pink text-white text-xs md:text-sm font-bold px-3 py-1 rounded-full mb-4 shadow-md animate-bounce-slow">✨ Welcome to Danyu High ✨</span>
                     <h2 class="font-title text-4xl md:text-6xl text-school-text mb-4 drop-shadow-md">
-                        우당탕탕 <span class="text-school-pink">남녀역전</span> 라이프!
+                        우당탕탕 <span class="text-school-pink">남녀역전</span> 생활!
                     </h2>
                     <p class="text-school-gray text-base md:text-lg max-w-2xl bg-white/70 px-6 py-3 rounded-2xl backdrop-blur-sm border border-white/50 shadow-sm">
                         여학생들의 적극적인 대시와 조신한 남학생들의 일상!<br>
-                        오직 핑크빛 러브코미디만 가득한 이곳에서!<br>
-                        당신의 새 학기가 시작됩니다.
+                        핑크빛 러브코미디만 가득한 이곳에서! 시작됩니다!
                     </p>
                 </div>
                 <!-- 배경 장식 -->
@@ -207,7 +211,7 @@
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-10">
                     <h2 class="font-title text-3xl md:text-4xl text-school-pink mb-3"><i class="fas fa-book-open"></i> 이 세계의 상식 가이드</h2>
-                    <p class="text-school-gray">우리가 알던 세상과는 조금 다른, 짜릿하고 재밌는 역전 세계!</p>
+                    <p class="text-school-gray">우리가 알던 세상과는 조금 다른, 역전 세계!</p>
                 </div>
                 <div class="space-y-6">
                     <!-- 설정 1 -->
@@ -248,7 +252,7 @@
         <section id="characters" class="tab-content">
             <div class="text-center mb-10 border-b-2 border-pink-100 pb-6">
                 <h2 class="font-title text-3xl md:text-4xl text-school-pink mb-2"><i class="fas fa-users"></i> 우리 반 친구들 명부</h2>
-                <p class="text-school-gray">캐릭터 카드를 클릭하면 상세 프로필과 비밀을 확인할 수 있습니다!</p>
+                <p class="text-school-gray">캐릭터를 클릭하면 상세 프로필을 확인할 수 있습니다!</p>
             </div>
             
             <!-- 캐릭터 그리드 (예시 코드의 세련된 UI 적용) -->
