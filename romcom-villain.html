@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서툰 청춘들의 연애 방정식 | Danyu Univ.</title>
+    <!-- 파비콘 추가 -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/0.png">
+    <!-- 폰트 및 아이콘 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans:['Pretendard Variable', 'sans-serif'],
+                    },
+                    colors: {
+                        romcom: {
+                            primary: '#FF6B6B',
+                            secondary: '#4ECDC4',
+                            accent: '#FFE66D',
+                            bg: '#F8FAFC',
+                            card: '#FFFFFF',
+                            text: '#2D3436',
+                            sub: '#636E72',
+                            villain: '#6C5CE7'
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'bounce-x': 'bounceX 2s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        bounceX: {
+                            '0%, 100%': { transform: 'translateX(0)' },
+                            '50%': { transform: 'translateX(10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 스크롤바 생성 시 레이아웃 밀림 방지 */
+        body {
+            background-color: #F8FAFC;
+            color: #2D3436;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+        
+        /* Glassmorphism Header */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 탭 컨텐츠 제어 */
+        .tab-content { display: none; }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        /* 네비게이션 버튼 애니메이션 */
+        .nav-btn {
+            position: relative;
+            transition: all 0.3s;
+            white-space: nowrap;
+            padding-bottom: 6px;
+            font-weight: 500;
+            color: #636E72;
+        }
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0%;
+            height: 3px;
+            background-color: #FF6B6B;
+            transition: width 0.3s ease-in-out;
+            border-radius: 3px;
+        }
+        .nav-btn:hover { color: #FF6B6B; }
+        .nav-btn:hover::after, .nav-btn.active::after { width: 100%; }
+        .nav-btn.active { color: #FF6B6B; font-weight: 700; }
+
+        /* 스크롤바 커스텀 */
+        ::-webkit-scrollbar { width: 8px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #F1F5F9; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF6B6B; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* 모달 애니메이션 */
+        .modal {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+        }
+        .modal.open { opacity: 1; visibility: visible; }
+        .modal.open .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        .modal-content {
+            transform: scale(0.95) translateY(20px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* 캐릭터 카드 호버시 이미지 전환 */
+        .char-img-wrap img { transition: opacity 0.4s ease; }
+        .char-card:hover .img-default { opacity: 0; }
+        .char-card:hover .img-hover { opacity: 1; }
+
+        /* 관계도 SVG 라인 애니메이션 */
+        .relation-line {
+            stroke-dasharray: 8;
+            animation: dash 20s linear infinite;
+        }
+        @keyframes dash { to { stroke-dashoffset: -1000; } }
+        
+        /* 관계도 라벨 */
+        .map-label {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 1px solid #E2E8F0;
+            color: #64748B;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+            z-index: 20;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            pointer-events: none;
+        }
+        .map-label.hate span { color: #FF6B6B; }
+        .map-label.love span { color: #4ECDC4; }
+        
+        /* 모바일 스크롤 힌트 그림자 */
+        .scroll-hint-shadow {
+            background: linear-gradient(to right, transparent, rgba(255,255,255,1));
+        }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col min-h-screen relative">
+
+    <!-- Navigation Header -->
+    <nav class="fixed w-full z-50 glass-nav flex flex-col md:flex-row items-center md:justify-between px-4 py-3 md:px-10 gap-3 md:gap-0">
+        <!-- Logo Area -->
+        <div class="flex items-center gap-3 cursor-pointer shrink-0" onclick="switchTab('tab-intro')">
+            <!-- 요청하신 대학교 로고 이미지 반영 -->
+            <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/0.png" alt="단유대학교 로고" class="w-10 h-10 object-contain drop-shadow-sm">
+            <div>
+                <h1 class="text-lg font-black tracking-tight text-romcom-text leading-none">단유대학교</h1>
+                <span class="text-[10px] text-romcom-sub font-bold tracking-widest block mt-0.5">ROMCOM X POSSESSION</span>
+            </div>
+        </div>
+
+        <div class="w-full md:w-auto overflow-x-auto hide-scrollbar pt-1 md:pt-0">
+            <div class="flex items-center justify-start md:justify-end gap-5 md:gap-8 text-sm md:text-base px-1 pb-1">
+                <button onclick="switchTab('tab-intro')" class="nav-btn active" data-tab="tab-intro">캠퍼스 로맨스</button>
+                <button onclick="switchTab('tab-world')" class="nav-btn" data-tab="tab-world">빙의 설정</button>
+                <button onclick="switchTab('tab-chars')" class="nav-btn" data-tab="tab-chars">히로인 공략</button>
+                <button onclick="switchTab('tab-map')" class="nav-btn" data-tab="tab-map">관계 역전도</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow pt-32 md:pt-28 pb-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+
+        <!-- Tab 1: Intro (캠퍼스 소개) -->
+        <section id="tab-intro" class="tab-content active">
+            <div class="relative rounded-3xl overflow-hidden mb-12 h-[350px] md:h-[450px] shadow-2xl">
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-teal-50 to-pink-50"></div>
+                <div class="absolute top-10 left-10 w-32 h-32 bg-romcom-primary/10 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-10 right-10 w-48 h-48 bg-romcom-secondary/20 rounded-full blur-3xl"></div>
+                
+                <div class="absolute inset-0 flex flex-col justify-center px-6 md:px-16 text-center md:text-left z-10">
+                    <span class="inline-block bg-white text-romcom-primary font-extrabold tracking-widest mb-4 text-[10px] md:text-xs px-4 py-1.5 rounded-full shadow-sm mx-auto md:mx-0 w-max">
+                        서툰 청춘들의 연애 방정식
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-black mb-4 md:mb-5 leading-tight text-slate-800 break-keep">
+                        퇴학 엔딩을 피하기 위한<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-romcom-primary to-orange-400">빌런의 캠퍼스 생존기</span>
+                    </h2>
+                    <p class="text-slate-600 max-w-xl text-xs md:text-base leading-relaxed break-keep mx-auto md:mx-0">
+                        남주 곁에서 히로인들을 괴롭히다 10월 축제에 퇴학당하는 악역 절친에 빙의했다. 나를 벌레 보듯 혐오하는 그녀들의 시선을 애착으로 바꿔야만 살아남을 수 있다!
+                    </p>
+                </div>
+            </div>
+            
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 md:p-10 shadow-xl shadow-slate-200/50">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-slate-100 pb-4 mb-6 gap-2 md:gap-0">
+                    <div>
+                        <h3 class="text-xl md:text-2xl font-bold flex items-center gap-2 text-slate-800">
+                            <i class="fas fa-map-marked-alt text-romcom-secondary"></i> 단유대학교 주요 스팟
+                        </h3>
+                        <p class="text-slate-500 text-xs md:text-sm mt-1">이벤트가 발생하는 캠퍼스 맵. 시설을 클릭하세요.</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+                    <div onclick="openFacility('lib')" class="group cursor-pointer bg-slate-50 p-4 md:p-6 rounded-2xl hover:bg-romcom-secondary hover:text-white transition-all duration-300 text-center border border-slate-100">
+                        <i class="fas fa-book-open text-2xl md:text-3xl text-slate-400 group-hover:text-white mb-3 md:mb-4 transition"></i>
+                        <h4 class="font-bold text-sm md:text-lg mb-1">중앙도서관</h4>
+                        <p class="text-[10px] md:text-xs text-slate-500 group-hover:text-blue-50">#과탑의_아지트</p>
+                    </div>
+                    <div onclick="openFacility('art')" class="group cursor-pointer bg-slate-50 p-4 md:p-6 rounded-2xl hover:bg-romcom-primary hover:text-white transition-all duration-300 text-center border border-slate-100">
+                        <i class="fas fa-palette text-2xl md:text-3xl text-slate-400 group-hover:text-white mb-3 md:mb-4 transition"></i>
+                        <h4 class="font-bold text-sm md:text-lg mb-1">예술관 실기실</h4>
+                        <p class="text-[10px] md:text-xs text-slate-500 group-hover:text-pink-100">#미대선배의_유혹</p>
+                    </div>
+                    <div onclick="openFacility('union')" class="group cursor-pointer bg-slate-50 p-4 md:p-6 rounded-2xl hover:bg-orange-400 hover:text-white transition-all duration-300 text-center border border-slate-100">
+                        <i class="fas fa-users text-2xl md:text-3xl text-slate-400 group-hover:text-white mb-3 md:mb-4 transition"></i>
+                        <h4 class="font-bold text-sm md:text-lg mb-1">학생회관</h4>
+                        <p class="text-[10px] md:text-xs text-slate-500 group-hover:text-orange-100">#학생회장의_한숨</p>
+                    </div>
+                    <div onclick="openFacility('cafe')" class="group cursor-pointer bg-slate-50 p-4 md:p-6 rounded-2xl hover:bg-pink-400 hover:text-white transition-all duration-300 text-center border border-slate-100">
+                        <i class="fas fa-coffee text-2xl md:text-3xl text-slate-400 group-hover:text-white mb-3 md:mb-4 transition"></i>
+                        <h4 class="font-bold text-sm md:text-lg mb-1">캠퍼스 카페</h4>
+                        <p class="text-[10px] md:text-xs text-slate-500 group-hover:text-pink-100">#소동물_신입생</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 2: Worldview (세계관/빙의 설정) -->
+        <section id="tab-world" class="tab-content">
+            <div class="text-center mb-10 md:mb-12">
+                <span class="inline-flex items-center gap-2 px-3 py-1.5 bg-red-50 text-red-500 text-[10px] md:text-xs font-bold tracking-widest rounded-full mb-3 md:mb-4 border border-red-100">
+                    <i class="fas fa-exclamation-triangle"></i> SYSTEM WARNING
+                </span>
+                <h2 class="text-2xl md:text-4xl font-black mb-3 md:mb-4 text-slate-800">빙의 설정 및 클리어 조건</h2>
+                <p class="text-xs md:text-base text-slate-500">당신이 빙의한 '악역'의 리스크와 생존 전략입니다.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-5 md:gap-6">
+                <div class="bg-white border border-slate-100 p-6 md:p-8 rounded-3xl shadow-lg shadow-slate-200/40 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1.5 md:w-2 h-full bg-romcom-villain"></div>
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-indigo-50 text-romcom-villain rounded-xl md:rounded-2xl flex items-center justify-center text-xl md:text-2xl mb-4 md:mb-6"><i class="fas fa-skull"></i></div>
+                    <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3 text-slate-800">데스 엔딩: 10월 축제</h3>
+                    <p class="text-slate-500 text-xs md:text-sm leading-relaxed">
+                        원작대로라면 10월 축제 날 전교생 앞에서 모든 악행이 까발려지며 비참하게 강제 퇴학을 당합니다. 이 파멸 엔딩을 피하는 것이 게임의 최종 목표입니다.
+                    </p>
+                </div>
+                <div class="bg-white border border-slate-100 p-6 md:p-8 rounded-3xl shadow-lg shadow-slate-200/40 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1.5 md:w-2 h-full bg-romcom-secondary"></div>
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-teal-50 text-romcom-secondary rounded-xl md:rounded-2xl flex items-center justify-center text-xl md:text-2xl mb-4 md:mb-6"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3 text-slate-800">눈치 제로의 무한 쉴드</h3>
+                    <p class="text-slate-500 text-xs md:text-sm leading-relaxed">
+                        원작 남주 '이도윤'은 당신을 세상에서 가장 착한 절친으로 굳게 믿고 있습니다. 히로인들이 당신을 욕할수록 남주가 당신을 감싸고 돌아, 히로인들의 호감도는 역으로 깎여나갑니다.
+                    </p>
+                </div>
+                <div class="bg-white border border-slate-100 p-6 md:p-8 rounded-3xl shadow-lg shadow-slate-200/40 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1.5 md:w-2 h-full bg-romcom-primary"></div>
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-pink-50 text-romcom-primary rounded-xl md:rounded-2xl flex items-center justify-center text-xl md:text-2xl mb-4 md:mb-6"><i class="fas fa-heart"></i></div>
+                    <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3 text-slate-800">혐오에서 애착으로</h3>
+                    <p class="text-slate-500 text-xs md:text-sm leading-relaxed">
+                        초반 히로인들의 호감도는 <b>마이너스(-)</b>입니다. 그녀들의 숨겨진 결핍(갭모에)을 자극하고 공략하여, 남주를 향한 짝사랑을 당신을 향한 '맹목적인 애착'으로 비틀어야 합니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 3: Characters (등장인물/히로인 공략) -->
+        <section id="tab-chars" class="tab-content">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 md:mb-8 border-b border-slate-200 pb-4 gap-2 md:gap-0">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-black mb-1 md:mb-2 text-slate-800">공략 대상 <span class="text-sm md:text-lg text-slate-400 font-normal ml-1 md:ml-2">Characters</span></h2>
+                    <p class="text-romcom-primary text-[10px] md:text-sm font-bold animate-pulse">
+                        <i class="fas fa-mouse-pointer mr-1"></i> 캐릭터 카드에 마우스를 올리면 숨겨진 '갭모에(표정)'가 드러납니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 md:gap-6">
+                <!-- 1. 이도윤 -->
+                <div class="char-card bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-xl shadow-slate-200/40 relative cursor-pointer group" onclick="openChar('doyun')">
+                    <div class="h-60 md:h-72 w-full relative bg-[#E8F3F1] char-img-wrap overflow-hidden">
+                        <img src="https://igx.kr/d/1R/j/0" class="img-default absolute inset-0 w-full h-full object-cover object-top scale-105" alt="도윤 기본">
+                        <img src="https://igx.kr/d/1R/j/1" class="img-hover absolute inset-0 w-full h-full object-cover object-top opacity-0 scale-110 transition-transform duration-500" alt="도윤 호버">
+                        <div class="absolute bottom-0 w-full h-20 md:h-24 bg-gradient-to-t from-white to-transparent"></div>
+                    </div>
+                    <div class="p-4 md:p-5 relative bg-white">
+                        <div class="absolute -top-3 md:-top-4 right-3 md:right-4 bg-teal-500 text-white text-[9px] md:text-[10px] font-bold px-2 md:px-3 py-1 md:py-1.5 rounded-full shadow-md">원작 남주</div>
+                        <div class="text-[10px] md:text-xs font-bold text-teal-600 mb-1">경영학과 2학년</div>
+                        <h3 class="text-lg md:text-xl font-black text-slate-800 mb-1 md:mb-2">이도윤</h3>
+                        <p class="text-[11px] md:text-xs text-slate-500 line-clamp-2 leading-relaxed">연애 눈치 제로. 주인공(빌런)을 세상 착한 친구로 믿으며 쉴드치는 답답이.</p>
+                    </div>
+                </div>
+
+                <!-- 2. 서아린 -->
+                <div class="char-card bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-xl shadow-slate-200/40 relative cursor-pointer group hover:-translate-y-2 transition-transform duration-300" onclick="openChar('arin')">
+                    <div class="h-60 md:h-72 w-full relative bg-[#F4F1F8] char-img-wrap overflow-hidden">
+                        <img src="https://igx.kr/d/1R/c/6" class="img-default absolute inset-0 w-full h-full object-cover object-top scale-105" alt="아린 기본">
+                        <img src="https://igx.kr/d/1R/c/8" class="img-hover absolute inset-0 w-full h-full object-cover object-top opacity-0 scale-110 transition-transform duration-500" alt="아린 호버">
+                        <div class="absolute bottom-0 w-full h-20 md:h-24 bg-gradient-to-t from-white to-transparent"></div>
+                        <div class="absolute top-2 md:top-3 left-2 md:left-3 bg-pink-500 text-white text-[9px] md:text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-unlock"></i> 갭모에</div>
+                    </div>
+                    <div class="p-4 md:p-5 relative bg-white">
+                        <div class="absolute -top-3 md:-top-4 right-3 md:right-4 bg-indigo-500 text-white text-[9px] md:text-[10px] font-bold px-2 md:px-3 py-1 md:py-1.5 rounded-full shadow-md">경영학과 과탑</div>
+                        <div class="flex gap-1 mb-1 md:mb-2">
+                            <span class="text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 bg-slate-100 text-slate-600 rounded">#쿨데레</span>
+                            <span class="text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 bg-slate-100 text-slate-600 rounded">#철벽녀</span>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-black text-slate-800 mb-1 md:mb-2">서아린</h3>
+                        <p class="text-[11px] md:text-xs text-slate-500 line-clamp-2 leading-relaxed group-hover:text-pink-500 transition-colors">"도윤이 옆에서 떨어지세요. 벌레 보듯 불쾌하니까."</p>
+                    </div>
+                </div>
+
+                <!-- 3. 민채원 -->
+                <div class="char-card bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-xl shadow-slate-200/40 relative cursor-pointer group hover:-translate-y-2 transition-transform duration-300" onclick="openChar('chaewon')">
+                    <div class="h-60 md:h-72 w-full relative bg-[#FFF7ED] char-img-wrap overflow-hidden">
+                        <img src="https://igx.kr/d/1R/d/4" class="img-default absolute inset-0 w-full h-full object-cover object-top scale-105" alt="채원 기본">
+                        <img src="https://igx.kr/d/1R/d/5" class="img-hover absolute inset-0 w-full h-full object-cover object-top opacity-0 scale-110 transition-transform duration-500" alt="채원 호버">
+                        <div class="absolute bottom-0 w-full h-20 md:h-24 bg-gradient-to-t from-white to-transparent"></div>
+                        <div class="absolute top-2 md:top-3 left-2 md:left-3 bg-pink-500 text-white text-[9px] md:text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-unlock"></i> 갭모에</div>
+                    </div>
+                    <div class="p-4 md:p-5 relative bg-white">
+                        <div class="absolute -top-3 md:-top-4 right-3 md:right-4 bg-orange-400 text-white text-[9px] md:text-[10px] font-bold px-2 md:px-3 py-1 md:py-1.5 rounded-full shadow-md">경영학과 1학년</div>
+                        <div class="flex gap-1 mb-1 md:mb-2">
+                            <span class="text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 bg-slate-100 text-slate-600 rounded">#소동물</span>
+                            <span class="text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 bg-slate-100 text-slate-600 rounded">#메가데레</span>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-black text-slate-800 mb-1 md:mb-2">민채원</h3>
+                        <p class="text-[11px] md:text-xs text-slate-500 line-clamp-2 leading-relaxed group-hover:text-pink-500 transition-colors">"아, 안녕, 하세요... (뒷걸음질 친다)"</p>
+                    </div>
+                </div>
+
+                <!-- 4. 한유나 -->
+                <div class="char-card bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-xl shadow-slate-200/40 relative cursor-pointer group hover:-translate-y-2 transition-transform duration-300" onclick="openChar('yuna')">
+                    <div class="h-60 md:h-72 w-full relative bg-[#FEF2F2] char-img-wrap overflow-hidden">
+                        <img src="https://igx.kr/d/1R/g/6" class="img-default absolute inset-0 w-full h-full object-cover object-top scale-105" alt="유나 기본">
+                        <img src="https://igx.kr/d/1R/g/8" class="img-hover absolute inset-0 w-full h-full object-cover object-top opacity-0 scale-110 transition-transform duration-500" alt="유나 호버">
+                        <div class="absolute bottom-0 w-full h-20 md:h-24 bg-gradient-to-t from-white to-transparent"></div>
+                        <div class="absolute top-2 md:top-3 left-2 md:left-3 bg-pink-500 text-white text-[9px] md:text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-unlock"></i> 갭모에</div>
+                    </div>
+                    <div class="p-4 md:p-5 relative bg-white">
+                        <div class="absolute -top-3 md:-top-4 right-3 md:right-4 bg-red-500 text-white text-[9px] md:text-[10px] font-bold px-2 md:px-3 py-1 md:py-1.5 rounded-full shadow-md">미대 3학년 선배</div>
+                        <div class="flex gap-1 mb-1 md:mb-2">
+                            <span class="text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 bg-slate-100 text-slate-600 rounded">#소악마</span>
+                            <span class="text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 bg-slate-100 text-slate-600 rounded">#능글맞음</span>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-black text-slate-800 mb-1 md:mb-2">한유나</h3>
+                        <p class="text-[11px] md:text-xs text-slate-500 line-clamp-2 leading-relaxed group-hover:text-pink-500 transition-colors">"어머, 또 껌딱지처럼 붙어있네? 눈치껏 빠져주지?"</p>
+                    </div>
+                </div>
+
+                <!-- 5. 이해나 -->
+                <div class="char-card bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-xl shadow-slate-200/40 relative cursor-pointer group hover:-translate-y-2 transition-transform duration-300" onclick="openChar('haena')">
+                    <div class="h-60 md:h-72 w-full relative bg-[#F0F9FF] char-img-wrap overflow-hidden">
+                        <img src="https://igx.kr/d/1R/h/3" class="img-default absolute inset-0 w-full h-full object-cover object-top scale-105" alt="해나 기본">
+                        <img src="https://igx.kr/d/1R/h/8" class="img-hover absolute inset-0 w-full h-full object-cover object-top opacity-0 scale-110 transition-transform duration-500" alt="해나 호버">
+                        <div class="absolute bottom-0 w-full h-20 md:h-24 bg-gradient-to-t from-white to-transparent"></div>
+                        <div class="absolute top-2 md:top-3 left-2 md:left-3 bg-pink-500 text-white text-[9px] md:text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-unlock"></i> 갭모에</div>
+                    </div>
+                    <div class="p-4 md:p-5 relative bg-white">
+                        <div class="absolute -top-3 md:-top-4 right-3 md:right-4 bg-blue-500 text-white text-[9px] md:text-[10px] font-bold px-2 md:px-3 py-1 md:py-1.5 rounded-full shadow-md">경영학과 학생회장</div>
+                        <div class="flex gap-1 mb-1 md:mb-2">
+                            <span class="text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 bg-slate-100 text-slate-600 rounded">#츤데레</span>
+                            <span class="text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 bg-slate-100 text-slate-600 rounded">#책임감</span>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-black text-slate-800 mb-1 md:mb-2">이해나</h3>
+                        <p class="text-[11px] md:text-xs text-slate-500 line-clamp-2 leading-relaxed group-hover:text-pink-500 transition-colors">"목표도 없이 시간 낭비할 거면, 비켜주실래요?"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 4: Relationship Map (관계 역전도) -->
+        <section id="tab-map" class="tab-content">
+            <div class="text-center mb-6 md:mb-8">
+                <h2 class="text-2xl md:text-3xl font-black mb-1 md:mb-2 text-slate-800">인물 관계도</h2>
+                <p class="text-slate-500 text-xs md:text-sm">초반의 혐오 구도를 깨고, 그녀들의 화살표를 당신에게 향하게 하세요.</p>
+            </div>
+            
+            <div class="relative w-full rounded-3xl border border-slate-100 shadow-xl overflow-hidden bg-white">
+                <div class="absolute bottom-4 right-4 z-30 md:hidden bg-white/90 backdrop-blur border border-slate-200 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-lg animate-bounce-x pointer-events-none">
+                    <span class="text-xs font-bold text-romcom-primary">좌우로 스크롤하세요</span>
+                    <i class="fas fa-arrows-alt-h text-romcom-primary"></i>
+                </div>
+                <div class="absolute top-0 right-0 w-8 h-full scroll-hint-shadow z-20 pointer-events-none md:hidden"></div>
+
+                <div class="w-full overflow-x-auto overflow-y-hidden hide-scrollbar">
+                    <div class="relative min-w-[800px] w-full h-[500px] md:h-[600px] mx-auto">
+                        
+                        <!-- SVG Lines Background -->
+                        <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+                            <defs>
+                                <marker id="arrow-pink" markerWidth="8" markerHeight="8" refX="28" refY="4" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,8 L8,4 z" fill="#FF6B6B" />
+                                </marker>
+                                <marker id="arrow-teal" markerWidth="8" markerHeight="8" refX="28" refY="4" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,8 L8,4 z" fill="#4ECDC4" />
+                                </marker>
+                                <marker id="arrow-gray" markerWidth="8" markerHeight="8" refX="28" refY="4" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,8 L8,4 z" fill="#CBD5E1" />
+                                </marker>
+                            </defs>
+                            
+                            <!-- 모든 라인의 stroke-width를 2로 통일 -->
+                            <!-- Lines: Doyun to User -->
+                            <line x1="50%" y1="80%" x2="50%" y2="45%" stroke="#4ECDC4" stroke-width="2" marker-end="url(#arrow-teal)" />
+                            
+                            <!-- Lines: Heroines to Doyun -->
+                            <line x1="20%" y1="20%" x2="50%" y2="80%" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" />
+                            <line x1="80%" y1="20%" x2="50%" y2="80%" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" />
+                            <line x1="15%" y1="60%" x2="50%" y2="80%" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" />
+                            <line x1="85%" y1="60%" x2="50%" y2="80%" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-gray)" />
+
+                            <!-- Lines: Heroines to User -->
+                            <line x1="20%" y1="20%" x2="50%" y2="45%" stroke="#FF6B6B" stroke-width="2" class="relation-line" marker-end="url(#arrow-pink)" />
+                            <line x1="80%" y1="20%" x2="50%" y2="45%" stroke="#FF6B6B" stroke-width="2" class="relation-line" marker-end="url(#arrow-pink)" />
+                            <line x1="15%" y1="60%" x2="50%" y2="45%" stroke="#FF6B6B" stroke-width="2" class="relation-line" marker-end="url(#arrow-pink)" />
+                            <line x1="85%" y1="60%" x2="50%" y2="45%" stroke="#FF6B6B" stroke-width="2" class="relation-line" marker-end="url(#arrow-pink)" />
+                        </svg>
+
+                        <!-- Labels -->
+                        <div class="map-label hate" style="left: 35%; top: 32.5%;">경멸/불쾌 <span>→ 맹목적 애착</span></div>
+                        <div class="map-label hate" style="left: 65%; top: 32.5%;">무서움/경계 <span>→ 귀여운 독점욕</span></div>
+                        <div class="map-label hate" style="left: 32.5%; top: 52.5%;">비웃음/방해꾼 <span>→ 속수무책 부끄러움</span></div>
+                        <div class="map-label hate" style="left: 67.5%; top: 52.5%;">혐오/시간낭비 <span>→ 숨길 수 없는 설렘</span></div>
+                        
+                        <div class="map-label love" style="left: 50%; top: 62.5%;"><span>무한 쉴드 (세상 하나뿐인 절친)</span></div>
+
+                        <!-- Nodes -->
+                        <div class="absolute left-1/2 top-[45%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-romcom-villain bg-white flex items-center justify-center shadow-lg shadow-romcom-villain/30 relative">
+                                <i class="fas fa-ghost text-3xl md:text-4xl text-romcom-villain"></i>
+                            </div>
+                            <div class="mt-2 md:mt-3 bg-romcom-villain text-white px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-bold shadow-md whitespace-nowrap">YOU (악역 빙의자)</div>
+                        </div>
+
+                        <div class="absolute left-1/2 top-[80%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center cursor-pointer" onclick="openChar('doyun')">
+                            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-teal-400 bg-white overflow-hidden shadow-lg hover:scale-110 transition">
+                                <img src="https://igx.kr/d/1R/j/0" class="w-full h-full object-cover object-top" alt="도윤">
+                            </div>
+                            <div class="mt-2 bg-white border border-slate-200 text-slate-700 px-2.5 md:px-3 py-1 rounded-full text-[9px] md:text-[11px] font-bold shadow-sm whitespace-nowrap">이도윤 (원작 남주)</div>
+                        </div>
+
+                        <div class="absolute left-[20%] top-[20%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center cursor-pointer" onclick="openChar('arin')">
+                            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-indigo-400 bg-white overflow-hidden shadow-lg hover:scale-110 transition">
+                                <img src="https://igx.kr/d/1R/c/6" class="w-full h-full object-cover object-top" alt="아린">
+                            </div>
+                            <div class="mt-2 bg-white border border-slate-200 text-slate-700 px-2.5 md:px-3 py-1 rounded-full text-[9px] md:text-[11px] font-bold shadow-sm whitespace-nowrap">서아린</div>
+                        </div>
+
+                        <div class="absolute left-[80%] top-[20%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center cursor-pointer" onclick="openChar('chaewon')">
+                            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-orange-400 bg-white overflow-hidden shadow-lg hover:scale-110 transition">
+                                <img src="https://igx.kr/d/1R/d/4" class="w-full h-full object-cover object-top" alt="채원">
+                            </div>
+                            <div class="mt-2 bg-white border border-slate-200 text-slate-700 px-2.5 md:px-3 py-1 rounded-full text-[9px] md:text-[11px] font-bold shadow-sm whitespace-nowrap">민채원</div>
+                        </div>
+
+                        <div class="absolute left-[15%] top-[60%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center cursor-pointer" onclick="openChar('yuna')">
+                            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-red-400 bg-white overflow-hidden shadow-lg hover:scale-110 transition">
+                                <img src="https://igx.kr/d/1R/g/6" class="w-full h-full object-cover object-top" alt="유나">
+                            </div>
+                            <div class="mt-2 bg-white border border-slate-200 text-slate-700 px-2.5 md:px-3 py-1 rounded-full text-[9px] md:text-[11px] font-bold shadow-sm whitespace-nowrap">한유나</div>
+                        </div>
+
+                        <div class="absolute left-[85%] top-[60%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center cursor-pointer" onclick="openChar('haena')">
+                            <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-blue-400 bg-white overflow-hidden shadow-lg hover:scale-110 transition">
+                                <img src="https://igx.kr/d/1R/h/3" class="w-full h-full object-cover object-top" alt="해나">
+                            </div>
+                            <div class="mt-2 bg-white border border-slate-200 text-slate-700 px-2.5 md:px-3 py-1 rounded-full text-[9px] md:text-[11px] font-bold shadow-sm whitespace-nowrap">이해나</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 심플한 푸터(Footer) 영역 -->
+    <footer class="w-full bg-white py-10 md:py-12 flex items-center justify-center border-t border-slate-200 mt-auto">
+        <p class="text-xs md:text-sm text-slate-500 font-medium px-4 text-center">
+            &copy; 2026 단유대학교 경영학과. 유쾌하고 핑크빛인 캠퍼스 일상을 응원합니다.
+        </p>
+    </footer>
+
+    <!-- Facility Modal -->
+    <div id="modal-facility" class="modal fixed inset-0 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closeModal('modal-facility')"></div>
+        <div class="modal-content relative bg-white border border-slate-100 rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl">
+            <button onclick="closeModal('modal-facility')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 transition"><i class="fas fa-times text-xl"></i></button>
+            <div class="text-center mb-5 md:mb-6 pt-2 md:pt-4">
+                <div id="fac-icon-wrap" class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center mx-auto mb-3 md:mb-4">
+                    <i id="fac-icon" class="fas fa-map-marker-alt text-xl md:text-2xl text-slate-600"></i>
+                </div>
+                <h3 id="fac-title" class="text-xl md:text-2xl font-black text-slate-800">장소명</h3>
+                <span id="fac-sub" class="text-[10px] md:text-xs text-romcom-primary font-bold tracking-widest block mt-1">Campus Spot</span>
+            </div>
+            <p id="fac-desc" class="text-slate-600 text-center leading-relaxed text-xs md:text-sm mb-5 md:mb-6"></p>
+            <button onclick="closeModal('modal-facility')" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 md:py-3 rounded-xl transition text-sm">확인</button>
+        </div>
+    </div>
+
+    <!-- Character Modal -->
+    <div id="modal-char" class="modal fixed inset-0 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closeModal('modal-char')"></div>
+        <div class="modal-content relative bg-white border border-slate-100 rounded-2xl md:rounded-3xl overflow-hidden max-w-4xl w-full shadow-2xl flex flex-col md:flex-row">
+            <button onclick="closeModal('modal-char')" class="absolute top-3 right-3 md:top-4 md:right-4 z-20 bg-white/50 backdrop-blur text-slate-800 hover:bg-white rounded-full w-7 h-7 md:w-8 md:h-8 flex items-center justify-center shadow-sm transition"><i class="fas fa-times"></i></button>
+            
+            <div class="w-full md:w-[45%] h-64 md:h-auto relative bg-[#F8FAFC] char-img-wrap group shrink-0">
+                <img id="c-img-def" src="" alt="Default" class="img-default absolute inset-0 w-full h-full object-cover object-top scale-105">
+                <img id="c-img-hov" src="" alt="Hover" class="img-hover absolute inset-0 w-full h-full object-cover object-top opacity-0 scale-110 transition-transform duration-500">
+                <div class="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-white to-transparent md:hidden"></div>
+                <div class="hidden md:block absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-white to-transparent"></div>
+                
+                <div class="absolute bottom-3 left-4 right-4 text-center md:hidden pointer-events-none">
+                    <span class="bg-black/60 backdrop-blur text-white text-[10px] px-3 py-1 rounded-full"><i class="fas fa-hand-pointer"></i> 이미지를 터치해 속마음 확인</span>
+                </div>
+            </div>
+            
+            <div class="w-full md:w-[55%] p-5 md:p-10 flex flex-col max-h-[60vh] md:max-h-[85vh] overflow-y-auto hide-scrollbar bg-white z-10">
+                <div class="mb-4 md:mb-5">
+                    <div class="flex flex-wrap items-center gap-1.5 md:gap-2 mb-2">
+                         <span id="c-role" class="text-[10px] md:text-xs font-bold text-white bg-slate-800 px-2 md:px-3 py-1 rounded-full">역할</span>
+                         <span id="c-tags" class="text-[10px] md:text-xs font-bold text-romcom-primary bg-pink-50 px-2 py-1 rounded-full border border-pink-100">#태그</span>
+                    </div>
+                    <h2 id="c-name" class="text-2xl md:text-3xl font-black text-slate-800 mb-1">이름</h2>
+                    <p id="c-quote" class="text-slate-500 text-xs md:text-sm font-medium italic">"대사"</p>
+                </div>
+
+                <div class="space-y-4 md:space-y-5 text-xs md:text-sm">
+                    <div>
+                        <h4 class="text-slate-800 font-bold mb-1 flex items-center gap-1.5 md:gap-2"><i class="fas fa-info-circle text-slate-400"></i> 캐릭터 개요</h4>
+                        <p id="c-desc" class="text-slate-600 leading-relaxed"></p>
+                    </div>
+
+                    <div class="bg-pink-50/50 p-4 md:p-5 rounded-2xl border border-pink-100 relative group">
+                        <div class="absolute top-0 right-0 p-3 text-pink-300 group-hover:text-pink-500 transition-colors"><i class="fas fa-heart"></i></div>
+                        <h4 class="text-romcom-primary font-black mb-1.5 md:mb-2 flex items-center gap-1.5 md:gap-2 text-xs md:text-sm">
+                            <i class="fas fa-unlock-alt"></i> 공략 트리거 (Gap Moe)
+                        </h4>
+                        <p id="c-gap" class="text-slate-700 leading-relaxed font-medium"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll(`button[data-tab="${tabId}"]`).forEach(btn => btn.classList.add('active'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const facilities = {
+            'lib': { title: '중앙도서관', icon: 'fa-book-open', color: 'text-indigo-500', bg: 'bg-indigo-50', desc: '항상 과탑 서아린이 지정석에 앉아 공부하는 곳. 완벽해 보이는 그녀가 가끔 몰래 피로회복제나 단것을 까먹는 모습을 목격할 수 있다.' },
+            'art': { title: '예술관 실기실', icon: 'fa-palette', color: 'text-red-500', bg: 'bg-red-50', desc: '물감 냄새가 진동하는 곳. 마이웨이 미대 선배 한유나가 밤늦게까지 작업을 핑계로 이도윤을 꼬시려 판을 까는 주 무대다.' },
+            'union': { title: '학생회관', icon: 'fa-users', color: 'text-blue-500', bg: 'bg-blue-50', desc: '이해나가 서류 더미와 씨름하며 학생회 업무를 보는 곳. 기계치인 그녀가 프린터기나 노트북 고장으로 남몰래 끙끙대는 장소이기도 하다.' },
+            'cafe': { title: '캠퍼스 카페', icon: 'fa-coffee', color: 'text-orange-500', bg: 'bg-orange-50', desc: '겁 많은 신입생 민채원이 혼자 조용히 시간을 보내는 곳. 당신이 나타나면 흠칫 놀라며 도망갈 준비를 한다.' }
+        };
+
+        function openFacility(id) {
+            const data = facilities[id];
+            document.getElementById('fac-title').innerText = data.title;
+            document.getElementById('fac-desc').innerText = data.desc;
+            
+            const iconWrap = document.getElementById('fac-icon-wrap');
+            const icon = document.getElementById('fac-icon');
+            iconWrap.className = `w-14 h-14 md:w-16 md:h-16 rounded-full border flex items-center justify-center mx-auto mb-3 md:mb-4 border-slate-100 ${data.bg}`;
+            icon.className = `fas ${data.icon} text-xl md:text-2xl ${data.color}`;
+            
+            document.getElementById('modal-facility').classList.add('open');
+        }
+
+        const characters = {
+            'doyun': {
+                name: '이도윤', role: '경영학과 2학년 | 원작 남주', tags: '#눈치제로 #발암유발 #무한쉴드', quote: '"너희가 몰라서 그래. 진짜 좋은 애라니까? 내 절친이야!"',
+                desc: '잘생긴 외모와 착한 심성을 가졌지만 연애 눈치는 제로. 히로인들의 마음도 모른 채, 쓰레기 악역인 나를 무한 쉴드쳐서 히로인들의 속을 뒤집어 놓는다.',
+                gap: '[공략 불가] 히로인들이 기싸움을 해도 해맑게 웃고 넘기는 둔감함의 극치. 당신의 강력한 방어막이자 짐덩어리다.',
+                imgDef: 'https://igx.kr/d/1R/j/0', imgHov: 'https://igx.kr/d/1R/j/1'
+            },
+            'arin': {
+                name: '서아린', role: '경영학과 2학년 | 과탑', tags: '#쿨데레 #철벽녀 #외유내강', quote: '"도윤이 옆에서 떨어지세요. 당신은 아무 도움도 안 되니까."',
+                desc: '검은 생머리와 고양이 눈매를 가진 냉미녀. 완벽함을 추구하며, 이도윤 옆에서 시간만 낭비하게 만드는 나(악역)를 벌레 보듯 극도로 혐오한다.',
+                gap: '[갭모에 발동] 달콤한 디저트를 좋아한다. 완벽해야 한다는 압박감을 꿰뚫어 보고 무심하게 단것을 챙겨주면 차가운 철벽이 사르르 녹아내린다.',
+                imgDef: 'https://igx.kr/d/1R/c/6', imgHov: 'https://igx.kr/d/1R/c/8'
+            },
+            'chaewon': {
+                name: '민채원', role: '경영학과 1학년', tags: '#소심함 #메가데레 #소동물', quote: '"아, 안녕, 하세요... (흠칫 놀라며 눈물을 글썽인다)"',
+                desc: '자신을 구해준 도윤을 동경하는 귀여운 신입생. 흉흉한 소문이 도는 나를 너무 무서워해서 눈만 마주쳐도 뒷걸음질을 친다.',
+                gap: '[갭모에 발동] 당신에게 완전히 마음을 열면 소극적인 태도는 사라지고, 다른 여자가 다가올 때 볼을 부풀리며 앞을 가로막는 무서운 독점욕을 보인다.',
+                imgDef: 'https://igx.kr/d/1R/d/4', imgHov: 'https://igx.kr/d/1R/d/5'
+            },
+            'yuna': {
+                name: '한유나', role: '산업디자인과 3학년', tags: '#소악마 #능글맞음 #마이웨이', quote: '"어머, 또 껌딱지네? 눈치껏 좀 빠져주지 그래?"',
+                desc: '도윤의 순수함에 진심이 된 미대 선배. 진도를 빼고 싶어 안달이 났지만 항상 옆에 붙어 초를 치는 나를 눈엣가시로 여겨 조롱한다.',
+                gap: '[갭모에 발동] 말로는 항상 여유롭게 상대를 긁어대지만, 막상 직진으로 훅 들어오면 부끄러워서 눈도 못 마주치고 얼굴이 새빨개진다.',
+                imgDef: 'https://igx.kr/d/1R/g/6', imgHov: 'https://igx.kr/d/1R/g/8'
+            },
+            'haena': {
+                name: '이해나', role: '경영학과 2학년 | 학생회장', tags: '#츤데레 #책임감 #허당', quote: '"대학 생활에 목표가 없습니까? 시간 낭비할 거면 비키세요."',
+                desc: '캡모자와 트랙탑을 즐겨 입는 성실한 활동파. 매일 사고만 치고 무능력해 보이는 나를 대학 생활의 암적인 존재로 생각하며 혐오한다.',
+                gap: '[갭모에 발동] 똑부러지는 척하지만 심각한 길치+기계치다. 그녀가 혼자 짊어진 실수를 남몰래 수습해 주면 심장이 터질 듯 설레어 어쩔 줄 몰라한다.',
+                imgDef: 'https://igx.kr/d/1R/h/3', imgHov: 'https://igx.kr/d/1R/h/8'
+            }
+        };
+
+        function openChar(id) {
+            const data = characters[id];
+            document.getElementById('c-name').innerText = data.name;
+            document.getElementById('c-role').innerText = data.role;
+            document.getElementById('c-tags').innerText = data.tags;
+            document.getElementById('c-quote').innerText = data.quote;
+            document.getElementById('c-desc').innerText = data.desc;
+            document.getElementById('c-gap').innerText = data.gap;
+            
+            document.getElementById('c-img-def').src = data.imgDef;
+            document.getElementById('c-img-hov').src = data.imgHov;
+            
+            document.getElementById('modal-char').classList.add('open');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('open');
+        }
+    </script>
+</body>
+</html>
