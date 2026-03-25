@@ -1,5 +1,3 @@
---- START OF FILE romcom-villain.html ---
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -170,7 +168,6 @@
     <nav class="fixed w-full z-50 glass-nav flex flex-col md:flex-row items-center md:justify-between px-4 py-3 md:px-10 gap-3 md:gap-0">
         <!-- Logo Area -->
         <div class="flex items-center gap-3 cursor-pointer shrink-0" onclick="switchTab('tab-intro')">
-            <!-- 요청하신 대학교 로고 이미지 반영 -->
             <img src="https://raw.githubusercontent.com/LS-B/intro/refs/heads/main/img/0.png" alt="단유대학교 로고" class="w-10 h-10 object-contain drop-shadow-sm">
             <div>
                 <h1 class="text-lg font-black tracking-tight text-romcom-text leading-none">단유대학교</h1>
@@ -218,30 +215,30 @@
                         <h3 class="text-xl md:text-2xl font-bold flex items-center gap-2 text-slate-800">
                             <i class="fas fa-map-marked-alt text-romcom-secondary"></i> 단유대학교 주요 스팟
                         </h3>
-                        <p class="text-slate-500 text-xs md:text-sm mt-1">이벤트가 발생하는 캠퍼스 맵. 시설을 클릭하세요.</p>
+                        <p class="text-slate-500 text-xs md:text-sm mt-1">히로인 전용 이벤트가 발생하는 캠퍼스 맵. 시설을 클릭하세요.</p>
                     </div>
                 </div>
                 
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
-                    <div onclick="openFacility('lib')" class="group cursor-pointer bg-slate-50 p-4 md:p-6 rounded-2xl hover:bg-romcom-secondary hover:text-white transition-all duration-300 text-center border border-slate-100">
-                        <i class="fas fa-book-open text-2xl md:text-3xl text-slate-400 group-hover:text-white mb-3 md:mb-4 transition"></i>
-                        <h4 class="font-bold text-sm md:text-lg mb-1">중앙도서관</h4>
-                        <p class="text-[10px] md:text-xs text-slate-500 group-hover:text-blue-50">#지성의_상징</p>
+                    <div onclick="openFacility('lib')" class="group cursor-pointer bg-slate-50 p-4 md:p-6 rounded-2xl hover:bg-blue-500 hover:text-white transition-all duration-300 text-center border border-slate-100">
+                        <i class="fas fa-laptop-code text-2xl md:text-3xl text-slate-400 group-hover:text-white mb-3 md:mb-4 transition"></i>
+                        <h4 class="font-bold text-sm md:text-lg mb-1">경영관 학생회실</h4>
+                        <p class="text-[10px] md:text-xs text-slate-500 group-hover:text-blue-100">#기계치_비밀</p>
                     </div>
-                    <div onclick="openFacility('art')" class="group cursor-pointer bg-slate-50 p-4 md:p-6 rounded-2xl hover:bg-romcom-primary hover:text-white transition-all duration-300 text-center border border-slate-100">
+                    <div onclick="openFacility('art')" class="group cursor-pointer bg-slate-50 p-4 md:p-6 rounded-2xl hover:bg-indigo-500 hover:text-white transition-all duration-300 text-center border border-slate-100">
                         <i class="fas fa-palette text-2xl md:text-3xl text-slate-400 group-hover:text-white mb-3 md:mb-4 transition"></i>
-                        <h4 class="font-bold text-sm md:text-lg mb-1">예술관 실기실</h4>
-                        <p class="text-[10px] md:text-xs text-slate-500 group-hover:text-pink-100">#창작의_고통</p>
+                        <h4 class="font-bold text-sm md:text-lg mb-1">산디과 실기실</h4>
+                        <p class="text-[10px] md:text-xs text-slate-500 group-hover:text-indigo-100">#완벽주의_철야</p>
                     </div>
                     <div onclick="openFacility('gym')" class="group cursor-pointer bg-slate-50 p-4 md:p-6 rounded-2xl hover:bg-red-400 hover:text-white transition-all duration-300 text-center border border-slate-100">
                         <i class="fas fa-dumbbell text-2xl md:text-3xl text-slate-400 group-hover:text-white mb-3 md:mb-4 transition"></i>
-                        <h4 class="font-bold text-sm md:text-lg mb-1">체육관</h4>
+                        <h4 class="font-bold text-sm md:text-lg mb-1">대운동장 체육관</h4>
                         <p class="text-[10px] md:text-xs text-slate-500 group-hover:text-red-100">#땀과_열정</p>
                     </div>
                     <div onclick="openFacility('cafe')" class="group cursor-pointer bg-slate-50 p-4 md:p-6 rounded-2xl hover:bg-orange-400 hover:text-white transition-all duration-300 text-center border border-slate-100">
                         <i class="fas fa-coffee text-2xl md:text-3xl text-slate-400 group-hover:text-white mb-3 md:mb-4 transition"></i>
                         <h4 class="font-bold text-sm md:text-lg mb-1">캠퍼스 카페</h4>
-                        <p class="text-[10px] md:text-xs text-slate-500 group-hover:text-orange-100">#만남의_광장</p>
+                        <p class="text-[10px] md:text-xs text-slate-500 group-hover:text-orange-100">#휴식_공간</p>
                     </div>
                 </div>
             </div>
@@ -327,7 +324,7 @@
                             <span class="text-[9px] md:text-[10px] px-1.5 md:px-2 py-0.5 bg-slate-100 text-slate-600 rounded">#철벽녀</span>
                         </div>
                         <h3 class="text-lg md:text-xl font-black text-slate-800 mb-1 md:mb-2">서아린</h3>
-                        <p class="text-[11px] md:text-xs text-slate-500 line-clamp-2 leading-relaxed group-hover:text-pink-500 transition-colors">"도윤이 옆에서 떨어지세요. 벌레 보듯 불쾌하니까."</p>
+                        <p class="text-[11px] md:text-xs text-slate-500 line-clamp-2 leading-relaxed group-hover:text-pink-500 transition-colors">"도윤이 옆에서 떨어지세요. 당신은 아무 도움도 안 되니까."</p>
                     </div>
                 </div>
 
@@ -497,7 +494,7 @@
     <!-- 심플한 푸터(Footer) 영역 -->
     <footer class="w-full bg-white py-10 md:py-12 flex items-center justify-center border-t border-slate-200 mt-auto">
         <p class="text-xs md:text-sm text-slate-500 font-medium px-4 text-center">
-            &copy; 2026 단유대학교 경영학과. 유쾌하고 핑크빛인 캠퍼스 일상을 응원합니다.
+            &copy; 2026 단유대학교. 유쾌하고 핑크빛인 캠퍼스 일상을 응원합니다.
         </p>
     </footer>
 
@@ -574,10 +571,10 @@
         }
 
         const facilities = {
-            'lib': { title: '중앙도서관', icon: 'fa-book-open', color: 'text-indigo-500', bg: 'bg-indigo-50', desc: '항상 과탑 서아린이 지정석에 앉아 공부하는 곳. 완벽해 보이는 그녀가 가끔 몰래 피로회복제나 단것을 까먹는 모습을 목격할 수 있다.' },
-            'art': { title: '예술관 실기실', icon: 'fa-palette', color: 'text-red-500', bg: 'bg-red-50', desc: '물감 냄새가 진동하는 곳. 마이웨이 미대 선배 한유나가 밤늦게까지 작업을 핑계로 이도윤을 꼬시려 판을 까는 주 무대다.' },
-            'gym': { title: '체육관', icon: 'fa-dumbbell', color: 'text-red-500', bg: 'bg-red-50', desc: '땀 냄새와 열기가 가득한 곳. 체육과 3학년 한유나가 운동하는 도윤을 바라보며 도발적인 눈빛을 보내는 장소다.' },
-            'cafe': { title: '캠퍼스 카페', icon: 'fa-coffee', color: 'text-orange-500', bg: 'bg-orange-50', desc: '겁 많은 신입생 민채원이 혼자 조용히 시간을 보내는 곳. 당신이 나타나면 흠칫 놀라며 도망갈 준비를 한다.' }
+            'lib': { title: '경영관 학생회실', icon: 'fa-laptop-code', color: 'text-blue-500', bg: 'bg-blue-50', desc: '학생회장 이해나가 산더미 같은 서류를 처리하는 곳. 남몰래 다가가면 심각한 기계치인 그녀가 프린터기와 씨름하며 쩔쩔매는 허당 같은 모습을 볼 수 있다.' },
+            'art': { title: '산디과 실기실', icon: 'fa-palette', color: 'text-indigo-500', bg: 'bg-indigo-50', desc: '물감과 커피 냄새가 진동하는 곳. 완벽주의 과탑 서아린이 철야 과제에 찌들어, 주변 몰래 달달한 마카롱을 까먹으며 무장해제되는 비밀 장소다.' },
+            'gym': { title: '대운동장 체육관', icon: 'fa-dumbbell', color: 'text-red-500', bg: 'bg-red-50', desc: '땀 냄새와 열기가 가득한 곳. 체육과 3학년 한유나가 운동하는 도윤을 보며 도발적인 눈빛을 보내는 무대. 당신이 나타나면 대놓고 꼽을 주며 밀어낸다.' },
+            'cafe': { title: '캠퍼스 카페', icon: 'fa-coffee', color: 'text-orange-500', bg: 'bg-orange-50', desc: '아기자기한 디저트 카페. 유교과 신입생 민채원이 조용히 시간을 보내는 곳. 당신과 눈이라도 마주치면 흠칫 놀라며 당장이라도 울 듯이 도망갈 준비를 한다.' }
         };
 
         function openFacility(id) {
@@ -607,7 +604,7 @@
                 imgDef: 'https://igx.kr/d/1R/c/6', imgHov: 'https://igx.kr/d/1R/c/8'
             },
             'chaewon': {
-                name: '민채원', role: '유아교육과 1학년', tags: '#소심함 #메가데레 #소동물', quote: '"아, 안녕, 하세요... (흠칫 놀라며 눈물을 글썽인다)"',
+                name: '민채원', role: '유아교육과 1학년', tags: '#소심함 #메가데레 #소동물', quote: '"아, 안녕, 하세요... (흠칫 놀라며 뒷걸음질 친다)"',
                 desc: '소심하고 겁 많은 신입생. 자신을 구해준 도윤을 동경하고 짝사랑하며, 소문이 안 좋은 {user}를 무서워한다.',
                 gap: '[갭모에 발동] 연인 사이가 되면 엉뚱한 독점욕을 보인다. 다른 여자가 다가올 때 소심하게 앞을 가로막는 강아지 같은 귀여움이 있다.',
                 imgDef: 'https://igx.kr/d/1R/d/4', imgHov: 'https://igx.kr/d/1R/d/5'
@@ -619,7 +616,7 @@
                 imgDef: 'https://igx.kr/d/1R/g/6', imgHov: 'https://igx.kr/d/1R/g/8'
             },
             'haena': {
-                name: '이해나', role: '경영학과 2학년 | 학생회장', tags: '#츤데레 #모범생 #약간허당', quote: '"목표가 없습니까? 시간 낭비할 거면 비키세요."',
+                name: '이해나', role: '경영학과 2학년 | 학생회장', tags: '#츤데레 #모범생 #약간허당', quote: '"목표도 없이 시간 낭비할 거면, 비켜주실래요?"',
                 desc: '성실하고 꼼꼼한 학생회장. 책임감이 강해 혼자 모든 짐을 짊어지려 하며, {user}를 대학 생활의 암적인 존재로 생각하며 싫어한다.',
                 gap: '[갭모에 발동] 똑부러지는 척하지만 심각한 길치+기계치다. 그녀가 혼자 짊어진 실수를 남몰래 수습해 주면 심장이 터질 듯 설레어 어쩔 줄 몰라한다.',
                 imgDef: 'https://igx.kr/d/1R/h/3', imgHov: 'https://igx.kr/d/1R/h/8'
