@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>맘카페 엄마들의 은밀한 속사정 | Hannam Queens</title>
+    <link rel="icon" type="image/png" href="https://igx.kr/d/v6/c/0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans:['Pretendard Variable', 'sans-serif'],
+                    },
+                    colors: {
+                        ntl: {
+                            wine: '#831843',     // 메인 테마색 (와인)
+                            gold: '#B45309',     // 포인트 테마색 (골드)
+                            bg: '#FAFAFA',       // 전체 배경
+                            card: '#FFFFFF',
+                            text: '#1C1917',
+                            sub: '#57534E',
+                            husband: '#1E3A8A',  // 남편 호감도색 (블루)
+                            user: '#BE123C'      // 유저 호감도색 (레드)
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAFAFA;
+            color: #1C1917;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+        
+        /* 고급스러운 Glassmorphism */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .nav-btn {
+            position: relative;
+            transition: all 0.3s;
+            white-space: nowrap;
+            padding-bottom: 6px;
+            font-weight: 500;
+            color: #57534E;
+        }
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0%;
+            height: 3px;
+            background-color: #831843;
+            transition: width 0.3s ease-in-out;
+            border-radius: 3px;
+        }
+        .nav-btn:hover { color: #831843; }
+        .nav-btn:hover::after, .nav-btn.active::after { width: 100%; }
+        .nav-btn.active { color: #831843; font-weight: 700; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #F5F5F4; }
+        ::-webkit-scrollbar-thumb { background: #D6D3D1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #831843; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .modal {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+        }
+        .modal.open { opacity: 1; visibility: visible; }
+        .modal.open .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        .modal-content {
+            transform: scale(0.95) translateY(20px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .char-img-wrap img { transition: opacity 0.5s ease, transform 0.5s ease; }
+        .char-card:hover .img-default { opacity: 0; }
+        .char-card:hover .img-hover { opacity: 1; transform: scale(1.05); }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #831843 0%, #B45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col min-h-screen relative">
+
+    <!-- Header -->
+    <nav class="fixed w-full z-50 glass-nav flex flex-col md:flex-row items-center md:justify-between px-4 py-3 md:px-10 gap-3 md:gap-0">
+        <div class="flex items-center gap-3 cursor-pointer shrink-0" onclick="switchTab('tab-intro')">
+            <i class="fas fa-crown text-2xl text-ntl-wine"></i>
+            <div>
+                <h1 class="text-lg font-black tracking-tight text-ntl-wine leading-none">한남 퀸즈</h1>
+                <span class="text-[10px] text-ntl-gold font-bold tracking-widest block mt-0.5">MOM CAFE SECRET</span>
+            </div>
+        </div>
+
+        <div class="w-full md:w-auto overflow-x-auto hide-scrollbar pt-1 md:pt-0">
+            <div class="flex items-center justify-start md:justify-end gap-5 md:gap-8 text-sm md:text-base px-1 pb-1">
+                <button onclick="switchTab('tab-intro')" class="nav-btn active" data-tab="tab-intro">모임 소개</button>
+                <button onclick="switchTab('tab-world')" class="nav-btn" data-tab="tab-world">비밀 규칙</button>
+                <button onclick="switchTab('tab-chars')" class="nav-btn" data-tab="tab-chars">사모님들</button>
+                <button onclick="switchTab('tab-system')" class="nav-btn" data-tab="tab-system">호감도 척도</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-32 md:pt-28 pb-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+
+        <!-- Tab 1: Intro -->
+        <section id="tab-intro" class="tab-content active">
+            <div class="relative rounded-3xl overflow-hidden mb-12 h-[400px] md:h-[500px] shadow-2xl">
+                <div class="absolute inset-0 bg-gradient-to-r from-stone-900 via-stone-800 to-transparent z-0"></div>
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80')] bg-cover bg-center mix-blend-overlay opacity-40"></div>
+                
+                <div class="absolute inset-0 flex flex-col justify-center px-6 md:px-16 text-center md:text-left z-10">
+                    <span class="inline-block bg-ntl-wine text-white font-extrabold tracking-widest mb-4 text-[10px] md:text-xs px-4 py-1.5 rounded-full shadow-sm mx-auto md:mx-0 w-max">
+                        맘카페 엄마들
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-black mb-4 md:mb-5 leading-tight text-white break-keep">
+                        우아한 가면 뒤에 감춰진<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">그녀들만의 배덕한 욕망</span>
+                    </h2>
+                    <p class="text-stone-300 max-w-xl text-sm md:text-base leading-relaxed break-keep mx-auto md:mx-0 font-medium">
+                        한강이 내려다보이는 한남동의 나른한 오후 1시,<br>
+                        대한민국 0.1% 그녀들의 프라이빗 브런치 모임.<br>
+                        '한남 퀸즈 맘카페'의 위험한 유혹에 어서 오세요!
+                    </p>
+                </div>
+            </div>
+            
+            <div class="bg-white border border-stone-200 rounded-3xl p-6 md:p-10 shadow-xl">
+                <div class="border-b border-stone-200 pb-4 mb-6">
+                    <h3 class="text-xl md:text-2xl font-black flex items-center gap-2 text-stone-800">
+                        <i class="fas fa-map-marker-alt text-ntl-gold"></i> 한남동 주요 스팟
+                    </h3>
+                    <p class="text-stone-500 text-xs md:text-sm mt-1">사모님들의 은밀한 일탈이 벌어지는 장소들입니다. 클릭하여 확인하세요.</p>
+                </div>
+                
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                    <div onclick="openFacility('cafe')" class="group cursor-pointer bg-stone-50 p-5 rounded-2xl hover:bg-stone-800 hover:text-white transition-all duration-300 text-center border border-stone-200">
+                        <i class="fas fa-coffee text-3xl text-stone-400 group-hover:text-ntl-gold mb-3 transition"></i>
+                        <h4 class="font-bold text-sm md:text-lg mb-1">카페 다니어 가든</h4>
+                        <p class="text-[10px] md:text-xs text-stone-500 group-hover:text-stone-300">#아지트 #탐색전</p>
+                    </div>
+                    <div onclick="openFacility('apt')" class="group cursor-pointer bg-stone-50 p-5 rounded-2xl hover:bg-stone-800 hover:text-white transition-all duration-300 text-center border border-stone-200">
+                        <i class="fas fa-building text-3xl text-stone-400 group-hover:text-ntl-gold mb-3 transition"></i>
+                        <h4 class="font-bold text-sm md:text-lg mb-1">초고층 아파트 자택</h4>
+                        <p class="text-[10px] md:text-xs text-stone-500 group-hover:text-stone-300">#남편의빈자리 #밀회</p>
+                    </div>
+                    <div onclick="openFacility('edu')" class="group cursor-pointer bg-stone-50 p-5 rounded-2xl hover:bg-stone-800 hover:text-white transition-all duration-300 text-center border border-stone-200">
+                        <i class="fas fa-school text-3xl text-stone-400 group-hover:text-ntl-gold mb-3 transition"></i>
+                        <h4 class="font-bold text-sm md:text-lg mb-1">영어 유치원/학원</h4>
+                        <p class="text-[10px] md:text-xs text-stone-500 group-hover:text-stone-300">#교육열 #가스라이팅</p>
+                    </div>
+                    <div onclick="openFacility('pilates')" class="group cursor-pointer bg-stone-50 p-5 rounded-2xl hover:bg-stone-800 hover:text-white transition-all duration-300 text-center border border-stone-200">
+                        <i class="fas fa-dumbbell text-3xl text-stone-400 group-hover:text-ntl-gold mb-3 transition"></i>
+                        <h4 class="font-bold text-sm md:text-lg mb-1">하이엔드 필라테스</h4>
+                        <p class="text-[10px] md:text-xs text-stone-500 group-hover:text-stone-300">#육체적허기 #은밀한레슨</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 2: Worldview -->
+        <section id="tab-world" class="tab-content">
+            <div class="text-center mb-10 md:mb-12">
+                <span class="inline-flex items-center gap-2 px-3 py-1.5 bg-red-50 text-ntl-wine text-[10px] md:text-xs font-bold tracking-widest rounded-full mb-3 md:mb-4 border border-red-100">
+                    <i class="fas fa-exclamation-circle"></i> HARD DIFFICULTY
+                </span>
+                <h2 class="text-2xl md:text-4xl font-black mb-3 md:mb-4 text-stone-800">핵심 설정 및 공략 룰</h2>
+                <p class="text-xs md:text-base text-stone-500">완벽한 가정이라는 무대 위에서. 심리적 틈새를 파고드세요.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-5 md:gap-6">
+                <div class="bg-white border border-stone-200 p-6 md:p-8 rounded-3xl shadow-lg relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-stone-800"></div>
+                    <div class="w-12 h-12 bg-stone-100 text-stone-800 rounded-2xl flex items-center justify-center text-2xl mb-6"><i class="fas fa-mask"></i></div>
+                    <h3 class="text-lg md:text-xl font-bold mb-3 text-stone-800">완벽한 엄마의 가면</h3>
+                    <p class="text-stone-500 text-xs md:text-sm leading-relaxed">
+                        사회적 지위와 아이의 미래를 위해 완벽한 척하지만, 속은 결핍과 공허로 가득 차 있습니다. 단순한 쾌락 중독이 아닌, 이중생활에서 오는 스릴과 죄책감을 유도해 보세요.
+                    </p>
+                </div>
+                <div class="bg-white border border-stone-200 p-6 md:p-8 rounded-3xl shadow-lg relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-ntl-wine"></div>
+                    <div class="w-12 h-12 bg-pink-50 text-ntl-wine rounded-2xl flex items-center justify-center text-2xl mb-6"><i class="fas fa-balance-scale-right"></i></div>
+                    <h3 class="text-lg md:text-xl font-bold mb-3 text-stone-800">잔혹한 비교의 배덕감</h3>
+                    <p class="text-stone-500 text-xs md:text-sm leading-relaxed">
+                        공략의 핵심은 <b>남편과의 비교</b>입니다. 돈만 아는 남편, 의처증, 발기부전, 10cm 등 남편의 치명적인 결함을 상기시키며 당신의 우월함으로 그녀들의 정조 관념을 부숴 보세요.
+                    </p>
+                </div>
+                <div class="bg-white border border-stone-200 p-6 md:p-8 rounded-3xl shadow-lg relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-ntl-gold"></div>
+                    <div class="w-12 h-12 bg-amber-50 text-ntl-gold rounded-2xl flex items-center justify-center text-2xl mb-6"><i class="fas fa-lock"></i></div>
+                    <h3 class="text-lg md:text-xl font-bold mb-3 text-stone-800">높은 공략 난이도</h3>
+                    <p class="text-stone-500 text-xs md:text-sm leading-relaxed">
+                        몇 번의 성적 경험으로 쉽게 굴복하지 않습니다. 필사적으로 유혹을 부정하고 거부하는 그녀들의 '입덕 부정기'를 깨고, 끝내 가정보다 당신을 선택하게 만들어 보세요.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 3: Characters -->
+        <section id="tab-chars" class="tab-content">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 md:mb-8 border-b border-stone-200 pb-4">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-black mb-2 text-stone-800">한남 퀸즈 멤버들</h2>
+                    <p class="text-ntl-wine text-[10px] md:text-sm font-bold animate-pulse-slow">
+                        <i class="fas fa-mouse-pointer mr-1"></i> 카드를 호버하여 그녀들의 은밀한 '본성(표정)'을 확인하세요.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+                <!-- 민지아 (c) -->
+                <div class="char-card bg-white rounded-3xl overflow-hidden border border-stone-200 shadow-lg relative cursor-pointer group hover:-translate-y-2 transition-transform duration-300" onclick="openChar('jia')">
+                    <div class="h-72 md:h-80 w-full relative bg-stone-100 char-img-wrap overflow-hidden">
+                        <img src="https://igx.kr/d/v6/c/0" class="img-default absolute inset-0 w-full h-full object-cover object-top scale-100" alt="지아 기본">
+                        <img src="https://igx.kr/d/v6/c/8" class="img-hover absolute inset-0 w-full h-full object-cover object-top opacity-0 scale-105 transition-all duration-500" alt="지아 본성">
+                        <div class="absolute bottom-0 w-full h-24 bg-gradient-to-t from-white to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-ntl-wine text-white text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-unlock"></i> 본성 노출</div>
+                    </div>
+                    <div class="p-5 relative bg-white">
+                        <div class="absolute -top-4 right-4 bg-stone-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-md">맘카페 서열 1위</div>
+                        <div class="flex gap-1 mb-2">
+                            <span class="text-[10px] px-2 py-0.5 bg-stone-100 text-stone-600 rounded">#오만함</span>
+                            <span class="text-[10px] px-2 py-0.5 bg-stone-100 text-stone-600 rounded">#츤데레</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-800 mb-1">민지아 (35)</h3>
+                        <p class="text-xs font-bold text-stone-400 mb-2">9세 아들 / 사립초 2학년 맘</p>
+                        <p class="text-[11px] md:text-xs text-stone-500 line-clamp-2 leading-relaxed group-hover:text-ntl-wine transition-colors">"{user} 씨, 당신이 감당하기엔 내가 좀 비싼 여자일 텐데..."</p>
+                    </div>
+                </div>
+
+                <!-- 이다혜 (d) -->
+                <div class="char-card bg-white rounded-3xl overflow-hidden border border-stone-200 shadow-lg relative cursor-pointer group hover:-translate-y-2 transition-transform duration-300" onclick="openChar('dahye')">
+                    <div class="h-72 md:h-80 w-full relative bg-stone-100 char-img-wrap overflow-hidden">
+                        <img src="https://igx.kr/d/v6/d/11" class="img-default absolute inset-0 w-full h-full object-cover object-top scale-100" alt="다혜 기본">
+                        <img src="https://igx.kr/d/v6/d/9" class="img-hover absolute inset-0 w-full h-full object-cover object-top opacity-0 scale-105 transition-all duration-500" alt="다혜 본성">
+                        <div class="absolute bottom-0 w-full h-24 bg-gradient-to-t from-white to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-ntl-wine text-white text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-unlock"></i> 본성 노출</div>
+                    </div>
+                    <div class="p-5 relative bg-white">
+                        <div class="absolute -top-4 right-4 bg-stone-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-md">온실 속 화초</div>
+                        <div class="flex gap-1 mb-2">
+                            <span class="text-[10px] px-2 py-0.5 bg-stone-100 text-stone-600 rounded">#의존증</span>
+                            <span class="text-[10px] px-2 py-0.5 bg-stone-100 text-stone-600 rounded">#순종적</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-800 mb-1">이다혜 (37)</h3>
+                        <p class="text-xs font-bold text-stone-400 mb-2">7세 딸 / 영어유치원 맘</p>
+                        <p class="text-[11px] md:text-xs text-stone-500 line-clamp-2 leading-relaxed group-hover:text-ntl-wine transition-colors">"이러면 안 돼요... 애 아빠가 알면 저 죽어요..."</p>
+                    </div>
+                </div>
+
+                <!-- 서유리 (g) -->
+                <div class="char-card bg-white rounded-3xl overflow-hidden border border-stone-200 shadow-lg relative cursor-pointer group hover:-translate-y-2 transition-transform duration-300" onclick="openChar('yuri')">
+                    <div class="h-72 md:h-80 w-full relative bg-stone-100 char-img-wrap overflow-hidden">
+                        <!-- 사용자 설정 반영: 기본 1, 호버 8 -->
+                        <img src="https://igx.kr/d/v6/g/1" class="img-default absolute inset-0 w-full h-full object-cover object-top scale-100" alt="유리 기본">
+                        <img src="https://igx.kr/d/v6/g/8" class="img-hover absolute inset-0 w-full h-full object-cover object-top opacity-0 scale-105 transition-all duration-500" alt="유리 본성">
+                        <div class="absolute bottom-0 w-full h-24 bg-gradient-to-t from-white to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-ntl-wine text-white text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-unlock"></i> 본성 노출</div>
+                    </div>
+                    <div class="p-5 relative bg-white">
+                        <div class="absolute -top-4 right-4 bg-stone-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-md">필라테스 원장</div>
+                        <div class="flex gap-1 mb-2">
+                            <span class="text-[10px] px-2 py-0.5 bg-stone-100 text-stone-600 rounded">#쾌락주의</span>
+                            <span class="text-[10px] px-2 py-0.5 bg-stone-100 text-stone-600 rounded">#도발적</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-800 mb-1">서유리 (33)</h3>
+                        <p class="text-xs font-bold text-stone-400 mb-2">8세 아들 / 사립초 1학년 맘</p>
+                        <p class="text-[11px] md:text-xs text-stone-500 line-clamp-2 leading-relaxed group-hover:text-ntl-wine transition-colors">"어머, {user} 씨 몸매 장난 아니네? 근육 좀 만져봐도 되죠?"</p>
+                    </div>
+                </div>
+
+                <!-- 한주희 (h) -->
+                <div class="char-card bg-white rounded-3xl overflow-hidden border border-stone-200 shadow-lg relative cursor-pointer group hover:-translate-y-2 transition-transform duration-300" onclick="openChar('juhui')">
+                    <div class="h-72 md:h-80 w-full relative bg-stone-100 char-img-wrap overflow-hidden">
+                        <!-- 사용자 설정 반영: 기본 0, 호버 5 -->
+                        <img src="https://igx.kr/d/v6/h/0" class="img-default absolute inset-0 w-full h-full object-cover object-top scale-100" alt="주희 기본">
+                        <img src="https://igx.kr/d/v6/h/5" class="img-hover absolute inset-0 w-full h-full object-cover object-top opacity-0 scale-105 transition-all duration-500" alt="주희 본성">
+                        <div class="absolute bottom-0 w-full h-24 bg-gradient-to-t from-white to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-ntl-wine text-white text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-unlock"></i> 본성 노출</div>
+                    </div>
+                    <div class="p-5 relative bg-white">
+                        <div class="absolute -top-4 right-4 bg-stone-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-md">순진한 막내</div>
+                        <div class="flex gap-1 mb-2">
+                            <span class="text-[10px] px-2 py-0.5 bg-stone-100 text-stone-600 rounded">#천진난만</span>
+                            <span class="text-[10px] px-2 py-0.5 bg-stone-100 text-stone-600 rounded">#성적무지</span>
+                        </div>
+                        <h3 class="text-xl font-black text-stone-800 mb-1">한주희 (31)</h3>
+                        <p class="text-xs font-bold text-stone-400 mb-2">4세 딸 / 초보 신혼맘</p>
+                        <p class="text-[11px] md:text-xs text-stone-500 line-clamp-2 leading-relaxed group-hover:text-ntl-wine transition-colors">"오빠랑 할 때랑 너무 달라아... 머릿속이 하얘져..."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 4: System -->
+        <section id="tab-system" class="tab-content">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl md:text-3xl font-black mb-2 text-stone-800">호감도 이원화 시스템</h2>
+                <p class="text-stone-500 text-xs md:text-sm">그녀들은 <span class="font-bold text-ntl-user">❤️유저</span>와 <span class="font-bold text-ntl-husband">💙남편</span> 중 수치가 높은 쪽을 지지합니다.</p>
+            </div>
+            
+            <div class="bg-white rounded-3xl border border-stone-200 shadow-xl overflow-hidden p-6 md:p-10 max-w-4xl mx-auto">
+                <div class="flex justify-between items-center mb-8 border-b border-stone-100 pb-4">
+                    <div class="text-center w-1/2">
+                        <div class="text-3xl mb-1 text-ntl-husband"><i class="fas fa-ring"></i></div>
+                        <div class="font-bold text-stone-800">초기 상태</div>
+                        <div class="text-xs text-stone-500">남편을 향한 굳건한 벽</div>
+                    </div>
+                    <div class="text-2xl text-stone-300"><i class="fas fa-exchange-alt"></i></div>
+                    <div class="text-center w-1/2">
+                        <div class="text-3xl mb-1 text-ntl-user"><i class="fas fa-fire"></i></div>
+                        <div class="font-bold text-stone-800">목표 상태</div>
+                        <div class="text-xs text-stone-500">유저를 향한 맹목적 타락</div>
+                    </div>
+                </div>
+
+                <!-- 단계별 가이드 -->
+                <div class="space-y-4 relative">
+                    <div class="hidden md:block absolute left-[80px] top-4 bottom-4 w-1 bg-stone-100"></div>
+
+                    <!-- -100 ~ -51 -->
+                    <div class="flex flex-col md:flex-row gap-4 relative z-10">
+                        <div class="md:w-[160px] shrink-0 pt-2 flex items-center md:items-start gap-3 md:gap-0">
+                            <div class="w-10 h-10 rounded-full bg-stone-200 text-stone-500 flex items-center justify-center font-bold shadow md:mr-4 z-10 text-sm">-100</div>
+                            <div class="font-black text-stone-400 md:hidden">혐오 단계</div>
+                        </div>
+                        <div class="bg-stone-50 p-4 rounded-2xl w-full border border-stone-100">
+                            <h4 class="font-bold text-stone-700 hidden md:block mb-1">혐오 (Disgust)</h4>
+                            <p class="text-sm text-stone-500">무시, 혐오 표현, 접촉 거부, 회피. 벌레 보듯 당신을 혐오합니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- 0 ~ 50 -->
+                    <div class="flex flex-col md:flex-row gap-4 relative z-10">
+                        <div class="md:w-[160px] shrink-0 pt-2 flex items-center md:items-start gap-3 md:gap-0">
+                            <div class="w-10 h-10 rounded-full bg-stone-800 text-white flex items-center justify-center font-bold shadow md:mr-4 z-10 text-sm">0</div>
+                            <div class="font-black text-stone-800 md:hidden">혼란 단계 (시작점)</div>
+                        </div>
+                        <div class="bg-stone-100 p-4 rounded-2xl w-full border border-stone-200">
+                            <h4 class="font-bold text-stone-800 hidden md:block mb-1">혼란 (Confusion) - <span class="text-xs font-normal text-stone-500">시작 상태</span></h4>
+                            <p class="text-sm text-stone-600">사회적 거리를 유지하며 당신을 경계하고 관찰합니다. 묘한 호기심이 생깁니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- 51 ~ 100 -->
+                    <div class="flex flex-col md:flex-row gap-4 relative z-10">
+                        <div class="md:w-[160px] shrink-0 pt-2 flex items-center md:items-start gap-3 md:gap-0">
+                            <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold shadow md:mr-4 z-10 text-sm">51+</div>
+                            <div class="font-black text-amber-600 md:hidden">안정 단계</div>
+                        </div>
+                        <div class="bg-amber-50 p-4 rounded-2xl w-full border border-amber-100">
+                            <h4 class="font-bold text-amber-700 hidden md:block mb-1">안정 (Stability)</h4>
+                            <p class="text-sm text-amber-700/80">관찰. 묘한 호기심과 남편에 대한 죄책감(거부감)이 공존하며 갈등합니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- 101 ~ 150 -->
+                    <div class="flex flex-col md:flex-row gap-4 relative z-10">
+                        <div class="md:w-[160px] shrink-0 pt-2 flex items-center md:items-start gap-3 md:gap-0">
+                            <div class="w-10 h-10 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center font-bold shadow md:mr-4 z-10 text-sm">101+</div>
+                            <div class="font-black text-pink-600 md:hidden">애정 단계</div>
+                        </div>
+                        <div class="bg-pink-50 p-4 rounded-2xl w-full border border-pink-100">
+                            <h4 class="font-bold text-pink-700 hidden md:block mb-1">애정 (Affection)</h4>
+                            <p class="text-sm text-pink-700/80">특별한 관계 소망. 적극적으로 당신에게 접근하며 남편 모르게 이중생활을 즐깁니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- 151 ~ 200 -->
+                    <div class="flex flex-col md:flex-row gap-4 relative z-10">
+                        <div class="md:w-[160px] shrink-0 pt-2 flex items-center md:items-start gap-3 md:gap-0">
+                            <div class="w-10 h-10 rounded-full bg-ntl-wine text-white flex items-center justify-center font-bold shadow md:mr-4 z-10 text-sm">200</div>
+                            <div class="font-black text-ntl-wine md:hidden">사랑/타락 단계</div>
+                        </div>
+                        <div class="bg-rose-900 p-4 rounded-2xl w-full shadow-lg">
+                            <h4 class="font-bold text-white hidden md:block mb-1">사랑 및 타락 (Corrupted Love)</h4>
+                            <p class="text-sm text-rose-100">완전한 귀속 소망. 당신을 남편 이상으로 여기며, 모든 가정을 버릴 헌신을 보입니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="w-full bg-white py-8 flex items-center justify-center border-t border-stone-200 mt-auto">
+        <p class="text-xs text-stone-400 font-medium px-4 text-center">
+            &copy; 2026 한남동 맘카페. 당신의 은밀하고 완벽한 타락을 환영합니다.
+        </p>
+    </footer>
+
+    <!-- Facility Modal -->
+    <div id="modal-facility" class="modal fixed inset-0 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-stone-900/60 backdrop-blur-sm" onclick="closeModal('modal-facility')"></div>
+        <div class="modal-content relative bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl">
+            <button onclick="closeModal('modal-facility')" class="absolute top-4 right-4 text-stone-400 hover:text-stone-800"><i class="fas fa-times text-xl"></i></button>
+            <div class="text-center mb-6 pt-2">
+                <div class="w-16 h-16 rounded-full bg-stone-50 border border-stone-100 flex items-center justify-center mx-auto mb-4">
+                    <i id="fac-icon" class="fas fa-map-marker-alt text-2xl text-ntl-gold"></i>
+                </div>
+                <h3 id="fac-title" class="text-2xl font-black text-stone-800">장소명</h3>
+                <span class="text-[10px] text-ntl-wine font-bold tracking-widest block mt-1">SECRET SPOT</span>
+            </div>
+            <p id="fac-desc" class="text-stone-600 text-center leading-relaxed text-sm mb-6"></p>
+            <button onclick="closeModal('modal-facility')" class="w-full bg-stone-800 hover:bg-stone-700 text-white font-bold py-3 rounded-xl transition text-sm">확인</button>
+        </div>
+    </div>
+
+    <!-- Character Modal (상세 추가 버전) -->
+    <div id="modal-char" class="modal fixed inset-0 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-stone-900/60 backdrop-blur-sm" onclick="closeModal('modal-char')"></div>
+        <div class="modal-content relative bg-white rounded-3xl overflow-hidden max-w-4xl w-full shadow-2xl flex flex-col md:flex-row">
+            <button onclick="closeModal('modal-char')" class="absolute top-4 right-4 z-20 bg-white/50 backdrop-blur text-stone-800 hover:bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-sm transition"><i class="fas fa-times"></i></button>
+            
+            <div class="w-full md:w-[45%] h-64 md:h-auto relative bg-stone-100 char-img-wrap group shrink-0">
+                <img id="c-img-def" src="" alt="Default" class="img-default absolute inset-0 w-full h-full object-cover object-top scale-100">
+                <img id="c-img-hov" src="" alt="Hover" class="img-hover absolute inset-0 w-full h-full object-cover object-top opacity-0 scale-105 transition-all duration-500">
+                <div class="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-white to-transparent md:hidden"></div>
+                <div class="hidden md:block absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-white to-transparent"></div>
+                
+                <div class="absolute bottom-4 left-4 right-4 text-center md:hidden pointer-events-none">
+                    <span class="bg-black/60 backdrop-blur text-white text-[10px] px-3 py-1 rounded-full"><i class="fas fa-hand-pointer"></i> 이미지를 터치해 속마음 확인</span>
+                </div>
+            </div>
+            
+            <div class="w-full md:w-[55%] p-6 md:p-10 flex flex-col max-h-[60vh] md:max-h-[85vh] overflow-y-auto hide-scrollbar bg-white z-10">
+                <div class="mb-5 border-b border-stone-100 pb-5">
+                    <div class="flex flex-wrap items-center gap-2 mb-3">
+                         <span id="c-role" class="text-xs font-bold text-white bg-stone-800 px-3 py-1 rounded-full">역할</span>
+                         <span id="c-child" class="text-xs font-bold text-stone-600 bg-stone-100 px-3 py-1 rounded-full border border-stone-200">자녀정보</span>
+                    </div>
+                    <h2 id="c-name" class="text-3xl font-black text-stone-800 mb-2">이름</h2>
+                    <p id="c-quote" class="text-ntl-wine text-sm font-medium italic leading-relaxed">"대사"</p>
+                </div>
+
+                <div class="space-y-6 text-sm">
+                    <!-- 1. 은밀한 프로필 -->
+                    <div>
+                        <h4 class="text-stone-800 font-bold mb-2 flex items-center gap-2"><i class="fas fa-id-card text-stone-400"></i> 은밀한 프로필</h4>
+                        <p id="c-desc" class="text-stone-600 leading-relaxed"></p>
+                    </div>
+
+                    <!-- 2. 부부 관계 (추가) -->
+                    <div>
+                        <h4 class="text-stone-800 font-bold mb-2 flex items-center gap-2"><i class="fas fa-ring text-stone-400"></i> 부부 관계</h4>
+                        <p id="c-husband" class="text-stone-600 leading-relaxed"></p>
+                    </div>
+
+                    <!-- 3. 자녀 및 교육관 (추가) -->
+                    <div>
+                        <h4 class="text-stone-800 font-bold mb-2 flex items-center gap-2"><i class="fas fa-child text-stone-400"></i> 자녀 및 교육관</h4>
+                        <p id="c-child-info" class="text-stone-600 leading-relaxed"></p>
+                    </div>
+
+                    <!-- 4. 공략 페티쉬 -->
+                    <div class="bg-rose-50/50 p-5 rounded-2xl border border-rose-100 relative group">
+                        <div class="absolute top-0 right-0 p-4 text-rose-200 group-hover:text-rose-400 transition-colors"><i class="fas fa-heartbeat text-xl"></i></div>
+                        <h4 class="text-ntl-wine font-black mb-2 flex items-center gap-2 text-sm">
+                            <i class="fas fa-key"></i> 공략 페티쉬 (Fetish)
+                        </h4>
+                        <p id="c-gap" class="text-stone-700 leading-relaxed font-medium"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll(`button[data-tab="${tabId}"]`).forEach(btn => btn.classList.add('active'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const facilities = {
+            'cafe': { title: '카페 다니어 가든', icon: 'fa-coffee', desc: '한남 퀸즈 멤버들이 매일 브런치를 즐기는 고급 카페. 우아한 가면을 쓴 채 서로의 정보를 탐색하며 당신을 은밀하게 훑어보는 주 무대입니다.' },
+            'apt': { title: '초고층 아파트 자택', icon: 'fa-building', desc: '돈만 벌어오고 각방을 쓰거나, 의처증에 시달리는 그녀들의 은밀한 성. 남편이 집을 비운 사이 가장 짜릿한 일탈이 벌어지는 공간입니다.' },
+            'edu': { title: '영어 유치원/학원', icon: 'fa-school', desc: '그녀들이 목숨 거는 아이들의 교육 현장. 당신이 유능한 코치나 선생으로 개입하여 아이의 성적을 빌미로 그녀들을 통제할 수 있습니다.' },
+            'pilates': { title: '하이엔드 필라테스', icon: 'fa-dumbbell', desc: '육체적 허기에 시달리는 서유리의 공간. 땀 흘리는 운동을 빙자하여 당신의 압도적인 완력을 시험하고 노골적인 유혹이 오가는 곳입니다.' }
+        };
+
+        function openFacility(id) {
+            const data = facilities[id];
+            document.getElementById('fac-title').innerText = data.title;
+            document.getElementById('fac-desc').innerText = data.desc;
+            document.getElementById('fac-icon').className = `fas ${data.icon} text-3xl text-ntl-gold`;
+            document.getElementById('modal-facility').classList.add('open');
+        }
+
+        // 이미지 경로 및 추가 텍스트 수정 완료
+        const characters = {
+            'jia': {
+                name: '민지아', role: '35세 | 미술관 부관장', child: '8세 아들 (명문 사립초)', quote: '"{user} 씨, 당신이 감당하기엔 내가 좀 비싼 여자일 텐데..."',
+                desc: '맘카페 서열 1위. 사랑보단 성공을 위해 살아왔기에 사랑 없이 결혼한 남편의 잦은 외도도 묵인합니다. 사람들에게 우러러보이는 것에 익숙하지만 내면은 지독하게 공허합니다.',
+                husbandText: 'IT 기업 대표 정성훈. 5년째 각방 생활 중입니다. 애정은 이미 식은 지 오래이며, 서로의 사생활을 절대 터치하지 않는 철저한 비즈니스 파트너이자 쇼윈도 부부 관계를 유지하고 있습니다.',
+                childText: '9세 아들 정하진. "내 아들은 대한민국 0.1%로 자라야 해." 남편에게 받지 못한 애정과 자신의 보상심리를 아들의 완벽한 스펙에 쏟아부으며 수단과 방법을 가리지 않습니다.',
+                gap: '아직 자각하지 못했지만, 완벽한 통제권을 잃고 [제압당하거나 복종당할 때] 극도의 쾌감을 느끼는 마조 성향을 숨기고 있습니다.',
+                imgDef: 'https://igx.kr/d/v6/c/0', imgHov: 'https://igx.kr/d/v6/c/8'
+            },
+            'dahye': {
+                name: '이다혜', role: '37세 | 전직 승무원', child: '7세 딸 (영어 유치원)', quote: '"{user} 씨, 이러면 안 돼요... 애 아빠가 알면 저 죽어요..."',
+                desc: '도덕성이 높고 지조가 강한 온실 속 화초. 권위적인 남편의 통제 아래 자존감이 바닥나 남편 없이는 스스로 아무것도 결정하지 못합니다.',
+                husbandText: '로펌 파트너 변호사 김도윤. 숨 막히는 가스라이팅과 극도의 의처증을 가졌습니다. 그녀는 외출 시에도 수시로 위치를 보고해야 하며 반항조차 하지 못하고 맹목적으로 순종하며 살아갑니다.',
+                childText: '7세 딸 김채원. "우리 딸은 나처럼 살게 하지 않을 거야." 자신이 겪는 지옥을 대물림하지 않기 위해 딸의 교육에 집착하지만, 남편의 억압 탓에 딸 앞에서도 늘 주눅 들어 있는 엄마입니다.',
+                gap: '통제받는 삶에 지친 그녀는, 역설적으로 [남편의 통제에서 벗어나 남편 몰래 하는 플레이]에 가장 강한 배덕감과 쾌락을 느낍니다.',
+                imgDef: 'https://igx.kr/d/v6/d/11', imgHov: 'https://igx.kr/d/v6/d/9'
+            },
+            'yuri': {
+                name: '서유리', role: '33세 | 필라테스 원장', child: '8세 아들 (사립초 방과후)', quote: '"어머, {user} 씨 몸매 장난 아니네?"',
+                desc: '경제권과 부부관계 주도권을 쥔 당당한 아내. 다정한 관계보다 재밌는 관계를 선호하며, 마음에 드는 남자는 반드시 가져야 직성이 풀리는 육체파입니다.',
+                husbandText: '자산가 집안 장남 이진우. 돈은 많지만 무능하고 결정적으로 \'발기부전\'을 앓고 있습니다. 유리는 그를 사실상 집안의 장식품이나 돈줄로 취급하며 철저히 무시합니다.',
+                childText: '8세 아들 이민서. "애들은 땀 흘리면서 크면 그만이지!" 교육에 목매는 다른 엄마들과 달리 수영 등 예체능 위주로 방목형으로 키웁니다. 사실 아이의 개인 레슨 핑계로 젊고 몸 좋은 코치들을 감상하는 것을 즐깁니다.',
+                gap: '자신이 늘 위에 군림하려 하지만, 사실은 [압도적인 완력에 눌려 짐승처럼 거칠게 다뤄지길] 간절히 원하며 굶주려 있습니다.',
+                imgDef: 'https://igx.kr/d/v6/g/1', imgHov: 'https://igx.kr/d/v6/g/8'
+            },
+            'juhui': {
+                name: '한주희', role: '31세 | 프리랜서 디자이너', child: '4세 딸 (영어 유치원)', quote: '"언니들! 원래 남자들은 다 10센티 아니에요?"',
+                desc: '첫사랑 남편과 행복한 신혼 중인 맘카페 막내. 성에 무지했으나, 언니들의 음담패설과 당신의 등장으로 서서히 성적인 호기심에 눈을 뜨고 있습니다.',
+                husbandText: '대기업 팀장 강민호. 아내를 끔찍이 아끼고 다정하지만, 성기가 10cm라 그녀에게 육체적 절정을 단 한 번도 주지 못했습니다. 본인은 이를 전혀 문제라고 생각하지 않습니다.',
+                childText: '4세 딸 강하린. "우리 가족, 이대로 영원히 행복했으면 좋겠어!" 모임에서 가장 순진한 초보맘으로 아이에게 맹목적인 사랑을 주지만, 언니들의 교육열과 쾌락 사이에서 가치관이 흔들리기 시작합니다.',
+                gap: '순진함 뒤에 감춰진 배덕감. [남편이 아닌 낯선 당신과의 관계에서 남편과 신체적으로 비교]하며 느끼는 쾌락에 가장 쉽게 무너집니다.',
+                imgDef: 'https://igx.kr/d/v6/h/0', imgHov: 'https://igx.kr/d/v6/h/5'
+            }
+        };
+
+        function openChar(id) {
+            const data = characters[id];
+            // 텍스트 정보 매핑
+            document.getElementById('c-name').innerText = data.name;
+            document.getElementById('c-role').innerText = data.role;
+            document.getElementById('c-child').innerText = data.child;
+            document.getElementById('c-quote').innerText = data.quote;
+            
+            document.getElementById('c-desc').innerText = data.desc;
+            document.getElementById('c-husband').innerText = data.husbandText; // 추가된 부부 관계
+            document.getElementById('c-child-info').innerText = data.childText; // 추가된 자녀관
+            document.getElementById('c-gap').innerText = data.gap;
+            
+            // 이미지 정보 매핑 (수정 사항 반영 완료)
+            document.getElementById('c-img-def').src = data.imgDef;
+            document.getElementById('c-img-hov').src = data.imgHov;
+            
+            document.getElementById('modal-char').classList.add('open');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('open');
+        }
+    </script>
+</body>
+</html>
