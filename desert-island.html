@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="폭풍우로 무인도에 표류한 다섯 사람. 생존과 관계가 실시간으로 변화하는 성인용 AI 롤플레잉."
+  />
+  <meta name="theme-color" content="#07130f" />
+  <title>무인도 속 하렘 파괴범 | AI 롤플레잉</title>
+
+  <!--
+    빠른 수정 안내
+    1) 아래 CSS의 --accent 값을 바꾸면 메인 포인트 색상이 바뀝니다.    3) 캐릭터 이미지는 제공된 igx.kr 이미지 규칙을 사용합니다.
+  -->
+
+  <style>
+    :root {
+      --bg: #06100d;
+      --bg-soft: #0b1a15;
+      --panel: rgba(13, 31, 25, 0.78);
+      --panel-strong: rgba(16, 37, 30, 0.94);
+      --line: rgba(213, 238, 220, 0.14);
+      --text: #f3f7f4;
+      --muted: #a8b8af;
+      --accent: #f3b456;
+      --accent-2: #74d4ad;
+      --danger: #ff7a72;
+      --blue: #75a8ff;
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+      --radius-lg: 30px;
+      --radius-md: 20px;
+      --radius-sm: 14px;
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(56, 142, 109, 0.18), transparent 34%),
+        radial-gradient(circle at 88% 2%, rgba(243, 180, 86, 0.14), transparent 26%),
+        linear-gradient(180deg, #07130f 0%, #06100d 42%, #081611 100%);
+      font-family:
+        Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic",
+        system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.7), transparent 90%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto -15vw -30vh auto;
+      width: 70vw;
+      height: 70vw;
+      border-radius: 50%;
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(42, 127, 94, 0.14), transparent 65%);
+      filter: blur(30px);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    select {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    ::selection {
+      color: #08110e;
+      background: var(--accent);
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin-inline: auto;
+    }
+
+    .section {
+      position: relative;
+      padding: 110px 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 14px;
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .section-title {
+      max-width: 780px;
+      margin: 0;
+      font-size: clamp(2rem, 4.5vw, 4.2rem);
+      line-height: 1.12;
+      letter-spacing: -0.045em;
+    }
+
+    .section-description {
+      max-width: 720px;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .glass {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      border-bottom: 1px solid transparent;
+      background: rgba(5, 14, 11, 0.54);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      transition: border-color .25s ease, background .25s ease;
+    }
+
+    .topbar.scrolled {
+      border-color: var(--line);
+      background: rgba(5, 14, 11, 0.88);
+    }
+
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 26px;
+    }
+
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 1px;
+      color: var(--muted);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: #c7d2cc;
+      font-size: .92rem;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .button {
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 900;
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: 130px 0 68px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(5, 14, 11, 0.98) 0%, rgba(5, 14, 11, .72) 45%, rgba(5, 14, 11, .12) 100%),
+        linear-gradient(180deg, transparent 0%, rgba(6, 16, 13, .38) 70%, #06100d 100%);
+      z-index: -1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.04fr) minmax(420px, .96fr);
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 5;
+    }
+
+    .hero-kicker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 22px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #d9e4dd;
+      background: rgba(255,255,255,.035);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .pill.hot {
+      color: #1e1710;
+      border-color: rgba(243,180,86,.65);
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(3.45rem, 7.7vw, 7.3rem);
+      line-height: .94;
+      letter-spacing: -0.07em;
+      text-wrap: balance;
+      text-shadow: 0 16px 55px rgba(0,0,0,.45);
+    }
+
+    .hero h1 .accent {
+      display: block;
+      color: var(--accent);
+      font-style: italic;
+      font-weight: 950;
+    }
+
+    .hero-lead {
+      max-width: 690px;
+      margin: 28px 0 0;
+      color: #c7d4cc;
+      font-size: clamp(1rem, 1.6vw, 1.18rem);
+      text-wrap: pretty;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      min-height: 54px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 23px;
+    }
+
+    .button-primary {
+      color: #111913;
+      background: linear-gradient(135deg, #ffd17e, var(--accent));
+      box-shadow: 0 16px 42px rgba(243,180,86,.22);
+    }
+
+    .button-secondary {
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.055);
+    }
+
+    .button-secondary:hover {
+      border-color: rgba(255,255,255,.28);
+      background: rgba(255,255,255,.09);
+    }
+
+    .hero-note {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      margin-top: 34px;
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 700;
+    }
+
+    .hero-note span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-note b {
+      color: var(--accent-2);
+    }
+
+    .cast-stage {
+      position: relative;
+      min-height: 650px;
+      isolation: isolate;
+    }
+
+    .cast-stage::before {
+      content: "";
+      position: absolute;
+      width: 590px;
+      aspect-ratio: 1;
+      top: 52%;
+      left: 52%;
+      transform: translate(-50%, -50%);
+      z-index: -3;
+      border: 1px solid rgba(243,180,86,.13);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 48%, rgba(243,180,86,.18), rgba(38,109,83,.11) 38%, transparent 69%);
+      box-shadow:
+        inset 0 0 90px rgba(243,180,86,.04),
+        0 0 120px rgba(24,89,65,.14);
+    }
+
+    .cast-stage::after {
+      content: "SURVIVE • CHOOSE • CHANGE •";
+      position: absolute;
+      width: 460px;
+      aspect-ratio: 1;
+      top: 52%;
+      left: 52%;
+      transform: translate(-50%, -50%) rotate(-18deg);
+      display: grid;
+      place-items: start center;
+      padding-top: 14px;
+      z-index: -2;
+      border-radius: 50%;
+      color: rgba(255,255,255,.12);
+      font-size: .7rem;
+      font-weight: 900;
+      letter-spacing: .42em;
+    }
+
+    .portrait {
+      position: absolute;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 26px;
+      background: #102219;
+      box-shadow: 0 26px 70px rgba(0,0,0,.46);
+      transition: transform .3s ease, filter .3s ease, z-index .3s;
+    }
+
+    .portrait:hover {
+      z-index: 10;
+      filter: saturate(1.08) brightness(1.04);
+      transform: translateY(-8px) rotate(0deg) !important;
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .portrait::after {
+      content: attr(data-name);
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 13px;
+      padding: 11px 13px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px;
+      color: #fff;
+      background: rgba(6,16,13,.66);
+      backdrop-filter: blur(10px);
+      font-size: .78rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .portrait-main {
+      width: 255px;
+      height: 475px;
+      left: 50%;
+      bottom: 50px;
+      z-index: 5;
+      transform: translateX(-50%);
+      border-color: rgba(243,180,86,.38);
+    }
+
+    .portrait-a {
+      width: 185px;
+      height: 340px;
+      left: 2%;
+      top: 120px;
+      z-index: 2;
+      transform: rotate(-6deg);
+    }
+
+    .portrait-b {
+      width: 185px;
+      height: 340px;
+      right: 2%;
+      top: 120px;
+      z-index: 2;
+      transform: rotate(6deg);
+    }
+
+    .portrait-c {
+      width: 165px;
+      height: 300px;
+      left: 13%;
+      bottom: 15px;
+      z-index: 3;
+      transform: rotate(4deg);
+    }
+
+    .portrait-d {
+      width: 165px;
+      height: 300px;
+      right: 13%;
+      bottom: 15px;
+      z-index: 3;
+      transform: rotate(-4deg);
+    }
+
+    .scroll-cue {
+      position: absolute;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,.52);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .scroll-cue::after {
+      content: "";
+      width: 1px;
+      height: 34px;
+      display: block;
+      margin: 8px auto 0;
+      background: linear-gradient(var(--accent), transparent);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: .3; transform: scaleY(.75); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    .story-layout {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .story-sticky {
+      position: sticky;
+      top: 118px;
+    }
+
+    .story-card {
+      position: relative;
+      min-height: 530px;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(180deg, rgba(10,25,19,.02), rgba(7,17,13,.94)),
+        radial-gradient(circle at 35% 22%, rgba(243,180,86,.25), transparent 27%),
+        linear-gradient(145deg, #183629, #0b1d16 62%, #08130f);
+    }
+
+    .story-card::before,
+    .story-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .story-card::before {
+      width: 410px;
+      height: 160px;
+      left: -80px;
+      bottom: 85px;
+      background: #2d674e;
+      transform: rotate(-8deg);
+      box-shadow:
+        190px -30px 0 #204d3a,
+        390px 22px 0 #163b2c;
+      opacity: .58;
+      filter: blur(2px);
+    }
+
+    .story-card::after {
+      width: 150px;
+      aspect-ratio: 1;
+      top: 55px;
+      right: 55px;
+      background: radial-gradient(circle, #ffd884 0 18%, rgba(243,180,86,.38) 24%, transparent 65%);
+      box-shadow: 0 0 80px rgba(243,180,86,.35);
+    }
+
+    .story-overlay {
+      position: absolute;
+      inset: auto 30px 30px;
+      z-index: 2;
+    }
+
+    .story-overlay strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.55rem;
+      letter-spacing: -.04em;
+    }
+
+    .story-overlay p {
+      margin: 0;
+      color: #bdcbc2;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 62px 1fr;
+      gap: 20px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,.025);
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+    }
+
+    .timeline-item:hover {
+      transform: translateX(7px);
+      border-color: rgba(243,180,86,.35);
+      background: rgba(255,255,255,.045);
+    }
+
+    .timeline-number {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      color: #172019;
+      background: var(--accent);
+      font-size: .8rem;
+      font-weight: 950;
+    }
+
+    .timeline-item h3 {
+      margin: 1px 0 8px;
+      font-size: 1.18rem;
+      letter-spacing: -.03em;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .location-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 46px;
+    }
+
+    .location-card {
+      min-height: 235px;
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: linear-gradient(155deg, rgba(21,51,39,.84), rgba(8,19,15,.94));
+      transition: transform .25s ease, border-color .25s ease;
+    }
+
+    .location-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(116,212,173,.32);
+    }
+
+    .location-card::before {
+      content: attr(data-symbol);
+      position: absolute;
+      right: -7px;
+      bottom: -35px;
+      color: rgba(255,255,255,.055);
+      font-size: 8.5rem;
+      line-height: 1;
+      filter: grayscale(1);
+    }
+
+    .location-card .tag {
+      display: inline-flex;
+      padding: 6px 9px;
+      border-radius: 999px;
+      color: var(--accent-2);
+      background: rgba(116,212,173,.1);
+      font-size: .72rem;
+      font-weight: 900;
+    }
+
+    .location-card h3 {
+      margin: 25px 0 8px;
+      font-size: 1.28rem;
+    }
+
+    .location-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .danger-strip {
+      margin-top: 18px;
+      padding: 18px 22px;
+      border: 1px solid rgba(255,122,114,.22);
+      border-radius: var(--radius-sm);
+      color: #efc0bb;
+      background: rgba(255,122,114,.06);
+      font-size: .9rem;
+    }
+
+
+
+    .character-shell {
+      margin-top: 48px;
+      padding: 18px;
+      border-radius: 34px;
+    }
+
+    .character-tabs {
+      display: flex;
+      gap: 9px;
+      overflow-x: auto;
+      padding: 4px 4px 14px;
+      scrollbar-width: thin;
+    }
+
+    .character-tab {
+      flex: 0 0 auto;
+      padding: 11px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #b6c5bc;
+      background: rgba(255,255,255,.025);
+      cursor: pointer;
+      font-weight: 850;
+      transition:
+        color .2s ease,
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
+    }
+
+    .character-tab:hover {
+      transform: translateY(-2px);
+      border-color: rgba(243,180,86,.35);
+    }
+
+    .character-tab.active {
+      color: #101812;
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+
+    .character-panel {
+      display: grid;
+      grid-template-columns: minmax(330px, 390px) minmax(0, 1fr);
+      min-height: 610px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 25px;
+      background:
+        radial-gradient(circle at 80% 10%, rgba(116,212,173,.1), transparent 36%),
+        rgba(4,13,10,.58);
+    }
+
+    .character-visual {
+      position: relative;
+      min-height: 610px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 24%, rgba(243,180,86,.22), transparent 35%),
+        linear-gradient(145deg, #183d2d, #091712);
+    }
+
+    .character-visual::before {
+      content: attr(data-initial);
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: rgba(243,180,86,.24);
+      font-size: 6rem;
+      font-weight: 950;
+    }
+
+    .character-visual img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      min-height: 610px;
+      object-fit: cover;
+      object-position: top center;
+      background: #102219;
+      transition: opacity .16s ease;
+    }
+
+    .character-visual.image-error::after {
+      content: "이미지를 불러오지 못했습니다";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--muted);
+      background: rgba(4,13,10,.76);
+      font-size: .78rem;
+      text-align: center;
+    }
+
+    .character-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(28px, 5vw, 58px);
+    }
+
+    .character-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .character-meta span {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #d6e1da;
+      background: rgba(255,255,255,.035);
+      font-size: .72rem;
+      font-weight: 850;
+    }
+
+    .character-name {
+      margin: 0;
+      font-size: clamp(2.5rem, 5vw, 4.4rem);
+      line-height: 1;
+      letter-spacing: -.06em;
+    }
+
+    .character-role {
+      margin-top: 10px;
+      color: var(--accent);
+      font-weight: 850;
+    }
+
+    .character-description {
+      margin: 24px 0 0;
+      color: #bdcbc2;
+      font-size: 1rem;
+    }
+
+    .trait-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .trait-box {
+      min-height: 92px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.027);
+    }
+
+    .trait-box small {
+      display: block;
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .trait-box strong {
+      display: block;
+      margin-top: 7px;
+      color: #f0f5f2;
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+
+    .quote-box {
+      position: relative;
+      margin-top: 25px;
+      padding: 19px 20px 19px 48px;
+      border-left: 2px solid var(--accent);
+      border-radius: 0 14px 14px 0;
+      color: #e6eee9;
+      background: rgba(243,180,86,.055);
+    }
+
+    .quote-box::before {
+      content: "“";
+      position: absolute;
+      left: 15px;
+      top: 7px;
+      color: var(--accent);
+      font-size: 2.3rem;
+      font-family: Georgia, serif;
+    }
+
+
+
+    .system-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 760px);
+      justify-content: center;
+      gap: 22px;
+      margin-top: 48px;
+      align-items: stretch;
+    }
+
+    .system-card {
+      padding: 30px;
+      border-radius: var(--radius-lg);
+    }
+
+    .system-card h3 {
+      margin: 0;
+      font-size: 1.65rem;
+      letter-spacing: -.035em;
+    }
+
+    .system-card p {
+      color: var(--muted);
+    }
+
+    .affinity-list {
+      display: grid;
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .affinity-row {
+      display: grid;
+      gap: 8px;
+    }
+
+    .affinity-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: .83rem;
+      font-weight: 850;
+    }
+
+    .affinity-track {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,.07);
+    }
+
+    .affinity-fill {
+      height: 100%;
+      width: var(--value);
+      border-radius: inherit;
+      transition: width .35s ease;
+    }
+
+    .affinity-fill.red {
+      background: linear-gradient(90deg, #ff8178, #ffb3aa);
+      box-shadow: 0 0 22px rgba(255,122,114,.24);
+    }
+
+    .affinity-fill.blue {
+      background: linear-gradient(90deg, #6d9eff, #a9c5ff);
+      box-shadow: 0 0 22px rgba(117,168,255,.22);
+    }
+
+    .affinity-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 22px;
+    }
+
+    .mini-button {
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: #dce7e0;
+      background: rgba(255,255,255,.035);
+      cursor: pointer;
+      font-size: .78rem;
+      font-weight: 850;
+    }
+
+    .mini-button:hover {
+      border-color: rgba(243,180,86,.4);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .feature-card {
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,.027);
+    }
+
+    .feature-icon {
+      width: 44px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      color: var(--accent);
+      background: rgba(243,180,86,.1);
+      font-size: 1.1rem;
+    }
+
+    .feature-card h3 {
+      margin: 20px 0 7px;
+      font-size: 1.05rem;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    footer {
+      padding: 38px 0 90px;
+      color: #83958a;
+      font-size: .8rem;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 26px;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 30px;
+      z-index: 120;
+      max-width: calc(100% - 40px);
+      transform: translate(-50%, 30px);
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: #eef5f1;
+      background: rgba(11,27,21,.94);
+      box-shadow: 0 18px 50px rgba(0,0,0,.45);
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+      font-size: .82rem;
+      font-weight: 800;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 1040px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        max-width: 800px;
+      }
+
+      .cast-stage {
+        width: min(100%, 680px);
+        margin-inline: auto;
+      }
+
+      .story-layout,
+      .system-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .story-sticky {
+        position: static;
+      }
+
+      .story-card {
+        min-height: 420px;
+      }
+
+      .character-panel {
+        grid-template-columns: minmax(280px, 330px) minmax(0, 1fr);
+      }
+
+    }
+
+    @media (max-width: 780px) {
+      .section {
+        padding: 82px 0;
+      }
+
+      .container {
+        width: min(calc(100% - 26px), var(--max-width));
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav {
+        min-height: 66px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 105px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.1rem, 17vw, 5.6rem);
+      }
+
+      .cast-stage {
+        min-height: 545px;
+        transform: scale(.92);
+        transform-origin: top center;
+        margin-bottom: -40px;
+      }
+
+      .portrait-main {
+        width: 210px;
+        height: 400px;
+      }
+
+      .portrait-a,
+      .portrait-b {
+        width: 145px;
+        height: 275px;
+        top: 112px;
+      }
+
+      .portrait-c,
+      .portrait-d {
+        width: 132px;
+        height: 250px;
+      }
+
+      .location-grid,
+      .feature-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .character-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .character-visual,
+      .character-visual img {
+        min-height: 520px;
+      }
+
+      .character-content {
+        padding: 30px 22px 36px;
+      }
+
+
+      footer {
+        padding-bottom: 70px;
+      }
+
+      .footer-row {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-actions .button {
+        width: 100%;
+      }
+
+      .hero-note {
+        gap: 9px 18px;
+      }
+
+      .cast-stage {
+        min-height: 455px;
+        transform: scale(.82);
+        width: 122%;
+        margin-left: -11%;
+        margin-bottom: -92px;
+      }
+
+      .location-grid,
+      .feature-grid,
+      .trait-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 48px 1fr;
+        padding: 20px;
+      }
+
+      .character-visual,
+      .character-visual img {
+        min-height: 445px;
+      }
+
+      .trait-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-number {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  
+  /* ─────────────────────────────────────────────
+     BRIGHT BEACH THEME
+     기존 구성과 기능은 유지하고 색상만 밝게 변경
+  ───────────────────────────────────────────── */
+
+  :root {
+    --bg: #f7fbf9;
+    --bg-soft: #eef8f4;
+    --panel: rgba(255, 255, 255, 0.86);
+    --panel-strong: rgba(255, 255, 255, 0.97);
+    --line: rgba(44, 94, 77, 0.16);
+    --text: #17362d;
+    --muted: #657c74;
+    --accent: #f1ad45;
+    --accent-2: #48b995;
+    --danger: #e96f65;
+    --blue: #6b97e8;
+    --shadow: 0 24px 65px rgba(55, 94, 80, 0.13);
+  }
+
+  body {
+    color: var(--text);
+    background:
+      radial-gradient(circle at 8% 7%, rgba(255, 216, 146, 0.55), transparent 27%),
+      radial-gradient(circle at 90% 4%, rgba(149, 219, 239, 0.48), transparent 28%),
+      radial-gradient(circle at 52% 50%, rgba(188, 238, 218, 0.28), transparent 34%),
+      linear-gradient(180deg, #fffdf7 0%, #f3fbf8 42%, #eef8f4 100%);
+  }
+
+  body::before {
+    background-image:
+      linear-gradient(rgba(47, 103, 84, .035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(47, 103, 84, .035) 1px, transparent 1px);
+    opacity: .65;
+  }
+
+  body::after {
+    background: radial-gradient(circle, rgba(83, 192, 157, 0.17), transparent 66%);
+  }
+
+  .glass {
+    border-color: rgba(50, 104, 86, .15);
+    background: rgba(255, 255, 255, .84);
+    box-shadow: var(--shadow);
+  }
+
+  .topbar {
+    border-bottom-color: rgba(50, 104, 86, .08);
+    background: rgba(255, 253, 247, .72);
+  }
+
+  .topbar.scrolled {
+    border-color: rgba(50, 104, 86, .14);
+    background: rgba(255, 255, 255, .94);
+    box-shadow: 0 10px 36px rgba(47, 91, 77, .08);
+  }
+
+  .brand {
+    color: #18372e;
+  }
+
+  .brand small {
+    color: #769087;
+  }
+
+  .nav-links {
+    color: #567169;
+  }
+
+  .nav-links a:hover {
+    color: #d88d21;
+  }
+
+  .hero::before {
+    background:
+      linear-gradient(90deg, rgba(255, 253, 247, .98) 0%, rgba(255, 253, 247, .80) 43%, rgba(255, 253, 247, .18) 100%),
+      linear-gradient(180deg, transparent 0%, rgba(242, 250, 247, .18) 68%, #f7fbf9 100%);
+  }
+
+  .pill {
+    color: #48675d;
+    border-color: rgba(51, 103, 85, .18);
+    background: rgba(255, 255, 255, .76);
+    box-shadow: 0 8px 24px rgba(58, 102, 87, .06);
+  }
+
+  .hero h1 {
+    color: #17382e;
+    text-shadow: 0 10px 34px rgba(81, 119, 105, .09);
+  }
+
+  .hero h1 .accent {
+    color: #e9a63d;
+  }
+
+  .hero-lead {
+    color: #597168;
+  }
+
+  .button-secondary {
+    color: #28483e;
+    border-color: rgba(48, 97, 81, .18);
+    background: rgba(255, 255, 255, .82);
+    box-shadow: 0 10px 30px rgba(54, 99, 84, .08);
+  }
+
+  .button-secondary:hover {
+    border-color: rgba(48, 97, 81, .32);
+    background: #ffffff;
+  }
+
+  .hero-note {
+    color: #698078;
+  }
+
+  .hero-note b {
+    color: #45b58f;
+  }
+
+  .cast-stage::before {
+    border-color: rgba(232, 171, 72, .24);
+    background:
+      radial-gradient(circle at 50% 48%, rgba(255, 218, 151, .48), rgba(159, 224, 204, .22) 42%, transparent 70%);
+    box-shadow:
+      inset 0 0 90px rgba(255, 203, 116, .15),
+      0 0 110px rgba(89, 184, 153, .14);
+  }
+
+  .cast-stage::after {
+    color: rgba(50, 96, 81, .14);
+  }
+
+  .portrait {
+    border-color: rgba(255, 255, 255, .82);
+    background: #dcefe7;
+    box-shadow: 0 24px 54px rgba(45, 78, 67, .22);
+  }
+
+  .portrait-main {
+    border-color: rgba(235, 170, 67, .72);
+    box-shadow: 0 28px 64px rgba(69, 99, 88, .25);
+  }
+
+  .portrait::after {
+    color: #24443a;
+    border-color: rgba(51, 102, 85, .12);
+    background: rgba(255, 255, 255, .84);
+    box-shadow: 0 8px 25px rgba(48, 86, 74, .10);
+  }
+
+  .scroll-cue {
+    color: rgba(56, 92, 80, .55);
+  }
+
+  .section-title {
+    color: #18382f;
+  }
+
+  .section-description {
+    color: #687f77;
+  }
+
+  .story-card {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.02), rgba(245, 251, 247, .94)),
+      radial-gradient(circle at 35% 22%, rgba(255, 204, 119, .52), transparent 27%),
+      linear-gradient(145deg, #c8eadf, #dff3ec 62%, #f5fbf8);
+  }
+
+  .story-card::before {
+    background: #8fd0b8;
+    box-shadow:
+      190px -30px 0 #b7dfd0,
+      390px 22px 0 #d1ece2;
+    opacity: .75;
+  }
+
+  .story-card::after {
+    background: radial-gradient(circle, #ffe7a8 0 18%, rgba(247, 190, 89, .48) 24%, transparent 65%);
+    box-shadow: 0 0 80px rgba(247, 190, 89, .30);
+  }
+
+  .story-overlay strong {
+    color: #23443a;
+  }
+
+  .story-overlay p {
+    color: #627a72;
+  }
+
+  .timeline-item {
+    border-color: rgba(52, 104, 86, .14);
+    background: rgba(255, 255, 255, .70);
+    box-shadow: 0 14px 38px rgba(59, 98, 84, .06);
+  }
+
+  .timeline-item:hover {
+    border-color: rgba(232, 168, 67, .42);
+    background: #ffffff;
+    box-shadow: 0 18px 44px rgba(66, 106, 92, .10);
+  }
+
+  .timeline-item h3 {
+    color: #1f4036;
+  }
+
+  .timeline-item p {
+    color: #687f77;
+  }
+
+  .location-card {
+    border-color: rgba(51, 103, 85, .14);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255, 216, 151, .25), transparent 38%),
+      linear-gradient(155deg, rgba(255,255,255,.96), rgba(237,248,244,.96));
+    box-shadow: 0 15px 40px rgba(53, 94, 80, .07);
+  }
+
+  .location-card:hover {
+    border-color: rgba(72,185,149,.40);
+    box-shadow: 0 20px 45px rgba(53, 94, 80, .12);
+  }
+
+  .location-card::before {
+    color: rgba(68, 130, 108, .08);
+  }
+
+  .location-card .tag {
+    color: #278c6c;
+    background: rgba(72,185,149,.12);
+  }
+
+  .location-card h3 {
+    color: #1f4036;
+  }
+
+  .location-card p {
+    color: #6a8078;
+  }
+
+  .danger-strip {
+    color: #a8524c;
+    border-color: rgba(233,111,101,.28);
+    background: rgba(255, 236, 232, .78);
+  }
+
+  .character-shell {
+    background:
+      radial-gradient(circle at 100% 0%, rgba(161, 221, 238, .22), transparent 33%),
+      rgba(255, 255, 255, .86);
+  }
+
+  .character-tab {
+    color: #5e756d;
+    border-color: rgba(49, 100, 83, .17);
+    background: rgba(247, 251, 249, .92);
+  }
+
+  .character-tab:hover {
+    border-color: rgba(235, 171, 69, .45);
+    background: #ffffff;
+  }
+
+  .character-tab.active {
+    color: #473416;
+    border-color: #f0b04a;
+    background: #f5c46e;
+    box-shadow: 0 8px 24px rgba(232, 169, 68, .24);
+  }
+
+  .character-panel {
+    border-color: rgba(48, 99, 82, .14);
+    background:
+      radial-gradient(circle at 82% 8%, rgba(155, 218, 237, .24), transparent 34%),
+      linear-gradient(135deg, rgba(255,255,255,.98), rgba(242,250,247,.96));
+    box-shadow: 0 18px 50px rgba(58, 99, 85, .08);
+  }
+
+  .character-visual {
+    background:
+      radial-gradient(circle at 50% 20%, rgba(255, 223, 165, .38), transparent 34%),
+      linear-gradient(145deg, #c9ebf4, #d8f0e7);
+  }
+
+  .character-visual::before {
+    color: rgba(230, 164, 59, .24);
+  }
+
+  .character-visual img {
+    background: #d8eee6;
+  }
+
+  .character-visual.image-error::after {
+    color: #6e8079;
+    border-color: rgba(51, 102, 85, .14);
+    background: rgba(255, 255, 255, .88);
+  }
+
+  .character-name {
+    color: #17382e;
+  }
+
+  .character-role {
+    color: #d48d27;
+  }
+
+  .character-description {
+    color: #627a72;
+  }
+
+  .character-meta span {
+    color: #506b62;
+    border-color: rgba(51, 102, 85, .14);
+    background: rgba(244, 250, 247, .92);
+  }
+
+  .trait-box {
+    border-color: rgba(51, 102, 85, .13);
+    background: rgba(255, 255, 255, .78);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+  }
+
+  .trait-box small {
+    color: #71857e;
+  }
+
+  .trait-box strong {
+    color: #2c4a40;
+  }
+
+  .quote-box {
+    color: #3c554c;
+    border-left-color: #edaa3f;
+    background: rgba(255, 240, 207, .64);
+  }
+
+  .system-card {
+    background:
+      radial-gradient(circle at 100% 0%, rgba(154, 217, 237, .18), transparent 40%),
+      rgba(255, 255, 255, .88);
+  }
+
+  .system-card h3 {
+    color: #1d3c33;
+  }
+
+  .system-card p {
+    color: #687e76;
+  }
+
+  .affinity-track {
+    background: rgba(57, 105, 89, .10);
+  }
+
+  .mini-button {
+    color: #456159;
+    border-color: rgba(51, 102, 85, .15);
+    background: rgba(255,255,255,.84);
+  }
+
+  .mini-button:hover {
+    color: #8c5a16;
+    border-color: rgba(235,171,69,.50);
+    background: #fff8e9;
+  }
+
+  .feature-card {
+    border-color: rgba(51, 102, 85, .14);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255, 219, 152, .20), transparent 40%),
+      rgba(255, 255, 255, .82);
+    box-shadow: 0 14px 38px rgba(55, 97, 82, .06);
+  }
+
+  .feature-card h3 {
+    color: #203f36;
+  }
+
+  .feature-card p {
+    color: #687f77;
+  }
+
+  .feature-icon {
+    color: #c9821d;
+    background: rgba(241,173,69,.16);
+  }
+
+  footer {
+    color: #73877f;
+  }
+
+  .footer-row {
+    border-top-color: rgba(51, 102, 85, .13);
+  }
+
+  .toast {
+    color: #28483e;
+    border-color: rgba(51,102,85,.15);
+    background: rgba(255,255,255,.96);
+    box-shadow: 0 18px 50px rgba(51, 93, 79, .16);
+  }
+
+  @media (max-width: 780px) {
+    .topbar {
+      background: rgba(255, 255, 255, .88);
+    }
+
+    .hero::before {
+      background:
+        linear-gradient(180deg, rgba(255,253,247,.88) 0%, rgba(255,253,247,.52) 55%, #f7fbf9 100%);
+    }
+  }
+
+
+  /* ─────────────────────────────────────────────
+     COMPACT HERO LAYOUT
+     첫 화면의 과도한 세로 빈 공간 축소
+  ───────────────────────────────────────────── */
+
+  .hero {
+    min-height: 760px;
+    align-items: flex-start;
+    padding: 118px 0 54px;
+  }
+
+  .hero-grid {
+    align-items: center;
+  }
+
+  .cast-stage {
+    min-height: 565px;
+  }
+
+  .cast-stage::before {
+    width: 520px;
+  }
+
+  .cast-stage::after {
+    width: 410px;
+  }
+
+  .portrait-main {
+    width: 230px;
+    height: 430px;
+    bottom: 42px;
+  }
+
+  .portrait-a,
+  .portrait-b {
+    width: 168px;
+    height: 310px;
+    top: 105px;
+  }
+
+  .portrait-c,
+  .portrait-d {
+    width: 150px;
+    height: 275px;
+    bottom: 12px;
+  }
+
+  .scroll-cue {
+    bottom: 8px;
+  }
+
+  @media (max-width: 1040px) {
+    .hero {
+      min-height: auto;
+      padding: 108px 0 55px;
+    }
+
+    .cast-stage {
+      min-height: 535px;
+    }
+  }
+
+  @media (max-width: 780px) {
+    .hero {
+      padding-top: 94px;
+      padding-bottom: 46px;
+    }
+
+    .cast-stage {
+      min-height: 475px;
+      margin-bottom: -54px;
+    }
+
+    .scroll-cue {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .cast-stage {
+      min-height: 410px;
+      margin-bottom: -96px;
+    }
+  }
+
+
+  /* ─────────────────────────────────────────────
+     BALANCED HERO LAYOUT
+     축소된 첫 화면에 적당한 여유 공간 복원
+  ───────────────────────────────────────────── */
+
+  .hero {
+    min-height: 840px;
+    padding: 126px 0 68px;
+  }
+
+  .cast-stage {
+    min-height: 610px;
+  }
+
+  .cast-stage::before {
+    width: 555px;
+  }
+
+  .cast-stage::after {
+    width: 438px;
+  }
+
+  .portrait-main {
+    width: 242px;
+    height: 452px;
+    bottom: 46px;
+  }
+
+  .portrait-a,
+  .portrait-b {
+    width: 176px;
+    height: 325px;
+    top: 112px;
+  }
+
+  .portrait-c,
+  .portrait-d {
+    width: 157px;
+    height: 288px;
+    bottom: 14px;
+  }
+
+  .scroll-cue {
+    bottom: 18px;
+  }
+
+  @media (max-width: 1040px) {
+    .hero {
+      min-height: auto;
+      padding: 114px 0 64px;
+    }
+
+    .cast-stage {
+      min-height: 565px;
+    }
+  }
+
+  @media (max-width: 780px) {
+    .hero {
+      padding-top: 100px;
+      padding-bottom: 54px;
+    }
+
+    .cast-stage {
+      min-height: 505px;
+      margin-bottom: -42px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .cast-stage {
+      min-height: 435px;
+      margin-bottom: -82px;
+    }
+  }
+
+</style>
+</head>
+
+<body>
+</div>
+
+  <header class="topbar" id="topbar">
+    <div class="container nav">
+<a class="brand brand-text-only" href="#top" aria-label="홈으로 이동">
+        <span>
+          무인도 속 하렘 파괴범
+          <small>AI SURVIVAL ROLEPLAY</small>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 메뉴">
+        <a href="#story">스토리</a>
+        <a href="#island">무인도</a>
+        <a href="#characters">등장인물</a>
+        <a href="#system">호감도</a>
+      </nav>
+</div>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="hero-kicker">
+<span class="pill">무인도 생존</span>
+            <span class="pill">하렘 붕괴</span>
+            <span class="pill">실시간 관계 변화</span>
+          </div>
+
+          <h1>
+            살아남기 위해
+            <span class="accent">관계를 바꿔라</span>
+          </h1>
+
+          <p class="hero-lead">
+            학과 연합 MT를 위해 제주도로 향하던 크루즈가 폭풍우 속에서 파선된다.
+            무인도 해변에서 눈을 뜬 당신 앞에는 한 명의 남자와 네 명의 여성이 있다.
+            한정된 식량, 불안한 신뢰, 흔들리는 감정 속에서 모든 선택은 관계를 다시 쓴다.
+          </p>
+<div class="hero-note">
+            <span><b>●</b> 선택형 대화</span>
+            <span><b>●</b> 캐릭터 이미지 제공</span>
+            <span><b>●</b> 호감도 경쟁 시스템</span>
+          </div>
+        </div>
+
+        <div class="cast-stage reveal" aria-label="주요 등장인물">
+          <figure class="portrait portrait-a" data-name="정하린">
+            <img src="https://igx.kr/d/Y9/g/0" alt="정하린 기본 이미지" />
+          </figure>
+          <figure class="portrait portrait-b" data-name="이서연">
+            <img src="https://igx.kr/d/Y9/h/1" alt="이서연 기본 이미지" />
+          </figure>
+          <figure class="portrait portrait-c" data-name="김다은">
+            <img src="https://igx.kr/d/Y9/j/0" alt="김다은 기본 이미지" />
+          </figure>
+          <figure class="portrait portrait-d" data-name="정지훈">
+            <img src="https://igx.kr/d/Y9/c/0" alt="정지훈 기본 이미지" />
+          </figure>
+          <figure class="portrait portrait-main" data-name="강민아">
+            <img src="https://igx.kr/d/Y9/d/1" alt="강민아 기본 이미지" />
+          </figure>
+        </div>
+      </div>
+
+      <div class="scroll-cue">Scroll</div>
+    </section>
+
+    <section class="section" id="story">
+      <div class="container story-layout">
+        <div class="story-sticky reveal">
+          <span class="eyebrow">Prologue</span>
+          <h2 class="section-title">평범한 MT가 끝나고, 생존이 시작됐다.</h2>
+          <p class="section-description">
+            구조 신호도, 지도도, 안전한 계획도 없다. 서로를 믿어야 하지만
+            누구를 중심으로 움직일지는 당신의 선택에 달려 있다.
+          </p>
+
+          <div class="story-card glass" style="margin-top: 35px;">
+            <div class="story-overlay">
+              <strong>DAY 1 — 폭풍이 지나간 해변</strong>
+              <p>
+                부서진 요트 잔해와 젖은 짐, 그리고 서로 다른 표정의 다섯 생존자.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline reveal">
+          <article class="timeline-item">
+            <div class="timeline-number">01</div>
+            <div>
+              <h3>크루즈 파선</h3>
+              <p>
+                제주도로 향하던 학과 연합 MT 크루즈가 예상치 못한 폭풍우에 휘말린다.
+                거대한 파도와 함께 배는 중심을 잃고, 기억은 거기서 끊긴다.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-number">02</div>
+            <div>
+              <h3>무인도에서의 첫날</h3>
+              <p>
+                당신과 정지훈, 강민아, 정하린, 이서연, 김다은은 해변에서 깨어난다.
+                부상자를 확인하고 난파선 잔해에서 쓸 만한 물품을 찾아야 한다.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-number">03</div>
+            <div>
+              <h3>능력의 격차</h3>
+              <p>
+                위기 속에서 누가 판단하고, 누가 행동하며, 누가 다른 사람을 지키는지가 드러난다.
+                평소의 관계는 생존 능력 앞에서 새로운 형태로 흔들리기 시작한다.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-number">04</div>
+            <div>
+              <h3>신뢰와 감정의 선택</h3>
+              <p>
+                식량을 누구에게 먼저 나눌지, 위험한 탐색에 누구와 함께 갈지,
+                충돌하는 의견 사이에서 누구를 지지할지 결정하라.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-number">05</div>
+            <div>
+              <h3>당신만의 결말</h3>
+              <p>
+                구조를 기다리는 협력자가 될 수도, 집단의 중심이 될 수도,
+                누군가의 마음을 완전히 바꾸는 존재가 될 수도 있다.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="island">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow">The Island</span>
+          <h2 class="section-title">아름답지만, 결코 안전하지 않은 섬.</h2>
+          <p class="section-description">
+            대한민국 인근의 아열대 무인도. 풍부한 자연은 생존 자원이 되지만,
+            작은 실수 하나가 일행 전체를 위험하게 만들 수 있다.
+          </p>
+        </div>
+
+        <div class="location-grid">
+          <article class="location-card reveal" data-symbol="≈">
+            <span class="tag">START POINT</span>
+            <h3>해변</h3>
+            <p>난파선과 요트 잔해가 밀려오는 첫 거점. 구조 신호와 식량 수색의 중심.</p>
+          </article>
+
+          <article class="location-card reveal" data-symbol="♧">
+            <span class="tag">RESOURCE</span>
+            <h3>밀림</h3>
+            <p>열대과일과 목재를 구할 수 있지만 길을 잃거나 야생동물을 마주칠 수 있다.</p>
+          </article>
+
+          <article class="location-card reveal" data-symbol="⌁">
+            <span class="tag">WATER</span>
+            <h3>계곡과 폭포</h3>
+            <p>식수 확보를 위한 핵심 지역. 비가 내린 뒤에는 급류와 낙석을 주의해야 한다.</p>
+          </article>
+
+          <article class="location-card reveal" data-symbol="◐">
+            <span class="tag">SHELTER</span>
+            <h3>동굴</h3>
+            <p>폭풍을 피할 수 있는 임시 은신처. 내부의 어둠과 뱀은 또 다른 변수다.</p>
+          </article>
+
+          <article class="location-card reveal" data-symbol="△">
+            <span class="tag">SIGNAL</span>
+            <h3>절벽</h3>
+            <p>섬 전체를 관찰하고 신호를 보낼 수 있지만 강풍과 추락 위험이 따른다.</p>
+          </article>
+
+          <article class="location-card reveal" data-symbol="⚡">
+            <span class="tag">EVENT</span>
+            <h3>폭풍우</h3>
+            <p>거점과 관계를 동시에 시험하는 대형 이벤트. 대비한 만큼 피해를 줄일 수 있다.</p>
+          </article>
+        </div>
+
+        <div class="danger-strip reveal">
+          <strong>위험 요소:</strong>
+          사나운 맹수는 없지만 멧돼지, 뱀, 벌레, 급류, 낙석, 저체온증과 같은 현실적인 위협이 존재합니다.
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="characters">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow">Characters</span>
+          <h2 class="section-title">생존 앞에서 드러나는 진짜 얼굴.</h2>
+          <p class="section-description">
+            이름을 눌러 각 인물의 기본 이미지와 핵심 설정을 확인해 보세요.
+          </p>
+        </div>
+
+        <div class="character-shell glass reveal">
+          <div class="character-tabs" id="characterTabs" role="tablist" aria-label="등장인물 선택">
+            <button class="character-tab active" type="button" role="tab" aria-selected="true" data-character="minah">강민아</button>
+            <button class="character-tab" type="button" role="tab" aria-selected="false" data-character="harin">정하린</button>
+            <button class="character-tab" type="button" role="tab" aria-selected="false" data-character="seoyeon">이서연</button>
+            <button class="character-tab" type="button" role="tab" aria-selected="false" data-character="daeun">김다은</button>
+            <button class="character-tab" type="button" role="tab" aria-selected="false" data-character="jihoon">정지훈</button>
+          </div>
+
+          <article class="character-panel">
+            <div class="character-visual" id="characterVisual" data-initial="강">
+              <img
+                id="characterImage"
+                src="https://igx.kr/d/Y9/d/1"
+                alt="강민아 기본 이미지"
+                decoding="async"
+                onerror="this.style.display='none'; this.parentElement.classList.add('image-error');"
+              />
+            </div>
+
+            <div class="character-content">
+              <div class="character-meta" id="characterMeta">
+                <span>21세</span>
+                <span>경영학과 2학년</span>
+                <span>ESTJ</span>
+                <span>책임감</span>
+              </div>
+
+              <h3 class="character-name" id="characterName">강민아</h3>
+              <div class="character-role" id="characterRole">과대표 · 정지훈의 여자친구</div>
+
+              <p class="character-description" id="characterDescription">
+                어릴 때부터 함께한 지훈의 성실함과 배려심을 사랑해 온 완벽주의자.
+                극한 상황에서도 일행을 정리하고 계획을 세우며, 지훈의 나약함까지 필사적으로 감싸려 한다.
+              </p>
+
+              <div class="trait-grid">
+                <div class="trait-box">
+                  <small>Personality</small>
+                  <strong id="characterPersonality">츤데레 · 긍정적 · 성실 · 완벽주의</strong>
+                </div>
+                <div class="trait-box">
+                  <small>Relationship</small>
+                  <strong id="characterRelationship">정지훈의 연인 · 김다은이 아끼는 학생</strong>
+                </div>
+                <div class="trait-box">
+                  <small>Likes</small>
+                  <strong id="characterLikes">질서 · 계획 · 유능함 · 책임감</strong>
+                </div>
+                <div class="trait-box">
+                  <small>Weakness</small>
+                  <strong id="characterWeakness">통제할 수 없는 상황과 감정의 동요</strong>
+                </div>
+              </div>
+
+              <div class="quote-box" id="characterQuote">
+                지훈아, 무리하지 마. 네가 할 수 있는 일부터 찾으면 되니까 너무 자책하지 말고.
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+<section class="section" id="system">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow">Affinity System</span>
+          <h2 class="section-title">두 개의 호감도, 하나의 선택.</h2>
+          <p class="section-description">
+            히로인들은 더 높은 호감도를 가진 인물을 신뢰하고 지지합니다.
+            대화, 생존 행동, 위기 대응에 따라 관계의 중심이 달라집니다.
+          </p>
+        </div>
+
+        <div class="system-grid">
+          <div class="system-card glass reveal">
+            <h3>관계 변화 데모</h3>
+            <p>
+              아래 버튼을 눌러 선택이 호감도에 어떤 변화를 주는지 확인해 보세요.
+            </p>
+
+            <div class="affinity-list">
+              <div class="affinity-row">
+                <div class="affinity-label">
+                  <span>❤️ 당신에 대한 호감도</span>
+                  <span id="redValue">58</span>
+                </div>
+                <div class="affinity-track">
+                  <div class="affinity-fill red" id="redBar" style="--value:58%"></div>
+                </div>
+              </div>
+
+              <div class="affinity-row">
+                <div class="affinity-label">
+                  <span>💙 정지훈에 대한 호감도</span>
+                  <span id="blueValue">67</span>
+                </div>
+                <div class="affinity-track">
+                  <div class="affinity-fill blue" id="blueBar" style="--value:67%"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="affinity-actions">
+              <button class="mini-button" type="button" data-affinity="rescue">위험에서 구한다</button>
+              <button class="mini-button" type="button" data-affinity="plan">생존 계획을 세운다</button>
+              <button class="mini-button" type="button" data-affinity="support">지훈을 돕는다</button>
+              <button class="mini-button" type="button" data-affinity="conflict">지훈과 충돌한다</button>
+              <button class="mini-button" type="button" data-affinity="reset">초기화</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card reveal">
+            <div class="feature-icon">✦</div>
+            <h3>선택에 반응하는 서사</h3>
+            <p>당신의 말과 행동에 따라 다음 상황, 인물의 태도, 대화 방향이 바뀝니다.</p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="feature-icon">♥</div>
+            <h3>경쟁하는 호감도</h3>
+            <p>당신과 정지훈을 향한 감정이 동시에 변화하며 인물들의 지지 대상도 달라집니다.</p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="feature-icon">⚑</div>
+            <h3>무인도 생존 이벤트</h3>
+            <p>폭풍우, 식량 수색, 거점 구축과 탐색 등 다양한 생존 상황이 이야기를 변화시킵니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>© 2026 무인도 속 하렘 파괴범. All characters are fictional adults.</div>
+      <div>성인용 허구 콘텐츠 · 실제 인물 및 사건과 무관</div>
+    </div>
+  </footer>
+<div class="toast" id="toast" role="status"></div>
+
+  <script>
+
+    const characterData = {
+      minah: {
+        code: "d",
+        state: 1,
+        initial: "강",
+        name: "강민아",
+        role: "과대표 · 정지훈의 여자친구",
+        meta: ["21세", "경영학과 2학년", "ESTJ", "책임감"],
+        description:
+          "어릴 때부터 함께한 지훈의 성실함과 배려심을 사랑해 온 완벽주의자. 극한 상황에서도 일행을 정리하고 계획을 세우며, 지훈의 나약함까지 필사적으로 감싸려 한다.",
+        personality: "츤데레 · 긍정적 · 성실 · 완벽주의",
+        relationship: "정지훈의 연인 · 김다은이 아끼는 학생",
+        likes: "질서 · 계획 · 유능함 · 책임감",
+        weakness: "통제할 수 없는 상황과 감정의 동요",
+        quote:
+          "지훈아, 무리하지 마. 네가 할 수 있는 일부터 찾으면 되니까 너무 자책하지 말고."
+      },
+      harin: {
+        code: "g",
+        state: 0,
+        initial: "하",
+        name: "정하린",
+        role: "신입생 · 정지훈의 여동생",
+        meta: ["20세", "유아교육과 1학년", "INFP", "보호 본능"],
+        description:
+          "소심하고 겁이 많지만 애착을 느낀 사람에게는 귀여운 독점욕을 보인다. 어릴 때 자신을 지켜주던 오빠를 동경해 왔으며, 무인도에서는 안전하게 의지할 수 있는 사람을 찾는다.",
+        personality: "소심 · 내성적 · 순수함 · 겁이 많음",
+        relationship: "정지훈의 동생 · 김다은의 딸",
+        likes: "안전한 장소 · 달콤한 간식 · 칭찬",
+        weakness: "큰 소리 · 어둠 · 혼자 남겨지는 것",
+        quote:
+          "저, 저도 열심히 도울게요... 그러니까 혼자 두고 가지는 말아 주세요."
+      },
+      seoyeon: {
+        code: "h",
+        state: 1,
+        initial: "서",
+        name: "이서연",
+        role: "패션디자인과 선배 · 자유로운 관찰자",
+        meta: ["23세", "패션디자인과 3학년", "ENTP", "소악마"],
+        description:
+          "능글맞고 도발적이며 위기 속에서도 자신의 페이스를 잃지 않는다. 겉모습이 아니라 조건 없이 친절했던 지훈에게 진심 어린 호감을 느꼈지만, 무능함에는 냉정하다.",
+        personality: "쿨뷰티 · 마이웨이 · 도발적 · 쾌락주의",
+        relationship: "정지훈이 신뢰하는 학교 선배",
+        likes: "운동 · 유능함 · 친절함 · 흥미로운 상황",
+        weakness: "지루함 · 무능함 · 감정의 진지함",
+        quote:
+          "다들 너무 굳어 있네. 웃을 수 있을 때 웃어 둬야 버티지 않겠어?"
+      },
+      daeun: {
+        code: "j",
+        state: 0,
+        initial: "다",
+        name: "김다은",
+        role: "경영학과 교수 · 일행의 보호자",
+        meta: ["42세", "경영학과 교수", "INFJ", "모성애"],
+        description:
+          "차분한 판단력과 강한 책임감으로 일행을 지키려는 보호자. 가족과 학생들의 안전을 위해서라면 자신의 부담을 기꺼이 감수하며, 혼란 속에서도 질서를 세우려 한다.",
+        personality: "지적 · 인자함 · 높은 도덕성 · 완벽주의",
+        relationship: "정지훈·정하린의 어머니 · 강민아의 교수",
+        likes: "음악 · 독서 · 질서 · 아이들의 안전",
+        weakness: "가족이 위험해지는 상황 · 무질서",
+        quote:
+          "우선 진정하자. 다친 곳부터 확인하고 남은 물품을 한곳에 모으도록 해."
+      },
+      jihoon: {
+        code: "c",
+        state: 0,
+        initial: "지",
+        name: "정지훈",
+        role: "경영학과 2학년 · 흔들리는 기존 중심",
+        meta: ["21세", "경영학과 2학년", "ISFJ", "배려심"],
+        description:
+          "평소에는 성실하고 다정해 주변의 신뢰를 받았지만 생존 기술과 신체 능력은 부족하다. 위험 앞에서 몸이 굳고, 자신보다 유능한 사람에게 시선이 향하면 열등감과 질투를 숨긴다.",
+        personality: "성실 · 배려심 · 수동적 · 우유부단",
+        relationship: "강민아의 연인 · 정하린의 오빠",
+        likes: "평화로운 일상 · 안정감 · 민아의 칭찬",
+        weakness: "직접적인 위험 · 벌레 · 짐승 · 열등감",
+        quote:
+          "저도 도움이 되고 싶어요. 분명 제가 할 수 있는 일이 있을 거예요."
+      }
+    };
+
+    function setCharacter(characterKey) {
+      const character = characterData[characterKey];
+      if (!character) return;
+
+      const visual = document.getElementById("characterVisual");
+      const image = document.getElementById("characterImage");
+      const meta = document.getElementById("characterMeta");
+
+      if (!visual || !image || !meta) return;
+
+      visual.classList.remove("image-error");
+      visual.dataset.initial = character.initial;
+
+      image.style.display = "block";
+      image.style.opacity = "0";
+      image.alt = `${character.name} 기본 이미지`;
+
+      const nextImage = new Image();
+      nextImage.onload = () => {
+        image.src = nextImage.src;
+        image.style.display = "block";
+        requestAnimationFrame(() => {
+          image.style.opacity = "1";
+        });
+      };
+      nextImage.onerror = () => {
+        image.removeAttribute("src");
+        image.style.display = "none";
+        visual.classList.add("image-error");
+      };
+      nextImage.src = `https://igx.kr/d/Y9/${character.code}/${character.state}`;
+
+      meta.innerHTML = character.meta.map(item => `<span>${item}</span>`).join("");
+      document.getElementById("characterName").textContent = character.name;
+      document.getElementById("characterRole").textContent = character.role;
+      document.getElementById("characterDescription").textContent = character.description;
+      document.getElementById("characterPersonality").textContent = character.personality;
+      document.getElementById("characterRelationship").textContent = character.relationship;
+      document.getElementById("characterLikes").textContent = character.likes;
+      document.getElementById("characterWeakness").textContent = character.weakness;
+      document.getElementById("characterQuote").textContent = character.quote;
+
+      document.querySelectorAll(".character-tab").forEach(button => {
+        const active = button.dataset.character === characterKey;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-selected", String(active));
+      });
+    }
+
+    document.querySelectorAll(".character-tab").forEach(button => {
+      button.addEventListener("click", () => {
+        setCharacter(button.dataset.character);
+      });
+    });
+
+
+const topbar = document.getElementById("topbar");
+    window.addEventListener("scroll", () => {
+      topbar.classList.toggle("scrolled", window.scrollY > 20);
+    });
+
+
+    let red = 58;
+    let blue = 67;
+
+    function updateAffinity() {
+      const redValue = document.getElementById("redValue");
+      const blueValue = document.getElementById("blueValue");
+      const redBar = document.getElementById("redBar");
+      const blueBar = document.getElementById("blueBar");
+
+      if (!redValue || !blueValue || !redBar || !blueBar) return;
+
+      redValue.textContent = red;
+      blueValue.textContent = blue;
+      redBar.style.setProperty("--value", `${red}%`);
+      blueBar.style.setProperty("--value", `${blue}%`);
+    }
+
+    function clamp(value) {
+      return Math.max(0, Math.min(100, value));
+    }
+
+    document.querySelectorAll("[data-affinity]").forEach(button => {
+      button.addEventListener("click", () => {
+        switch (button.dataset.affinity) {
+          case "rescue":
+            red = clamp(red + 12);
+            blue = clamp(blue - 3);
+            showToast("위기 대응으로 당신에 대한 신뢰가 크게 올랐습니다.");
+            break;
+          case "plan":
+            red = clamp(red + 8);
+            blue = clamp(blue - 1);
+            showToast("현실적인 생존 계획이 좋은 평가를 받았습니다.");
+            break;
+          case "support":
+            red = clamp(red + 3);
+            blue = clamp(blue + 9);
+            showToast("지훈을 배려한 선택으로 집단의 안정감이 높아졌습니다.");
+            break;
+          case "conflict":
+            red = clamp(red + 5);
+            blue = clamp(blue - 11);
+            showToast("주도권은 얻었지만 지훈과의 관계가 악화되었습니다.");
+            break;
+          default:
+            red = 58;
+            blue = 67;
+            showToast("호감도를 초기 상태로 되돌렸습니다.");
+        }
+        updateAffinity();
+      });
+    });
+
+    const toast = document.getElementById("toast");
+    let toastTimer;
+
+    function showToast(message) {
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+  </script>
+</body>
+</html>
