@@ -1824,6 +1824,57 @@
     }
   }
 
+
+  /* ─────────────────────────────────────────────
+     FIXED TWO-LINE HERO TITLE
+     문구 단위로만 줄바꿈하고 단어 내부 줄바꿈 방지
+  ───────────────────────────────────────────── */
+
+  .hero h1 {
+    width: max-content;
+    max-width: 100%;
+    font-size: clamp(3.4rem, 6.8vw, 7.3rem);
+  }
+
+  .hero-title-line {
+    display: block;
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow-wrap: normal;
+  }
+
+  @media (max-width: 1180px) {
+    .hero h1 {
+      font-size: clamp(3.1rem, 6.5vw, 6.2rem);
+    }
+  }
+
+  @media (max-width: 1040px) {
+    .hero h1 {
+      font-size: clamp(3.4rem, 9.3vw, 6rem);
+    }
+  }
+
+  @media (max-width: 780px) {
+    .hero h1 {
+      font-size: clamp(2.9rem, 12.2vw, 5.2rem);
+      letter-spacing: -0.075em;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hero h1 {
+      font-size: clamp(2.35rem, 11.7vw, 4rem);
+      letter-spacing: -0.08em;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .hero h1 {
+      font-size: clamp(2.05rem, 10.8vw, 2.65rem);
+    }
+  }
+
 </style>
 </head>
 
@@ -1859,8 +1910,8 @@
           </div>
 
           <h1>
-            살아남기 위해
-            <span class="accent">관계를 바꿔라</span>
+            <span class="hero-title-line">살아남기 위해</span>
+            <span class="accent hero-title-line">관계를 바꿔라</span>
           </h1>
 
           <p class="hero-lead">
