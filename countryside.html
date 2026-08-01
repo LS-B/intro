@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="시골 마을의 관계 변화를 다룬 AI 롤플레잉 홍보 사이트"
+  />
+  <meta name="theme-color" content="#f3eadb" />
+  <title>시골 마을의 속사정 | AI 롤플레잉</title>
+
+  <style>
+    :root {
+      --paper: #f5eee2;
+      --paper-2: #ece1cf;
+      --ink: #243127;
+      --muted: #74786f;
+      --sage: #7d9871;
+      --sage-dark: #526b50;
+      --gold: #d99b3d;
+      --terracotta: #bd6950;
+      --rose: #d67e78;
+      --blue: #728bb9;
+      --line: rgba(74, 65, 47, 0.18);
+      --white: rgba(255, 255, 255, 0.9);
+      --shadow: 0 25px 65px rgba(76, 57, 31, 0.14);
+      --max: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 10%, rgba(229, 182, 104, 0.25), transparent 25%),
+        radial-gradient(circle at 95% 4%, rgba(130, 162, 119, 0.22), transparent 27%),
+        linear-gradient(180deg, #f8f2e8 0%, #f2e9da 45%, #eee2d0 100%);
+      font-family:
+        Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic",
+        system-ui, sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      opacity: 0.45;
+      background-image:
+        linear-gradient(rgba(74,65,47,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74,65,47,.025) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin-inline: auto;
+    }
+
+    .section {
+      padding: 110px 0;
+      position: relative;
+    }
+
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--terracotta);
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .section-title {
+      max-width: 780px;
+      margin: 15px 0 0;
+      font-size: clamp(2.1rem, 5vw, 4.7rem);
+      line-height: 1.06;
+      letter-spacing: -0.055em;
+    }
+
+    .section-copy {
+      max-width: 710px;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    /* ───────────── 상단 바 ───────────── */
+
+    .masthead {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      background: rgba(248, 242, 232, 0.82);
+      border-bottom: 1px solid rgba(74,65,47,.1);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: box-shadow .25s ease, background .25s ease;
+    }
+
+    .masthead.scrolled {
+      background: rgba(255, 252, 246, 0.95);
+      box-shadow: 0 10px 35px rgba(75, 57, 34, .08);
+    }
+
+    .masthead-inner {
+      min-height: 76px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .masthead-title {
+      font-weight: 950;
+      letter-spacing: -.035em;
+    }
+
+    .masthead-title small {
+      display: block;
+      margin-top: 2px;
+      color: #8b8d82;
+      font-size: .61rem;
+      font-weight: 800;
+      letter-spacing: .11em;
+    }
+
+    .masthead-date {
+      padding: 8px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #766d5e;
+      background: rgba(255,255,255,.62);
+      font-size: .75rem;
+      font-weight: 850;
+      letter-spacing: .06em;
+    }
+
+    .masthead-nav {
+      justify-self: end;
+      display: flex;
+      gap: 23px;
+      color: #687064;
+      font-size: .86rem;
+      font-weight: 850;
+    }
+
+    .masthead-nav a:hover {
+      color: var(--terracotta);
+    }
+
+    /* ───────────── 히어로: 잡지형 콜라주 ───────────── */
+
+    .hero {
+      padding: 118px 0 54px;
+    }
+
+    .hero-frame {
+      min-height: 750px;
+      display: grid;
+      grid-template-columns: 0.78fr 1.22fr;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background: rgba(255,255,255,.42);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-editorial {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(34px, 5vw, 68px);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,.94), rgba(247,238,222,.93));
+    }
+
+    .hero-labels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hero-label {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #6e6e65;
+      background: rgba(255,255,255,.7);
+      font-size: .72rem;
+      font-weight: 850;
+    }
+
+    .hero-title {
+      margin: 34px 0 0;
+      font-size: clamp(3.2rem, 6.5vw, 7rem);
+      line-height: .9;
+      letter-spacing: -.075em;
+    }
+
+    .hero-title span {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .hero-title .accent {
+      margin-top: 8px;
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero-summary {
+      max-width: 600px;
+      margin: 28px 0 0;
+      color: #666d63;
+      font-size: 1.04rem;
+    }
+
+    .hero-bottom {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .hero-stat {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: .84rem;
+    }
+
+    .hero-stat span {
+      display: block;
+      margin-top: 4px;
+      color: #888a80;
+      font-size: .7rem;
+    }
+
+    .hero-collage {
+      position: relative;
+      overflow: hidden;
+      min-height: 750px;
+      background:
+        linear-gradient(180deg, rgba(75,102,70,.18), rgba(233,216,186,.35)),
+        radial-gradient(circle at 70% 20%, rgba(255,224,161,.72), transparent 35%),
+        #cfdbc5;
+    }
+
+    .hero-collage::before {
+      content: "";
+      position: absolute;
+      inset: 8% 8%;
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 46% 54% 42% 58% / 55% 42% 58% 45%;
+      transform: rotate(-7deg);
+    }
+
+    .hero-collage::after {
+      content: "COUNTRYSIDE ARCHIVE";
+      position: absolute;
+      right: 24px;
+      bottom: 18px;
+      color: rgba(57,72,55,.35);
+      font-size: .65rem;
+      font-weight: 900;
+      letter-spacing: .32em;
+      writing-mode: vertical-rl;
+    }
+
+    .hero-photo {
+      position: absolute;
+      overflow: hidden;
+      border: 8px solid rgba(255,255,255,.94);
+      background: #ddd5c6;
+      box-shadow: 0 24px 55px rgba(63,48,28,.22);
+      transition: transform .3s ease;
+    }
+
+    .hero-photo:hover {
+      z-index: 10;
+      transform: translateY(-8px) rotate(0deg) !important;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .hero-photo figcaption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 9px 11px;
+      color: #354034;
+      background: rgba(255,255,255,.9);
+      font-size: .72rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .photo-jiyoon {
+      width: 44%;
+      height: 62%;
+      left: 30%;
+      top: 16%;
+      z-index: 5;
+      transform: rotate(2deg);
+    }
+
+    .photo-chaewon {
+      width: 31%;
+      height: 43%;
+      left: 5%;
+      top: 10%;
+      z-index: 3;
+      transform: rotate(-8deg);
+    }
+
+    .photo-sua {
+      width: 29%;
+      height: 42%;
+      right: 5%;
+      top: 8%;
+      z-index: 2;
+      transform: rotate(8deg);
+    }
+
+    .photo-seoyeon {
+      width: 31%;
+      height: 43%;
+      left: 10%;
+      bottom: 7%;
+      z-index: 4;
+      transform: rotate(6deg);
+    }
+
+    .photo-jinwoo {
+      width: 29%;
+      height: 42%;
+      right: 9%;
+      bottom: 6%;
+      z-index: 4;
+      transform: rotate(-7deg);
+    }
+
+    .hero-stamp {
+      position: absolute;
+      right: 7%;
+      top: 46%;
+      z-index: 8;
+      width: 120px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border: 2px solid rgba(178,99,77,.55);
+      border-radius: 50%;
+      color: rgba(178,99,77,.7);
+      transform: rotate(-13deg);
+      font-size: .72rem;
+      font-weight: 950;
+      letter-spacing: .08em;
+      text-align: center;
+      background: rgba(255,250,241,.42);
+    }
+
+    /* ───────────── 스토리: 챕터 스트립 ───────────── */
+
+    .story-strip {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .story-step {
+      position: relative;
+      min-height: 330px;
+      padding: 30px 24px;
+      border-right: 1px solid var(--line);
+    }
+
+    .story-step:last-child {
+      border-right: 0;
+    }
+
+    .story-step-number {
+      color: var(--gold);
+      font-family: Georgia, serif;
+      font-size: 3.8rem;
+      line-height: 1;
+      font-style: italic;
+    }
+
+    .story-step h3 {
+      margin: 50px 0 10px;
+      font-size: 1.25rem;
+      letter-spacing: -.03em;
+    }
+
+    .story-step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .91rem;
+    }
+
+    .story-step::after {
+      content: "";
+      position: absolute;
+      left: 24px;
+      bottom: 26px;
+      width: 38px;
+      height: 3px;
+      background: var(--sage);
+    }
+
+    /* ───────────── 마을: 지도형 Bento ───────────── */
+
+    .village-board {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr .8fr;
+      grid-template-rows: 240px 240px;
+      gap: 16px;
+    }
+
+    .place-card {
+      position: relative;
+      overflow: hidden;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 15px 40px rgba(74,58,35,.06);
+    }
+
+    .place-card.large {
+      grid-row: 1 / 3;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.38), rgba(255,255,255,.92)),
+        radial-gradient(circle at 70% 15%, rgba(231,187,109,.45), transparent 30%),
+        #dfe5ce;
+    }
+
+    .place-card.wide {
+      grid-column: 2 / 4;
+    }
+
+    .place-card .place-index {
+      color: var(--terracotta);
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: .13em;
+    }
+
+    .place-card h3 {
+      margin: 18px 0 8px;
+      font-size: 1.35rem;
+    }
+
+    .place-card p {
+      margin: 0;
+      max-width: 400px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .place-card .symbol {
+      position: absolute;
+      right: -8px;
+      bottom: -38px;
+      color: rgba(76,92,66,.08);
+      font-size: 9rem;
+      line-height: 1;
+    }
+
+    .place-card.large .symbol {
+      font-size: 14rem;
+      right: -22px;
+      bottom: -38px;
+    }
+
+    /* ───────────── 캐릭터: 세로 탭 + 인물 화보 ───────────── */
+
+    .character-editorial {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: 190px minmax(320px, .9fr) minmax(0, 1.1fr);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: rgba(255,255,255,.75);
+      box-shadow: var(--shadow);
+    }
+
+    .character-tabs {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      border-right: 1px solid var(--line);
+      background: rgba(239,230,212,.65);
+    }
+
+    .character-tab {
+      position: relative;
+      padding: 17px 12px;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      background: transparent;
+      color: #72766e;
+      cursor: pointer;
+      font-weight: 850;
+      text-align: left;
+      transition: color .2s ease, padding-left .2s ease;
+    }
+
+    .character-tab:last-child {
+      border-bottom: 0;
+    }
+
+    .character-tab::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: translateY(-50%);
+      transition: width .2s ease;
+    }
+
+    .character-tab:hover,
+    .character-tab.active {
+      color: var(--ink);
+      padding-left: 24px;
+    }
+
+    .character-tab.active::before {
+      width: 16px;
+    }
+
+    .character-portrait {
+      position: relative;
+      min-height: 650px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 15%, rgba(255,219,151,.42), transparent 32%),
+        linear-gradient(160deg, #d7dfc8, #e8dcc7);
+    }
+
+    .character-portrait img {
+      width: 100%;
+      height: 100%;
+      min-height: 650px;
+      object-fit: cover;
+      object-position: top center;
+      transition: opacity .18s ease;
+    }
+
+    .character-portrait::after {
+      content: attr(data-caption);
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 999px;
+      color: #3d453c;
+      background: rgba(255,255,255,.83);
+      font-size: .72rem;
+      font-weight: 850;
+    }
+
+    .character-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(28px, 4vw, 58px);
+    }
+
+    .character-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .character-meta span {
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #6d7169;
+      background: rgba(255,255,255,.72);
+      font-size: .69rem;
+      font-weight: 850;
+    }
+
+    .character-name {
+      margin: 0;
+      font-size: clamp(2.7rem, 5vw, 4.8rem);
+      line-height: 1;
+      letter-spacing: -.06em;
+    }
+
+    .character-role {
+      margin-top: 10px;
+      color: var(--terracotta);
+      font-weight: 850;
+    }
+
+    .character-description {
+      margin: 24px 0 0;
+      color: #6f746b;
+    }
+
+    .character-facts {
+      display: grid;
+      gap: 0;
+      margin-top: 26px;
+      border-top: 1px solid var(--line);
+    }
+
+    .character-fact {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 15px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .character-fact small {
+      color: #92938a;
+      font-size: .68rem;
+      font-weight: 850;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .character-fact strong {
+      color: #4b5349;
+      font-size: .87rem;
+    }
+
+    .character-quote {
+      margin-top: 22px;
+      padding: 18px 20px;
+      border-left: 3px solid var(--gold);
+      color: #5d6259;
+      background: rgba(246,227,190,.52);
+      font-style: italic;
+    }
+
+    /* ───────────── 호감도: 대시보드 ───────────── */
+
+    .affinity-dashboard {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: 1fr .75fr;
+      gap: 18px;
+    }
+
+    .affinity-main,
+    .affinity-scale {
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(255,255,255,.78);
+      box-shadow: 0 16px 44px rgba(73,58,36,.07);
+    }
+
+    .affinity-main h3,
+    .affinity-scale h3 {
+      margin: 0;
+      font-size: 1.45rem;
+      letter-spacing: -.03em;
+    }
+
+    .affinity-main p,
+    .affinity-scale p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: .91rem;
+    }
+
+    .meter-list {
+      display: grid;
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .meter-label {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 8px;
+      font-size: .83rem;
+      font-weight: 850;
+    }
+
+    .meter-label strong {
+      font-size: 1.4rem;
+    }
+
+    .meter-track {
+      height: 16px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(77,67,49,.1);
+    }
+
+    .meter-fill {
+      height: 100%;
+      width: var(--value);
+      border-radius: inherit;
+      transition: width .3s ease;
+    }
+
+    .meter-fill.red {
+      background: linear-gradient(90deg, #cf706d, #e9aaa6);
+    }
+
+    .meter-fill.blue {
+      background: linear-gradient(90deg, #6f88b7, #b2c4e5);
+    }
+
+    .affinity-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 26px;
+    }
+
+    .affinity-button {
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fffdf9;
+      cursor: pointer;
+      font-size: .76rem;
+      font-weight: 850;
+    }
+
+    .affinity-button:hover {
+      border-color: rgba(217,155,61,.5);
+      background: #fff5df;
+    }
+
+    .stage-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .stage {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.65);
+    }
+
+    .stage strong {
+      display: block;
+      font-size: .86rem;
+    }
+
+    .stage span {
+      display: block;
+      margin-top: 3px;
+      color: #8c8e85;
+      font-size: .68rem;
+    }
+
+    .stage.active {
+      border-color: rgba(217,155,61,.55);
+      background: rgba(255,238,201,.75);
+    }
+
+    /* ───────────── 하단 ───────────── */
+
+    .closing-note {
+      padding: 70px 0 90px;
+    }
+
+    .closing-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 30px;
+      align-items: center;
+      padding: 38px 42px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .closing-card strong {
+      font-size: 1.25rem;
+    }
+
+    .closing-card p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .closing-mark {
+      color: var(--terracotta);
+      font-family: Georgia, serif;
+      font-size: 4rem;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 0 0 55px;
+      color: #85887e;
+      font-size: .78rem;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      z-index: 100;
+      transform: translate(-50%, 25px);
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 15px 45px rgba(67,51,30,.15);
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+      font-size: .8rem;
+      font-weight: 850;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    /* ───────────── 반응형 ───────────── */
+
+    @media (max-width: 1050px) {
+      .masthead-inner {
+        grid-template-columns: 1fr auto;
+      }
+
+      .masthead-date {
+        display: none;
+      }
+
+      .hero-frame {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-collage {
+        min-height: 650px;
+      }
+
+      .story-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .story-step:nth-child(2) {
+        border-right: 0;
+      }
+
+      .story-step:nth-child(-n+2) {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .village-board {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+
+      .place-card.large {
+        grid-row: auto;
+        min-height: 300px;
+      }
+
+      .place-card.wide {
+        grid-column: 1 / 3;
+      }
+
+      .character-editorial {
+        grid-template-columns: 150px 320px 1fr;
+      }
+
+      .affinity-dashboard {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .container {
+        width: min(calc(100% - 24px), var(--max));
+      }
+
+      .section {
+        padding: 84px 0;
+      }
+
+      .masthead-nav {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 94px;
+      }
+
+      .hero-frame {
+        min-height: auto;
+      }
+
+      .hero-editorial {
+        padding: 34px 26px;
+      }
+
+      .hero-title {
+        font-size: clamp(2.8rem, 12vw, 5.2rem);
+      }
+
+      .hero-collage {
+        min-height: 540px;
+      }
+
+      .character-editorial {
+        grid-template-columns: 1fr;
+      }
+
+      .character-tabs {
+        flex-direction: row;
+        overflow-x: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .character-tab {
+        flex: 0 0 auto;
+        min-width: 105px;
+        border-bottom: 0;
+        border-right: 1px solid var(--line);
+        text-align: center;
+      }
+
+      .character-tab:hover,
+      .character-tab.active {
+        padding-left: 12px;
+      }
+
+      .character-tab::before {
+        left: 50%;
+        top: auto;
+        bottom: 4px;
+        transform: translateX(-50%);
+      }
+
+      .character-tab.active::before {
+        width: 30px;
+      }
+
+      .character-portrait,
+      .character-portrait img {
+        min-height: 560px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-bottom {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-collage {
+        min-height: 460px;
+      }
+
+      .story-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .story-step {
+        min-height: 260px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .story-step:last-child {
+        border-bottom: 0;
+      }
+
+      .village-board {
+        grid-template-columns: 1fr;
+      }
+
+      .place-card.wide {
+        grid-column: auto;
+      }
+
+      .character-portrait,
+      .character-portrait img {
+        min-height: 470px;
+      }
+
+      .character-fact {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+
+      .stage-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .closing-card {
+        grid-template-columns: 1fr;
+      }
+
+      .closing-mark {
+        display: none;
+      }
+
+      .footer-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="masthead" id="masthead">
+    <div class="container masthead-inner">
+      <a href="#top" class="masthead-title">
+        시골 마을의 속사정
+        <small>AI COUNTRYSIDE ROMANCE</small>
+      </a>
+
+      <div class="masthead-date">2026.07.10 · FRI · 14:00</div>
+
+      <nav class="masthead-nav">
+        <a href="#story">기록</a>
+        <a href="#village">마을 지도</a>
+        <a href="#characters">인물</a>
+        <a href="#affinity">관계 수치</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-frame">
+          <div class="hero-editorial">
+            <div>
+              <div class="hero-labels">
+                <span class="hero-label">현대 시골</span>
+                <span class="hero-label">느린 관계 변화</span>
+                <span class="hero-label">공략 난이도: 어려움</span>
+              </div>
+
+              <h1 class="hero-title">
+                <span>멈춘 마을에</span>
+                <span class="accent">외지인이 도착했다</span>
+              </h1>
+
+              <p class="hero-summary">
+                친부의 부고를 듣고 오래 비워 둔 저택을 정리하기 위해 내려온 외지인.
+                단단해 보였던 관계와 조용한 일상은 당신의 등장으로 아주 느리게 흔들리기 시작한다.
+              </p>
+            </div>
+
+            <div class="hero-bottom">
+              <div class="hero-stat">
+                <strong>정조관념</strong>
+                <span>쉽게 무너지지 않는 관계</span>
+              </div>
+              <div class="hero-stat">
+                <strong>호감도 경쟁</strong>
+                <span>당신과 강진우 사이의 선택</span>
+              </div>
+              <div class="hero-stat">
+                <strong>배경</strong>
+                <span>대한민국 인적 드문 시골</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-collage">
+            <figure class="hero-photo photo-chaewon">
+              <img src="https://igx.kr/d/T7/d/0" alt="권채원" />
+              <figcaption>권채원</figcaption>
+            </figure>
+
+            <figure class="hero-photo photo-sua">
+              <img src="https://igx.kr/d/T7/g/0" alt="정수아" />
+              <figcaption>정수아</figcaption>
+            </figure>
+
+            <figure class="hero-photo photo-seoyeon">
+              <img src="https://igx.kr/d/T7/h/0" alt="이서연" />
+              <figcaption>이서연</figcaption>
+            </figure>
+
+            <figure class="hero-photo photo-jinwoo">
+              <img src="https://igx.kr/d/T7/j/0" alt="강진우" />
+              <figcaption>강진우</figcaption>
+            </figure>
+
+            <figure class="hero-photo photo-jiyoon">
+              <img src="https://igx.kr/d/T7/c/0" alt="서지윤" />
+              <figcaption>서지윤</figcaption>
+            </figure>
+
+            <div class="hero-stamp">
+              NEW<br />ARRIVAL<br />JULY 2026
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="story">
+      <div class="container">
+        <span class="section-kicker">Arrival Record</span>
+        <h2 class="section-title">도착한 날부터 시작되는 네 개의 기록.</h2>
+        <p class="section-copy">
+          이 이야기는 빠른 사건보다 쌓여 가는 태도와 시선에 집중합니다.
+        </p>
+
+        <div class="story-strip">
+          <article class="story-step">
+            <div class="story-step-number">01</div>
+            <h3>친부의 부고</h3>
+            <p>오랫동안 연락이 끊겼던 친부의 사망 소식과 함께 시골 저택이 당신에게 남겨진다.</p>
+          </article>
+
+          <article class="story-step">
+            <div class="story-step-number">02</div>
+            <h3>낯선 차 한 대</h3>
+            <p>2026년 7월 10일 오후 2시, 외지 번호판을 단 차가 조용한 마을로 들어온다.</p>
+          </article>
+
+          <article class="story-step">
+            <div class="story-step-number">03</div>
+            <h3>단단한 기존 관계</h3>
+            <p>5년 된 연인, 오래된 소꿉친구, 마을을 벗어나고 싶은 소녀가 각자의 관계를 지키고 있다.</p>
+          </article>
+
+          <article class="story-step">
+            <div class="story-step-number">04</div>
+            <h3>느린 균열</h3>
+            <p>몇 번의 대화만으로 누구도 무너지지 않는다. 배려와 갈등이 쌓인 만큼만 마음이 움직인다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="village">
+      <div class="container">
+        <span class="section-kicker">Village Map</span>
+        <h2 class="section-title">작은 마을의 관계 지도.</h2>
+        <p class="section-copy">
+          장소마다 다른 인물의 일상과 비밀이 있다. 마을은 작지만 시선은 촘촘하다.
+        </p>
+
+        <div class="village-board">
+          <article class="place-card large">
+            <span class="place-index">PLACE 01</span>
+            <h3>오래된 저택</h3>
+            <p>
+              당신이 머물게 될 공간. 방치된 가구와 친부의 기록, 마을 사람들이 알고 있는 과거가 남아 있다.
+            </p>
+            <span class="symbol">⌂</span>
+          </article>
+
+          <article class="place-card">
+            <span class="place-index">PLACE 02</span>
+            <h3>과수원</h3>
+            <p>서지윤의 가족이 일하는 곳. 정체된 삶과 미래에 대한 고민이 쌓여 있다.</p>
+            <span class="symbol">♧</span>
+          </article>
+
+          <article class="place-card">
+            <span class="place-index">PLACE 03</span>
+            <h3>철물점</h3>
+            <p>권채원의 영역. 외지인을 향한 경계와 마을 소문이 가장 먼저 드러난다.</p>
+            <span class="symbol">⚒</span>
+          </article>
+
+          <article class="place-card wide">
+            <span class="place-index">PLACE 04 — 06</span>
+            <h3>식당 · 버스 정류장 · 한여름 골목</h3>
+            <p>
+              이서연의 식당에서는 모든 소문이 모이고, 정수아는 버스 정류장에서 서울을 꿈꾼다.
+              한낮의 골목은 사소한 만남도 오래 기억하게 만든다.
+            </p>
+            <span class="symbol">☀</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="characters">
+      <div class="container">
+        <span class="section-kicker">People Archive</span>
+        <h2 class="section-title">한 사람씩 넘겨 보는 인물 기록.</h2>
+        <p class="section-copy">
+          이름을 눌러 인물의 기본 이미지와 관계, 속사정을 확인할 수 있습니다.
+        </p>
+
+        <div class="character-editorial">
+          <div class="character-tabs" role="tablist" aria-label="등장인물 선택">
+            <button class="character-tab active" type="button" data-character="jiyoon">서지윤</button>
+            <button class="character-tab" type="button" data-character="chaewon">권채원</button>
+            <button class="character-tab" type="button" data-character="sua">정수아</button>
+            <button class="character-tab" type="button" data-character="seoyeon">이서연</button>
+            <button class="character-tab" type="button" data-character="jinwoo">강진우</button>
+          </div>
+
+          <div class="character-portrait" id="characterPortrait" data-caption="과수원 집 장녀">
+            <img id="characterImage" src="https://igx.kr/d/T7/c/0" alt="서지윤" />
+          </div>
+
+          <div class="character-copy">
+            <div class="character-meta" id="characterMeta">
+              <span>23세</span><span>ISFJ</span><span>정숙함</span><span>장녀</span>
+            </div>
+
+            <h3 class="character-name" id="characterName">서지윤</h3>
+            <div class="character-role" id="characterRole">강진우의 여자친구 · 5년째 연애 중</div>
+
+            <p class="character-description" id="characterDescription">
+              도덕성과 지조가 강하고 모두에게 친절하지만 선을 넘는 사람에게는 단호하다.
+              진우를 진심으로 사랑하면서도 서울과 새로운 문화에 대한 막연한 동경을 품고 있다.
+            </p>
+
+            <div class="character-facts">
+              <div class="character-fact">
+                <small>Personality</small>
+                <strong id="characterPersonality">정숙함 · 성실함 · 인내심 · 내면의 갈망</strong>
+              </div>
+              <div class="character-fact">
+                <small>Relationship</small>
+                <strong id="characterRelationship">강진우와 5년째 연애 중인 연인</strong>
+              </div>
+              <div class="character-fact">
+                <small>Likes</small>
+                <strong id="characterLikes">여행 잡지 · 새벽 공기 · 정중한 대화 · 디저트</strong>
+              </div>
+              <div class="character-fact">
+                <small>Conflict</small>
+                <strong id="characterConflict">안정된 사랑과 외부 세계에 대한 동경의 공존</strong>
+              </div>
+            </div>
+
+            <div class="character-quote" id="characterQuote">
+              “서울은 정말 잡지에 나오는 것처럼 매일 반짝거리나요?”
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="affinity">
+      <div class="container">
+        <span class="section-kicker">Relationship Dashboard</span>
+        <h2 class="section-title">마음은 한 번에 뒤집히지 않는다.</h2>
+        <p class="section-copy">
+          호감도는 -100부터 200까지 변화하며, 더 높은 호감도를 가진 인물을 더 좋아하고 지지합니다.
+        </p>
+
+        <div class="affinity-dashboard">
+          <div class="affinity-main">
+            <h3>현재 관계 수치</h3>
+            <p>작은 대화와 행동이 고정값으로 누적됩니다.</p>
+
+            <div class="meter-list">
+              <div>
+                <div class="meter-label">
+                  <span>❤️ 당신에 대한 호감도</span>
+                  <strong id="redValue">20</strong>
+                </div>
+                <div class="meter-track">
+                  <div class="meter-fill red" id="redBar"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="meter-label">
+                  <span>💙 강진우에 대한 호감도</span>
+                  <strong id="blueValue">85</strong>
+                </div>
+                <div class="meter-track">
+                  <div class="meter-fill blue" id="blueBar"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="affinity-actions">
+              <button class="affinity-button" type="button" data-action="positive-talk">긍정 대화 +1</button>
+              <button class="affinity-button" type="button" data-action="positive-action">긍정 행동 +2</button>
+              <button class="affinity-button" type="button" data-action="negative-talk">불쾌한 대화 -1</button>
+              <button class="affinity-button" type="button" data-action="negative-action">불쾌한 행동 -2</button>
+              <button class="affinity-button" type="button" data-action="reset">초기화</button>
+            </div>
+          </div>
+
+          <div class="affinity-scale">
+            <h3>호감도 단계</h3>
+            <p>현재 수치에 따라 태도와 거리감이 달라집니다.</p>
+
+            <div class="stage-grid" id="stageGrid">
+              <div class="stage" data-min="-100" data-max="-51"><strong>혐오</strong><span>-100 ~ -51</span></div>
+              <div class="stage" data-min="-50" data-max="-1"><strong>경계</strong><span>-50 ~ -1</span></div>
+              <div class="stage active" data-min="0" data-max="50"><strong>보통</strong><span>0 ~ 50</span></div>
+              <div class="stage" data-min="51" data-max="100"><strong>갈등</strong><span>51 ~ 100</span></div>
+              <div class="stage" data-min="101" data-max="150"><strong>애정</strong><span>101 ~ 150</span></div>
+              <div class="stage" data-min="151" data-max="200"><strong>사랑</strong><span>151 ~ 200</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing-note">
+      <div class="container">
+        <div class="closing-card">
+          <div>
+            <strong>빠른 타락이 아니라, 오래 쌓인 관계가 흔들리는 이야기.</strong>
+            <p>시골의 일상과 시선 속에서 인물들의 선택은 천천히 달라집니다.</p>
+          </div>
+          <div class="closing-mark">07.10</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>© 2026 시골 마을의 속사정</span>
+      <span>허구의 성인용 AI 롤플레잉 작품 소개</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const characterData = {
+      jiyoon: {
+        code: "c",
+        name: "서지윤",
+        caption: "과수원 집 장녀",
+        role: "강진우의 여자친구 · 5년째 연애 중",
+        meta: ["23세", "ISFJ", "정숙함", "장녀"],
+        description:
+          "도덕성과 지조가 강하고 모두에게 친절하지만 선을 넘는 사람에게는 단호하다. 진우를 진심으로 사랑하면서도 서울과 새로운 문화에 대한 막연한 동경을 품고 있다.",
+        personality: "정숙함 · 성실함 · 인내심 · 내면의 갈망",
+        relationship: "강진우와 5년째 연애 중인 연인",
+        likes: "여행 잡지 · 새벽 공기 · 정중한 대화 · 디저트",
+        conflict: "안정된 사랑과 외부 세계에 대한 동경의 공존",
+        quote: "“서울은 정말 잡지에 나오는 것처럼 매일 반짝거리나요?”"
+      },
+      chaewon: {
+        code: "d",
+        name: "권채원",
+        caption: "철물점 운영",
+        role: "진우와 지윤의 소꿉친구",
+        meta: ["23세", "ISTP", "톰보이", "완벽주의"],
+        description:
+          "진우를 구박하면서도 뒤에서는 챙겨 주는 의리 있는 소꿉친구. 외지인에게 강한 경계심을 보이며 마을의 평화를 깨뜨릴 존재를 노골적으로 의심한다.",
+        personality: "까칠함 · 완벽주의 · 강한 자존심 · 의리",
+        relationship: "진우와 지윤의 사랑을 지켜 주고 싶은 소꿉친구",
+        likes: "기계 · 전자기기 · 자동차 · 차가운 캔맥주",
+        conflict: "거친 성격 때문에 자신이 여자로 보이지 않을 것이라는 불안",
+        quote: "“여긴 너 같은 외지인이 멋대로 휘젓고 다닐 데가 아니야.”"
+      },
+      sua: {
+        code: "g",
+        name: "정수아",
+        caption: "이장의 막내딸",
+        role: "대입 재수생 · 진우를 향한 오래된 첫사랑",
+        meta: ["20세", "ENTP", "도발적", "소유욕"],
+        description:
+          "지윤에게 진우를 빼앗겼다는 오래된 피해의식과 시골을 벗어나고 싶은 욕망을 품고 있다. 외지인을 서울로 향할 기회로 바라본다.",
+        personality: "영악함 · 활발함 · 도발적 · 강한 소유욕",
+        relationship: "마을 이장의 막내딸 · 진우를 향한 오래된 첫사랑",
+        likes: "연예 가십 · 자극적인 음식 · 지윤이 당황하는 모습",
+        conflict: "지윤을 향한 경쟁심과 서울로 가고 싶은 욕망",
+        quote: "“서울에서 왔다면서? 그럼 여기보다 훨씬 재미있는 것도 많이 알겠네?”"
+      },
+      seoyeon: {
+        code: "h",
+        name: "이서연",
+        caption: "마을 식당 주인",
+        role: "젊은 과부 · 마을의 다정한 어른",
+        meta: ["34세", "ENFJ", "온화함", "높은 공감 능력"],
+        description:
+          "상냥하고 친절하지만 관계의 선을 지키려 한다. 남편과 사별한 뒤 오랫동안 외로움과 욕구를 눌러 왔으며 마을 사람들의 참견에도 지쳐 있다.",
+        personality: "상냥함 · 능글맞음 · 높은 공감 능력 · 관능미",
+        relationship: "마을 사람들과 대부분 친한 식당 주인",
+        likes: "사소한 배려 · 칭찬 · 비 오는 날 · 밤샘 수다",
+        conflict: "남편에 대한 추억과 오랜 외로움 사이의 갈등",
+        quote: "“마을이 워낙 조용해서요. 이런 분이 오실 줄은 몰랐거든요.”"
+      },
+      jinwoo: {
+        code: "j",
+        name: "강진우",
+        caption: "서지윤의 남자친구",
+        role: "5년째 지윤과 연애 중인 순정남",
+        meta: ["24세", "성실함", "소심함", "질투심"],
+        description:
+          "지윤을 진심으로 사랑하지만 결정적인 순간마다 망설인다. 외지인을 좋은 사람이라 믿고 싶어 하면서도 자신이 가지지 못한 매력에 열등감과 질투를 느낀다.",
+        personality: "성실함 · 배려심 · 소심함 · 강한 질투심",
+        relationship: "서지윤의 연인 · 권채원과 정수아의 소꿉친구",
+        likes: "지윤의 웃음 · 지윤이 해 주는 요리",
+        conflict: "외지인에 대한 부러움과 지윤을 잃을지 모른다는 불안",
+        quote: "“지윤이는 정말 좋은 사람이에요. 곤란하게 만들지는 말아 주세요.”"
+      }
+    };
+
+    function setCharacter(key) {
+      const character = characterData[key];
+      if (!character) return;
+
+      const image = document.getElementById("characterImage");
+      const portrait = document.getElementById("characterPortrait");
+      const meta = document.getElementById("characterMeta");
+
+      image.style.opacity = "0";
+      const nextImage = new Image();
+
+      nextImage.onload = () => {
+        image.src = nextImage.src;
+        image.alt = character.name;
+        requestAnimationFrame(() => {
+          image.style.opacity = "1";
+        });
+      };
+
+      nextImage.src = `https://igx.kr/d/T7/${character.code}/0`;
+      portrait.dataset.caption = character.caption;
+      meta.innerHTML = character.meta.map(item => `<span>${item}</span>`).join("");
+
+      document.getElementById("characterName").textContent = character.name;
+      document.getElementById("characterRole").textContent = character.role;
+      document.getElementById("characterDescription").textContent = character.description;
+      document.getElementById("characterPersonality").textContent = character.personality;
+      document.getElementById("characterRelationship").textContent = character.relationship;
+      document.getElementById("characterLikes").textContent = character.likes;
+      document.getElementById("characterConflict").textContent = character.conflict;
+      document.getElementById("characterQuote").textContent = character.quote;
+
+      document.querySelectorAll(".character-tab").forEach(button => {
+        button.classList.toggle("active", button.dataset.character === key);
+      });
+    }
+
+    document.querySelectorAll(".character-tab").forEach(button => {
+      button.addEventListener("click", () => setCharacter(button.dataset.character));
+    });
+
+    const masthead = document.getElementById("masthead");
+    window.addEventListener("scroll", () => {
+      masthead.classList.toggle("scrolled", window.scrollY > 20);
+    });
+
+    let red = 20;
+    let blue = 85;
+
+    const clamp = value => Math.max(-100, Math.min(200, value));
+    const percent = value => ((value + 100) / 300) * 100;
+
+    function updateStage() {
+      document.querySelectorAll(".stage").forEach(stage => {
+        const min = Number(stage.dataset.min);
+        const max = Number(stage.dataset.max);
+        stage.classList.toggle("active", red >= min && red <= max);
+      });
+    }
+
+    function updateAffinity() {
+      document.getElementById("redValue").textContent = red;
+      document.getElementById("blueValue").textContent = blue;
+      document.getElementById("redBar").style.setProperty("--value", `${percent(red)}%`);
+      document.getElementById("blueBar").style.setProperty("--value", `${percent(blue)}%`);
+      updateStage();
+    }
+
+    document.querySelectorAll("[data-action]").forEach(button => {
+      button.addEventListener("click", () => {
+        switch (button.dataset.action) {
+          case "positive-talk":
+            red = clamp(red + 1);
+            showToast("긍정적인 대화로 호감도가 1 상승했습니다.");
+            break;
+          case "positive-action":
+            red = clamp(red + 2);
+            showToast("긍정적인 행동으로 호감도가 2 상승했습니다.");
+            break;
+          case "negative-talk":
+            red = clamp(red - 1);
+            showToast("불쾌한 대화로 호감도가 1 감소했습니다.");
+            break;
+          case "negative-action":
+            red = clamp(red - 2);
+            showToast("불쾌한 행동으로 호감도가 2 감소했습니다.");
+            break;
+          default:
+            red = 20;
+            blue = 85;
+            showToast("호감도를 초기 상태로 되돌렸습니다.");
+        }
+
+        updateAffinity();
+      });
+    });
+
+    const toast = document.getElementById("toast");
+    let toastTimer;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2300);
+    }
+
+    updateAffinity();
+  </script>
+</body>
+</html>
