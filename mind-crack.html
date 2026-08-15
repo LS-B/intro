@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>상식개변 대학생활 | AI Campus Roleplay</title>
+<meta name="description" content="상식개변 어플을 얻게 된 대학생의 성장·교류·학업·연애 중심 AI 롤플레잉">
+<style>
+:root{--bg:#f5f7ff;--ink:#172033;--muted:#6d7588;--line:rgba(42,58,96,.13);--blue:#5172f0;--violet:#8f72ed;--cyan:#54b8dc;--pink:#ed7fa5;--shadow:0 24px 70px rgba(55,72,120,.13);--max:1240px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:radial-gradient(circle at 6% 7%,rgba(102,149,255,.2),transparent 25%),radial-gradient(circle at 92% 5%,rgba(155,116,237,.16),transparent 27%),linear-gradient(180deg,#fafbff,#edf1f9);font-family:Pretendard,"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;line-height:1.62;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-2;background-image:linear-gradient(rgba(41,58,97,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(41,58,97,.025) 1px,transparent 1px);background-size:34px 34px;pointer-events:none}a{text-decoration:none;color:inherit}button{font:inherit;color:inherit}img{display:block;max-width:100%}.container{width:min(calc(100% - 40px),var(--max));margin:auto}.section{padding:108px 0}.section-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px;margin-bottom:42px}.kicker{color:var(--blue);font-size:.76rem;font-weight:950;letter-spacing:.15em;text-transform:uppercase}.title{margin:12px 0 0;max-width:820px;font-size:clamp(2.2rem,5vw,4.8rem);line-height:1.05;letter-spacing:-.055em}.desc{max-width:710px;margin:18px 0 0;color:var(--muted)}.index{color:rgba(52,70,120,.18);font-size:clamp(4rem,8vw,7.5rem);font-weight:950;line-height:.8}
+.topbar{position:fixed;inset:0 0 auto;z-index:50;border-bottom:1px solid rgba(42,58,96,.08);background:rgba(249,250,255,.78);backdrop-filter:blur(18px)}.topbar.scrolled{background:rgba(255,255,255,.94);box-shadow:0 10px 34px rgba(57,72,116,.08)}.nav{min-height:72px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:26px}.brand{font-weight:950;letter-spacing:-.035em}.brand small{display:block;color:#8b93a5;font-size:.59rem;letter-spacing:.12em}.semester{padding:8px 13px;border:1px solid var(--line);border-radius:999px;color:#697286;background:#fff;font-size:.72rem;font-weight:850}.links{justify-self:end;display:flex;gap:24px;color:#697286;font-size:.85rem;font-weight:850}.links a:hover{color:var(--blue)}
+.hero{padding:116px 0 64px}.hero-shell{min-height:750px;display:grid;grid-template-columns:.94fr 1.06fr;overflow:hidden;border:1px solid var(--line);border-radius:36px;background:linear-gradient(145deg,#fff,rgba(243,246,255,.92));box-shadow:var(--shadow)}.hero-copy{display:flex;flex-direction:column;justify-content:space-between;padding:clamp(38px,5vw,68px)}.labels{display:flex;flex-wrap:wrap;gap:8px}.label{padding:7px 10px;border:1px solid var(--line);border-radius:999px;color:#697286;background:#fff;font-size:.72rem;font-weight:850}.hero h1{margin:34px 0 0;font-size:clamp(3.3rem,6.2vw,6.7rem);line-height:.92;letter-spacing:-.075em}.hero h1 span{display:block;white-space:nowrap}.hero h1 .accent{margin-top:8px;color:var(--blue)}.lead{max-width:640px;margin:28px 0 0;color:#687184}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:34px}.fact{padding-top:14px;border-top:1px solid var(--line)}.fact strong,.fact span{display:block}.fact strong{font-size:.8rem}.fact span{margin-top:4px;color:#8a92a4;font-size:.68rem}
+.device{position:relative;overflow:hidden;display:grid;place-items:center;min-height:750px;background:radial-gradient(circle at 70% 20%,rgba(133,111,237,.28),transparent 30%),radial-gradient(circle at 18% 78%,rgba(84,184,220,.25),transparent 33%),linear-gradient(160deg,#dce6ff,#eef2ff)}.phone{position:relative;z-index:4;width:min(335px,66%);aspect-ratio:9/18.4;padding:12px;border:2px solid #192039;border-radius:44px;background:#171c2b;box-shadow:0 36px 80px rgba(37,48,88,.3);transform:rotate(3deg)}.screen{height:100%;overflow:hidden;border-radius:33px;background:radial-gradient(circle at 80% 0%,rgba(135,108,237,.32),transparent 35%),linear-gradient(180deg,#0f1631,#0c1228);color:#fff}.screen:before{content:"";position:absolute;width:105px;height:24px;left:50%;top:20px;transform:translateX(-50%);border-radius:999px;background:#070a13}.phone-top{display:flex;justify-content:space-between;padding:42px 20px 12px;color:rgba(255,255,255,.64);font-size:.65rem}.app-logo{width:58px;height:58px;display:grid;place-items:center;margin:23px auto 12px;border-radius:18px;background:linear-gradient(145deg,#5d75ff,#9b5be8);font-size:1.55rem;font-weight:950}.app-name{text-align:center;font-size:1.28rem;font-weight:950}.app-sub{text-align:center;color:rgba(255,255,255,.52);font-size:.62rem}.app-card{margin:24px 16px 0;padding:18px;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:rgba(255,255,255,.07)}.app-card small{color:#8ba2ff;font-size:.62rem;font-weight:900}.app-input{margin-top:10px;padding:13px;border-radius:13px;background:rgba(3,7,20,.32);font-size:.78rem}.app-status{margin-top:12px;color:#83e5b2;font-size:.62rem}.app-list{display:grid;gap:8px;margin:18px 16px}.app-rule{padding:11px 12px;border:1px solid rgba(255,255,255,.08);border-radius:13px;background:rgba(255,255,255,.045)}.app-rule strong,.app-rule span{display:block}.app-rule strong{font-size:.68rem}.app-rule span{color:rgba(255,255,255,.46);font-size:.57rem}.campus-photo{position:absolute;overflow:hidden;border:7px solid #fff;border-radius:20px;box-shadow:0 22px 52px rgba(55,70,110,.18)}.campus-photo img{width:100%;height:100%;object-fit:cover}.one{width:220px;height:150px;left:4%;top:11%;transform:rotate(-7deg)}.two{width:205px;height:145px;right:4%;bottom:10%;transform:rotate(7deg)}
+.goal-grid,.campus-grid,.affinity-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:18px}.card{border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.86);box-shadow:0 16px 44px rgba(57,73,118,.07)}.goal{min-height:460px;padding:34px;background:radial-gradient(circle at 80% 12%,rgba(89,118,240,.18),transparent 28%),linear-gradient(145deg,#fff,#edf2ff)}.goal h3{margin:0;font-size:clamp(2rem,3.8vw,3.6rem);line-height:1.05;letter-spacing:-.05em}.goal p{color:var(--muted)}.points{display:grid;gap:11px;margin-top:30px}.point{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:center}.point i{width:34px;aspect-ratio:1;display:grid;place-items:center;border-radius:11px;color:var(--blue);background:rgba(81,114,240,.1);font-style:normal;font-size:.72rem;font-weight:950}.point strong,.point span{display:block}.point span{color:#8b92a3;font-size:.72rem}.logic{padding:28px}.logic-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}.step{min-height:178px;padding:18px;border:1px solid var(--line);border-radius:17px;background:#f8faff}.step b{color:var(--blue);font-size:.68rem}.step h4{margin:18px 0 8px}.step p{margin:0;color:var(--muted);font-size:.78rem}
+.campus-map{position:relative;min-height:540px;overflow:hidden;border:1px solid var(--line);border-radius:28px;background:linear-gradient(rgba(255,255,255,.62),rgba(255,255,255,.72)),url("https://igx.kr/d/Hcc/y/0") center/cover no-repeat;box-shadow:var(--shadow)}.map-label{position:absolute;left:26px;top:24px;padding:9px 12px;border-radius:999px;background:#fff;font-size:.74rem;font-weight:900}.place-list{display:grid;gap:10px}.place{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:center;min-height:93px;padding:14px;border:1px solid var(--line);border-radius:17px;background:#fff}.place img{width:56px;height:56px;object-fit:cover;border-radius:14px}.place strong,.place span{display:block}.place span{color:#8b92a3;font-size:.69rem}
+.characters{margin-top:46px;display:grid;grid-template-columns:230px minmax(300px,.9fr) minmax(0,1.1fr);overflow:hidden;border:1px solid var(--line);border-radius:30px;background:#fff;box-shadow:var(--shadow)}.sidebar{border-right:1px solid var(--line);background:#eff3fd}.filters{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;padding:16px;border-bottom:1px solid var(--line)}.filter{padding:8px;border:1px solid var(--line);border-radius:10px;background:#fff;color:#727a8d;cursor:pointer;font-size:.69rem;font-weight:850}.filter.active{color:#fff;background:var(--blue)}.char-list{max-height:720px;overflow-y:auto;padding:9px}.char-btn{width:100%;display:grid;grid-template-columns:35px 1fr;gap:10px;align-items:center;padding:10px;border:0;border-radius:13px;background:transparent;color:#6e7688;cursor:pointer;text-align:left}.char-btn:hover,.char-btn.active{color:var(--ink);background:#fff;box-shadow:0 8px 18px rgba(56,72,116,.08)}.avatar{width:35px;height:35px;overflow:hidden;border-radius:11px}.avatar img{width:100%;height:100%;object-fit:cover;object-position:top}.char-btn strong,.char-btn span{display:block}.char-btn strong{font-size:.76rem}.char-btn span{color:#939aac;font-size:.61rem}.char-photo{min-height:660px;background:linear-gradient(160deg,#dde7ff,#eef2ff)}.char-photo img{width:100%;height:100%;min-height:660px;object-fit:cover;object-position:top center;transition:opacity .17s}.profile{display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,4vw,56px)}.meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:17px}.meta span{padding:6px 9px;border:1px solid var(--line);border-radius:999px;background:#f8faff;color:#6d7587;font-size:.68rem;font-weight:850}.name{margin:0;font-size:clamp(2.7rem,5vw,4.8rem);line-height:1;letter-spacing:-.06em}.role{margin-top:10px;color:var(--blue);font-weight:850}.char-desc{margin-top:22px;color:#6d7587}.profile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:25px}.pbox{padding:14px;border:1px solid var(--line);border-radius:14px;background:#f8faff}.pbox small,.pbox strong{display:block}.pbox small{color:#969daf;font-size:.65rem}.pbox strong{margin-top:6px;color:#4f596c;font-size:.84rem}
+.console{border:1px solid var(--line);border-radius:25px;background:#fff;box-shadow:0 14px 40px rgba(55,72,118,.06)}.console-head{display:flex;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line)}.console-head span{color:#9198aa;font-size:.68rem}.console-body{padding:24px}.meter{display:grid;gap:22px}.meter-label{display:flex;justify-content:space-between;align-items:end;margin-bottom:8px;font-size:.81rem;font-weight:850}.meter-label strong{font-size:1.45rem}.track{height:15px;overflow:hidden;border-radius:999px;background:rgba(56,70,108,.09)}.fill{height:100%;width:var(--value);border-radius:inherit;background:linear-gradient(90deg,#df718c,#f2a9ba);transition:width .3s}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}.abtn{padding:9px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#687184;cursor:pointer;font-size:.72rem;font-weight:850}.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stage{padding:15px 13px;border:1px solid var(--line);border-radius:14px;background:#f8faff;text-align:center}.stage strong,.stage span{display:block}.stage span{color:#959cad;font-size:.64rem}.stage.active{border-color:rgba(81,114,240,.38);background:rgba(81,114,240,.09)}
+.ui{overflow:hidden;border:1px solid #28324d;border-radius:22px;background:#101625;color:#eef2ff;box-shadow:0 24px 70px rgba(29,38,70,.22)}.ui-head{padding:14px 17px;border-bottom:1px solid rgba(255,255,255,.08);color:#777f94;font-size:.68rem}.ui-body{padding:24px;font-family:Consolas,monospace;font-size:.8rem;line-height:1.8}.green{color:#78dba8}.blue{color:#8eafff}.pink{color:#ef9eb9}.dim{color:#71798f}footer{padding:0 0 58px;color:#8991a3;font-size:.77rem}.footer{display:flex;justify-content:space-between;padding-top:24px;border-top:1px solid var(--line)}.toast{position:fixed;left:50%;bottom:28px;z-index:100;transform:translate(-50%,25px);padding:11px 15px;border:1px solid var(--line);border-radius:999px;background:#fff;opacity:0;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:1080px){.nav{grid-template-columns:1fr auto}.semester{display:none}.hero-shell{grid-template-columns:1fr}.goal-grid,.campus-grid,.affinity-grid{grid-template-columns:1fr}.characters{grid-template-columns:210px 320px 1fr}}@media(max-width:820px){.container{width:min(calc(100% - 24px),var(--max))}.section{padding:84px 0}.section-head{grid-template-columns:1fr}.index,.links{display:none}.hero{padding-top:92px}.hero-copy{padding:36px 25px}.hero h1{font-size:clamp(2.8rem,12vw,5.3rem)}.device{min-height:590px}.logic-flow{grid-template-columns:1fr 1fr}.characters{grid-template-columns:1fr}.sidebar{border-right:0}.char-list{display:flex;max-height:none;overflow-x:auto}.char-btn{flex:0 0 170px}.char-photo,.char-photo img{min-height:560px}}@media(max-width:560px){.facts,.logic-flow,.profile-grid,.stages{grid-template-columns:1fr}.device{min-height:500px}.campus-photo{display:none}.char-photo,.char-photo img{min-height:470px}.footer{flex-direction:column;gap:8px}}
+
+/* =========================================================
+   IMAGE RATIO FIX
+   장소/배경 이미지 = 3:1
+   캐릭터 이미지 = 1.5:1
+   원본 비율 유지 + 크롭 방지
+========================================================= */
+
+/* ---------- 장소 / 배경 이미지 : 3:1 ---------- */
+
+/* 히어로 우측에 붙어 있던 작은 캠퍼스 사진 */
+.campus-photo {
+  width: 42% !important;
+  height: auto !important;
+  aspect-ratio: 3 / 1 !important;
+  border-width: 6px;
+}
+
+.campus-photo img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  background: #eef2fb;
+}
+
+/* 상단 캠퍼스 사진 위치도 가로 이미지에 맞춰 재배치 */
+.campus-photo.one {
+  left: 3% !important;
+  top: 12% !important;
+  transform: rotate(-5deg) !important;
+}
+
+.campus-photo.two {
+  right: 3% !important;
+  bottom: 11% !important;
+  transform: rotate(5deg) !important;
+}
+
+/* 캠퍼스 대표 배경도 3:1 이미지 전체가 보이도록 변경 */
+.campus-map {
+  min-height: 0 !important;
+  aspect-ratio: 3 / 1 !important;
+  background:
+    linear-gradient(rgba(255,255,255,.14), rgba(255,255,255,.22)),
+    url("https://igx.kr/d/Hcc/y/0") center / contain no-repeat,
+    #e8edf8 !important;
+}
+
+/* 장소 목록 썸네일 역시 3:1 */
+.place {
+  grid-template-columns: minmax(150px, 190px) 1fr !important;
+  min-height: 88px;
+}
+
+.place img {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 3 / 1 !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  border-radius: 12px !important;
+  background: #eef2f8;
+}
+
+/* ---------- 캐릭터 이미지 : 1.5:1 ---------- */
+
+/* 캐릭터 메인 이미지 영역 */
+.char-photo {
+  min-height: 0 !important;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 14%, rgba(110,142,255,.18), transparent 34%),
+    linear-gradient(160deg,#dde7ff,#eef2ff);
+}
+
+.char-photo img {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 1.5 / 1 !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  background: #e7ecfa;
+}
+
+/* 사이드 목록의 캐릭터 썸네일도 원본 1.5:1 유지 */
+.char-btn {
+  grid-template-columns: 64px 1fr !important;
+}
+
+.avatar {
+  width: 64px !important;
+  height: auto !important;
+  aspect-ratio: 1.5 / 1 !important;
+  border-radius: 9px !important;
+  background: #e5eaf5;
+}
+
+.avatar img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+/* 캐릭터 영역 높이를 이미지 비율에 맞게 자연스럽게 축소 */
+.characters {
+  align-items: stretch;
+}
+
+.profile {
+  min-height: 0;
+}
+
+/* 태블릿 */
+@media (max-width: 1080px) {
+  .characters {
+    grid-template-columns: 230px minmax(360px, .95fr) minmax(0, 1.05fr) !important;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 820px) {
+  .campus-photo {
+    width: 45% !important;
+  }
+
+  .place {
+    grid-template-columns: 145px 1fr !important;
+  }
+
+  .characters {
+    grid-template-columns: 1fr !important;
+  }
+
+  .char-photo img {
+    width: 100% !important;
+    aspect-ratio: 1.5 / 1 !important;
+  }
+
+  .char-list {
+    gap: 7px;
+  }
+
+  .char-btn {
+    flex: 0 0 190px !important;
+    grid-template-columns: 58px 1fr !important;
+  }
+
+  .avatar {
+    width: 58px !important;
+  }
+}
+
+/* 작은 모바일 */
+@media (max-width: 560px) {
+  .campus-map {
+    aspect-ratio: 3 / 1 !important;
+  }
+
+  .place {
+    grid-template-columns: 1fr !important;
+  }
+
+  .place img {
+    width: 100% !important;
+    aspect-ratio: 3 / 1 !important;
+  }
+
+  .char-photo img {
+    width: 100% !important;
+    aspect-ratio: 1.5 / 1 !important;
+  }
+}
+
+
+/* =========================================================
+   LAYOUT UPDATE
+   - 캐릭터 영역: 1.5:1 비율에 맞는 2열 구조로 재배치
+   - 장소 영역: 정의된 배경 0~14 전체 표시
+========================================================= */
+
+/* ---------- campus / background ---------- */
+.campus-grid{
+  display:grid !important;
+  grid-template-columns:1fr !important;
+  gap:18px !important;
+}
+
+.campus-map{
+  min-height:0 !important;
+  aspect-ratio:3 / 1 !important;
+  background:
+    linear-gradient(rgba(255,255,255,.14), rgba(255,255,255,.22)),
+    url("https://igx.kr/d/Hcc/y/0") center / contain no-repeat,
+    #e8edf8 !important;
+}
+
+.place-panel{
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:rgba(255,255,255,.84);
+  box-shadow:0 14px 36px rgba(57,73,118,.06);
+}
+
+.place-panel-head{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:end;
+  margin-bottom:16px;
+}
+
+.place-panel-head strong{
+  display:block;
+  font-size:1rem;
+}
+
+.place-panel-head span{
+  display:block;
+  margin-top:4px;
+  color:#8b92a3;
+  font-size:.74rem;
+}
+
+.place-count{
+  padding:8px 12px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:#697286;
+  background:#fff;
+  font-size:.72rem;
+  font-weight:850;
+}
+
+.place-list{
+  display:grid !important;
+  grid-template-columns:repeat(2, minmax(0,1fr)) !important;
+  gap:12px !important;
+}
+
+.place{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:stretch !important;
+  grid-template-columns:none !important;
+  gap:12px !important;
+  min-height:0 !important;
+  padding:12px !important;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+}
+
+.place img{
+  width:100% !important;
+  height:auto !important;
+  aspect-ratio:3 / 1 !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  border-radius:14px !important;
+  background:#eef2f8;
+}
+
+.place-copy strong{
+  display:block;
+  font-size:.86rem;
+}
+
+.place-copy span{
+  display:block;
+  margin-top:3px;
+  color:#8b92a3;
+  font-size:.7rem;
+  line-height:1.5;
+}
+
+/* ---------- character ---------- */
+.characters{
+  display:grid !important;
+  grid-template-columns:230px minmax(0,1fr) !important;
+  align-items:start !important;
+}
+
+.character-main{
+  display:grid;
+  grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  min-height:0;
+}
+
+.char-stage{
+  padding:22px;
+  border-right:1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 8%, rgba(110,142,255,.18), transparent 30%),
+    linear-gradient(160deg,#dde7ff,#eef2ff);
+}
+
+.char-stage-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:14px;
+}
+
+.char-stage-head strong{
+  font-size:.92rem;
+}
+
+.char-stage-head span{
+  color:#8b92a3;
+  font-size:.7rem;
+}
+
+.char-frame{
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:#edf2ff;
+  box-shadow:0 14px 34px rgba(56,72,116,.08);
+}
+
+.char-frame img{
+  width:100% !important;
+  height:auto !important;
+  min-height:0 !important;
+  aspect-ratio:1.5 / 1 !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  background:#e7ecfa;
+  transition:opacity .17s;
+}
+
+.char-stage-note{
+  margin-top:12px;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  color:#6d7587;
+  background:rgba(255,255,255,.72);
+  font-size:.75rem;
+}
+
+.profile{
+  justify-content:flex-start !important;
+  min-height:0 !important;
+}
+
+.char-list{
+  max-height:780px !important;
+}
+
+.char-btn{
+  grid-template-columns:64px 1fr !important;
+}
+
+.avatar{
+  width:64px !important;
+  height:auto !important;
+  aspect-ratio:1.5 / 1 !important;
+  border-radius:10px !important;
+  background:#e5eaf5;
+}
+
+.avatar img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+  object-position:center !important;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1080px){
+  .character-main{
+    grid-template-columns:1fr !important;
+  }
+  .char-stage{
+    border-right:0 !important;
+    border-bottom:1px solid var(--line);
+  }
+}
+
+@media (max-width: 820px){
+  .place-list{
+    grid-template-columns:1fr !important;
+  }
+  .characters{
+    grid-template-columns:1fr !important;
+  }
+  .char-stage{
+    padding:18px !important;
+  }
+  .char-btn{
+    flex:0 0 190px !important;
+    grid-template-columns:58px 1fr !important;
+  }
+  .avatar{
+    width:58px !important;
+  }
+}
+
+
+/* =========================================================
+   V4 CHARACTER REDESIGN
+========================================================= */
+.character-catalog{
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:30px;
+  background:rgba(255,255,255,.82);
+  box-shadow:var(--shadow);
+}
+
+.character-toolbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:22px;
+  padding-bottom:18px;
+  border-bottom:1px solid var(--line);
+}
+
+.character-filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.catalog-filter{
+  padding:10px 14px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:#6f788b;
+  background:#fff;
+  cursor:pointer;
+  font-size:.76rem;
+  font-weight:850;
+  transition:.18s ease;
+}
+
+.catalog-filter.active,
+.catalog-filter:hover{
+  color:#fff;
+  border-color:var(--blue);
+  background:var(--blue);
+}
+
+.character-toolbar-note{
+  color:#8b92a3;
+  font-size:.78rem;
+}
+
+.character-groups{
+  display:grid;
+  gap:36px;
+}
+
+.character-group{
+  display:grid;
+  gap:16px;
+}
+
+.character-group-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.character-group-head::before{
+  content:"";
+  width:24px;
+  height:2px;
+  border-radius:999px;
+  background:linear-gradient(90deg, var(--blue), var(--violet));
+}
+
+.character-group-title{
+  font-size:1rem;
+  font-weight:900;
+  letter-spacing:-.02em;
+}
+
+.character-group-sub{
+  color:#8d95a6;
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.character-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:18px;
+}
+
+.character-card{
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(246,248,255,.94));
+  box-shadow:0 14px 34px rgba(57,73,118,.07);
+  cursor:pointer;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.character-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(81,114,240,.26);
+  box-shadow:0 20px 44px rgba(57,73,118,.12);
+}
+
+.character-card-image{
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:1.5 / 1;
+  background:linear-gradient(160deg,#dde7ff,#eef2ff);
+}
+
+.character-card-image img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+
+.character-card-badge{
+  position:absolute;
+  left:14px;
+  top:14px;
+  padding:6px 9px;
+  border-radius:999px;
+  color:#fff;
+  background:rgba(23,32,51,.82);
+  font-size:.64rem;
+  font-weight:900;
+  letter-spacing:.08em;
+  backdrop-filter:blur(10px);
+}
+
+.character-card-body{
+  padding:16px;
+}
+
+.character-card-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:10px;
+}
+
+.character-card-meta span{
+  padding:5px 8px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:#6d7587;
+  background:#fff;
+  font-size:.64rem;
+  font-weight:850;
+}
+
+.character-card-name{
+  margin:0;
+  font-size:1.28rem;
+  line-height:1.05;
+  letter-spacing:-.04em;
+}
+
+.character-card-role{
+  margin-top:8px;
+  color:var(--blue);
+  font-size:.82rem;
+  font-weight:850;
+}
+
+.character-card-summary{
+  margin-top:10px;
+  color:#7a8396;
+  font-size:.74rem;
+  line-height:1.6;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+.character-modal{
+  position:fixed;
+  inset:0;
+  z-index:120;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  opacity:0;
+  visibility:hidden;
+  transition:.2s ease;
+}
+
+.character-modal.show{
+  opacity:1;
+  visibility:visible;
+}
+
+.character-modal-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(13,17,28,.62);
+  backdrop-filter:blur(12px);
+}
+
+.character-modal-panel{
+  position:relative;
+  z-index:2;
+  width:min(1120px, calc(100vw - 28px));
+  max-height:min(88vh, 920px);
+  overflow:auto;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:32px;
+  background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(245,247,255,.96));
+  box-shadow:0 30px 80px rgba(16,24,40,.28);
+}
+
+.character-modal-close{
+  position:absolute;
+  right:18px;
+  top:16px;
+  z-index:4;
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:50%;
+  color:#6f788b;
+  background:rgba(255,255,255,.88);
+  box-shadow:0 10px 24px rgba(52,67,108,.10);
+  cursor:pointer;
+  font-size:1.8rem;
+  line-height:1;
+}
+
+.character-modal-grid{
+  display:grid;
+  grid-template-columns:minmax(340px,.84fr) minmax(0,1.16fr);
+  gap:0;
+}
+
+.character-modal-visual{
+  padding:26px;
+  border-right:1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 10%, rgba(110,142,255,.18), transparent 34%),
+    linear-gradient(160deg,#e2e9ff,#eef2ff);
+}
+
+.character-modal-frame{
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:26px;
+  background:#edf2ff;
+  box-shadow:0 18px 40px rgba(56,72,116,.10);
+}
+
+.character-modal-frame img{
+  width:100%;
+  height:auto;
+  aspect-ratio:1.5 / 1;
+  object-fit:contain;
+  object-position:center;
+}
+
+.character-modal-copy{
+  padding:34px 34px 36px;
+}
+
+.character-modal-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.character-modal-meta span{
+  padding:6px 10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:#6d7587;
+  background:#fff;
+  font-size:.68rem;
+  font-weight:850;
+}
+
+.character-modal-name{
+  margin:16px 0 0;
+  font-size:clamp(2.2rem, 4vw, 4rem);
+  line-height:.98;
+  letter-spacing:-.06em;
+}
+
+.character-modal-role{
+  margin-top:10px;
+  color:var(--blue);
+  font-size:1rem;
+  font-weight:900;
+}
+
+.character-modal-description{
+  margin:22px 0 0;
+  color:#6f788b;
+  line-height:1.8;
+}
+
+.character-modal-info{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:12px;
+  margin-top:24px;
+}
+
+.character-modal-box{
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+}
+
+.character-modal-box small{
+  display:block;
+  color:#959cad;
+  font-size:.66rem;
+  font-weight:850;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+.character-modal-box strong{
+  display:block;
+  margin-top:7px;
+  color:#4f596c;
+  font-size:.86rem;
+  line-height:1.65;
+  white-space:pre-wrap;
+}
+
+body.modal-open{
+  overflow:hidden;
+}
+
+@media (max-width:1080px){
+  .character-grid{
+    grid-template-columns:repeat(2, minmax(0,1fr));
+  }
+
+  .character-modal-grid{
+    grid-template-columns:1fr;
+  }
+
+  .character-modal-visual{
+    border-right:0;
+    border-bottom:1px solid var(--line);
+  }
+}
+
+@media (max-width:820px){
+  .character-toolbar{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .character-grid{
+    grid-template-columns:1fr;
+  }
+
+  .character-modal{
+    padding:14px;
+  }
+
+  .character-modal-copy{
+    padding:24px 20px 24px;
+  }
+
+  .character-modal-visual{
+    padding:18px;
+  }
+
+  .character-modal-info{
+    grid-template-columns:1fr;
+  }
+}
+
+</style>
+</head>
+<body>
+<header class="topbar" id="topbar"><div class="container nav"><a href="#top" class="brand">상식개변 대학생활<small>DANYU UNIVERSITY · CAMPUS ROLEPLAY</small></a><div class="semester">3월 2일 · 월요일 · 개강 첫날</div><nav class="links"><a href="#goal">설정</a><a href="#campus">캠퍼스</a><a href="#characters">등장인물</a><a href="#affinity">호감도</a><a href="#ui">정보창</a></nav></div></header>
+
+<main id="top">
+<section class="hero"><div class="container"><div class="hero-shell">
+<div class="hero-copy"><div><div class="labels"><span class="label">현대 캠퍼스</span><span class="label">성장 · 교류 · 학업 · 연애</span><span class="label">풍자 러브코미디</span></div><h1><span>대학생활에</span><span class="accent">상식이 하나 늘었다</span></h1><p class="lead">개강 첫날 아침, 스마트폰에 정체불명의 앱 <strong>Mind Crack</strong>이 설치되어 있었다. 입력한 문장이 사람들의 ‘당연한 상식’이 되는 기묘한 능력과 함께 단유대학교에서의 평범하지 않은 대학생활이 시작된다.</p></div><div class="facts"><div class="fact"><strong>서울 · 단유대학교</strong><span>예술·미디어·공학 강세의 명문대</span></div><div class="fact"><strong>3월 2일 09:00</strong><span>개강 첫날부터 시작</span></div><div class="fact"><strong>15명의 주요 인물</strong><span>학년·학과·동아리가 얽힌 관계망</span></div></div></div>
+<div class="device"><figure class="campus-photo one"><img src="https://igx.kr/d/Hcc/y/0" alt="단유대학교"></figure><figure class="campus-photo two"><img src="https://igx.kr/d/Hcc/y/13" alt="강의실"></figure><div class="phone"><div class="screen"><div class="phone-top"><span>09:02</span><span>5G · 98%</span></div><div class="app-logo">M</div><div class="app-name">Mind Crack</div><div class="app-sub">COMMON SENSE EDITOR · UNKNOWN BUILD</div><div class="app-card"><small>NEW RULE</small><div class="app-input">“개강 첫날엔 새로운 사람과 인사하는 게 상식이잖아?”</div><div class="app-status">● WORLD SYNC READY</div></div><div class="app-list"><div class="app-rule"><strong>01 · 설정</strong><span>문장을 상식으로 등록</span></div><div class="app-rule"><strong>02 · 대상</strong><span>특정 인물 또는 불특정 다수</span></div><div class="app-rule"><strong>03 · 취소</strong><span>삭제하면 즉시 원래 상식으로 복귀</span></div></div></div></div></div>
+</div></div></section>
+
+<section class="section" id="goal"><div class="container"><div class="section-head"><div><div class="kicker">CORE CONCEPT</div><h2 class="title">능력보다 중요한 건, 대학생활 그 자체.</h2><p class="desc">Mind Crack은 이야기의 도구이고 중심에는 수업, 동아리, 인간관계, 성장과 연애가 있는 캠퍼스 러브코미디가 놓여 있습니다.</p></div><div class="index">01</div></div>
+<div class="goal-grid"><article class="card goal"><h3>상식을 바꾸고,<br>관계의 결과를 지켜본다.</h3><p>설정된 상식은 원래부터 그랬던 것처럼 받아들여지지만 인물의 외형·성격·지능은 그대로 유지됩니다.</p><div class="points"><div class="point"><i>A</i><div><strong>즉시 적용</strong><span>입력 또는 발화와 동시에 상식 고정</span></div></div><div class="point"><i>B</i><div><strong>성격 유지</strong><span>상식만 바뀌고 인물의 본래 성격은 보존</span></div></div><div class="point"><i>C</i><div><strong>완전한 취소</strong><span>삭제·수정 시 즉시 원래 상식으로 복귀</span></div></div></div></article>
+<article class="card logic"><strong>Mind Crack 작동 흐름</strong><div class="logic-flow"><div class="step"><b>STEP 01</b><h4>문장 입력</h4><p>새로운 상식을 앱에 설정한다.</p></div><div class="step"><b>STEP 02</b><h4>대상 반영</h4><p>특정 인물 또는 주변 사람에게 즉시 고정된다.</p></div><div class="step"><b>STEP 03</b><h4>일상 진행</h4><p>수업·동아리·대화 속에서 자연스럽게 작동한다.</p></div><div class="step"><b>STEP 04</b><h4>취소 가능</h4><p>삭제하거나 수정하면 원래 상태로 되돌아간다.</p></div></div></article></div></div></section>
+
+
+
+<section class="section" id="campus"><div class="container"><div class="section-head"><div><div class="kicker">CAMPUS LIFE</div><h2 class="title">캠퍼스의 하루가 지나가는 공간들.</h2><p class="desc">강의, 동아리, 학생회 업무, 식사와 약속까지. 단유대학교와 주변에서 펼쳐지는 주요 장소를 한눈에 확인할 수 있습니다.</p></div><div class="index">02</div></div>
+<div class="campus-grid">
+  <div class="campus-map"><div class="map-label">대표 배경 · 단유대학교</div></div>
+
+  <div class="place-panel">
+    <div class="place-panel-head">
+      <div>
+        <strong>장소 아카이브</strong>
+        <span>작품에 사용되는 주요 장소 이미지 전체 목록</span>
+      </div>
+      <div class="place-count">총 15개</div>
+    </div>
+
+    <div class="place-list">
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/0" alt="단유대학교"><div class="place-copy"><strong>단유대학교</strong><span>캠퍼스 전체를 대표하는 기본 배경</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/1" alt="학생회실"><div class="place-copy"><strong>학생회실</strong><span>학생회 간부들이 업무를 보는 공간</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/2" alt="대강당"><div class="place-copy"><strong>대강당</strong><span>OT와 행사, 발표가 열리는 대형 공간</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/3" alt="운동장"><div class="place-copy"><strong>운동장</strong><span>체육 활동과 축구부 훈련이 이어지는 장소</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/4" alt="보건실"><div class="place-copy"><strong>보건실</strong><span>몸 상태를 점검하고 잠시 쉬어 갈 수 있는 곳</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/5" alt="교내식당"><div class="place-copy"><strong>교내식당</strong><span>점심시간과 일상 대화가 자연스럽게 이어지는 공간</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/6" alt="동아리실"><div class="place-copy"><strong>동아리실</strong><span>패션·애니·미술·밴드 활동이 교차하는 공간</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/7" alt="방송실"><div class="place-copy"><strong>방송실</strong><span>교내 방송국 신입들과 선배들이 모이는 곳</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/8" alt="편의점"><div class="place-copy"><strong>편의점</strong><span>짧은 대화와 우연한 마주침이 생기기 좋은 장소</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/9" alt="식당"><div class="place-copy"><strong>식당</strong><span>캠퍼스 밖 식사 약속과 일상 외출의 무대</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/10" alt="카페"><div class="place-copy"><strong>카페</strong><span>팀플, 대화, 데이트 분위기를 살리기 좋은 공간</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/11" alt="영화관"><div class="place-copy"><strong>영화관</strong><span>주말 외출이나 특별한 데이트 전개에 어울리는 장소</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/12" alt="노래방"><div class="place-copy"><strong>노래방</strong><span>친밀도가 높아질수록 더 재미있어지는 공간</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/13" alt="강의실"><div class="place-copy"><strong>강의실</strong><span>전공·교양·팀플이 시작되는 기본 장소</span></div></div>
+      <div class="place"><img src="https://igx.kr/d/Hcc/y/14" alt="기타 장소"><div class="place-copy"><strong>기타 장소</strong><span>정의되지 않은 외부 장소나 예외 상황용 배경</span></div></div>
+    </div>
+  </div>
+</div></div></section>
+
+
+
+<section class="section" id="characters"><div class="container"><div class="section-head"><div><div class="kicker">CHARACTER ARCHIVE</div><h2 class="title">캠퍼스를 채우는 주요 인물들.</h2><p class="desc">학년별로 정리된 카드를 살펴보고, 원하는 인물을 선택하면 상세 프로필이 팝업으로 열립니다.</p></div><div class="index">03</div></div>
+
+<div class="character-catalog">
+  <div class="character-toolbar">
+    <div class="character-filters">
+      <button type="button" class="catalog-filter active" data-grade="all">전체</button>
+      <button type="button" class="catalog-filter" data-grade="4">4학년</button>
+      <button type="button" class="catalog-filter" data-grade="3">3학년</button>
+      <button type="button" class="catalog-filter" data-grade="2">2학년</button>
+      <button type="button" class="catalog-filter" data-grade="1">1학년</button>
+    </div>
+    <div class="character-toolbar-note">카드를 누르면 자세한 설정을 확인할 수 있습니다.</div>
+  </div>
+
+  <div id="characterGroups" class="character-groups"></div>
+</div>
+
+<div class="character-modal" id="characterModal" aria-hidden="true">
+  <div class="character-modal-backdrop" data-close="modal"></div>
+  <div class="character-modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalName">
+    <button type="button" class="character-modal-close" id="modalClose" aria-label="닫기">×</button>
+
+    <div class="character-modal-grid">
+      <div class="character-modal-visual">
+        <div class="character-modal-frame">
+          <img id="modalImage" src="https://igx.kr/d/Hcc/c/0" alt="강소희">
+        </div>
+      </div>
+
+      <div class="character-modal-copy">
+        <div class="character-modal-meta" id="modalMeta"></div>
+        <h3 id="modalName" class="character-modal-name">강소희</h3>
+        <div id="modalRole" class="character-modal-role">체육교육학과 4학년 · 축구부 회장</div>
+        <p id="modalDescription" class="character-modal-description"></p>
+
+        <div class="character-modal-info">
+          <div class="character-modal-box">
+            <small>Personality</small>
+            <strong id="modalPersonality"></strong>
+          </div>
+          <div class="character-modal-box">
+            <small>Likes</small>
+            <strong id="modalLikes"></strong>
+          </div>
+          <div class="character-modal-box">
+            <small>Dislikes</small>
+            <strong id="modalDislikes"></strong>
+          </div>
+          <div class="character-modal-box">
+            <small>Speech</small>
+            <strong id="modalSpeech"></strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<section class="section" id="affinity"><div class="container"><div class="section-head"><div><div class="kicker">AFFINITY SYSTEM</div><h2 class="title">관계는 수치로 쌓이고, 태도로 드러난다.</h2><p class="desc">호감도는 -100에서 200까지 누적되며 긍정적 대화와 행동은 관계를 안정시키고 불쾌한 행동은 거리를 벌립니다.</p></div><div class="index">04</div></div>
+<div class="affinity-grid"><div class="console"><div class="console-head"><strong>Affinity Monitor</strong><span>ACTIVE CHARACTER</span></div><div class="console-body"><div class="meter"><div><div class="meter-label"><span>❤️ 현재 호감도</span><strong id="affinityValue">20</strong></div><div class="track"><div class="fill" id="affinityBar"></div></div></div></div><div class="actions"><button class="abtn" data-act="pt">긍정 대화 +2</button><button class="abtn" data-act="pa">긍정 행동 +3</button><button class="abtn" data-act="nt">불쾌한 대화 -2</button><button class="abtn" data-act="na">불쾌한 행동 -3</button><button class="abtn" data-act="reset">초기화</button></div></div></div>
+<div class="console"><div class="console-head"><strong>Relationship Stage</strong><span>6 LEVELS</span></div><div class="console-body"><div class="stages"><div class="stage" data-min="-100" data-max="-51"><strong>냉담</strong><span>-100 ~ -51</span></div><div class="stage" data-min="-50" data-max="-1"><strong>경계</strong><span>-50 ~ -1</span></div><div class="stage active" data-min="0" data-max="50"><strong>보통</strong><span>0 ~ 50</span></div><div class="stage" data-min="51" data-max="100"><strong>안정</strong><span>51 ~ 100</span></div><div class="stage" data-min="101" data-max="150"><strong>애정</strong><span>101 ~ 150</span></div><div class="stage" data-min="151" data-max="200"><strong>사랑</strong><span>151 ~ 200</span></div></div></div></div></div></div></section>
+
+<section class="section" id="ui"><div class="container"><div class="section-head"><div><div class="kicker">RUNTIME UI</div><h2 class="title">매 턴 갱신되는 정보창.</h2><p class="desc">날짜·시간·장소·상황, 적용 중인 상식개변과 만난 인물의 관계를 한눈에 확인합니다.</p></div><div class="index">05</div></div>
+<div class="ui"><div class="ui-head">● ● ● &nbsp; DANYU_ROLEPLAY_UI.LOG</div><div class="ui-body"><div class="green">🟩｜03월02일(월)｜09:00｜1턴</div><div class="blue">📍｜단유대학교</div><div>✨｜개강 첫날</div><div class="dim">────────────────────────────</div><div>[사용자｜대학생｜성별]</div><div class="dim">- 적용 중인 상식개변 없음</div><div class="dim">-</div><div class="dim">────────────────────────────</div><div class="pink">[관계]</div><div>강소희｜4학년｜❤️20｜😄보통</div></div></div></div></section>
+</main>
+<footer><div class="container footer"><span>© 2026 상식개변 대학생활</span><span>허구의 AI 캠퍼스 롤플레잉 작품 소개</span></div></footer><div class="toast" id="toast"></div>
+
+
+<script>
+const characters = [{"id": "sohee", "code": "c", "grade": 4, "name": "강소희", "role": "체육교육학과 4학년 · 축구부 회장", "age": "23세", "mbti": "ESTP", "tag": "축구부 회장", "description": "승부욕과 경쟁심이 강하고 어떤 분야든 지기 싫어하는 기질을 지녔다. 털털하고 적극적이며 책임감 있게 팀을 이끄는 타입으로, 캠퍼스 안에서는 늘 에너지가 넘치는 선배로 통한다.", "personality": "보이시 · 털털 · 적극적 · 책임감", "likes": "축구 · 고강도 웨이트 · 승리 · 이온 음료", "dislikes": "나태함 · 패배 · 비겁한 행동", "speech": "직설적이고 시원시원한 자신감 넘치는 말투"}, {"id": "yuna", "code": "d", "grade": 4, "name": "정유나", "role": "패션디자인학과 4학년 · 패션디자인 동아리 회장", "age": "23세", "mbti": "ENTJ", "tag": "동아리 회장", "description": "자기관리와 스타일에 철저하며 주목받는 것을 즐긴다. 언제나 여유롭고 당당한 태도를 유지하지만, 진심 어린 관계 앞에서는 의외로 감정을 감추지 못하는 면도 있다.", "personality": "여유로움 · 자기관리 철저 · 자신감 · 주목욕", "likes": "명품 · 주변의 시선 · 쇼핑", "dislikes": "촌스러운 것 · 무시당하는 것", "speech": "항상 여유롭고 자신감 넘치는 도도한 말투"}, {"id": "jiyu", "code": "g", "grade": 4, "name": "최지유", "role": "간호학과 4학년 · 보건실 근로 학생", "age": "23세", "mbti": "ISTJ", "tag": "보건실 근로", "description": "까칠한 인상 때문에 오해를 사기 쉽지만, 다친 사람을 보면 무심한 척 먼저 챙기는 타입이다. 깔끔함과 건강 관리에 민감한 츤데레 선배.", "personality": "침착함 · 결벽증 · 츤데레 · 사무적", "likes": "정돈된 약장 · 달달한 디저트", "dislikes": "더러운 것 · 더러운 장소 · 엄살 부리는 사람", "speech": "정확하고 사무적이지만 건강 얘기에는 잔소리가 많아지는 말투"}, {"id": "jimin", "code": "h", "grade": 4, "name": "남지민", "role": "컴퓨터공학과 4학년 · 취준생", "age": "23세", "mbti": "INTJ", "tag": "취준생", "description": "졸업을 앞두고 취업 준비에 몰두하고 있으며, 조용한 환경과 혼자 있는 시간을 선호한다. 발표나 갑작스러운 질문에는 유독 약한 편이다.", "personality": "내성적 · 소심함 · 신중함 · 분석적", "likes": "코딩 · 혼자 있는 시간 · 에너지 드링크", "dislikes": "발표 수업 · 시끄러운 모임 · 갑작스러운 질문", "speech": "짧고 조용하며 대답을 피하듯 말끝을 흐리는 말투"}, {"id": "seoa", "code": "j", "grade": 3, "name": "이서아", "role": "컴퓨터공학과 3학년 · 애니메이션 동아리 회장", "age": "22세", "mbti": "INTP", "tag": "동아리 회장", "description": "대인 관계에는 서툴지만, 관심 있는 분야가 나오면 놀랄 만큼 말이 많아진다. 상상력이 풍부하고 취향이 뚜렷한 오타쿠 감성의 선배.", "personality": "내성적 · 소심 · 상상력 풍부 · 몰입형", "likes": "게임 · 애니메이션 · 만화방 · 에너지 드링크", "dislikes": "시끄러운 장소 · 과도한 관심", "speech": "짧고 단답형이지만 관심사가 겹치면 급격히 말이 많아지는 말투"}, {"id": "dahye", "code": "k", "grade": 3, "name": "윤다혜", "role": "경영학과 3학년 · 학생회장", "age": "22세", "mbti": "ISTJ", "tag": "학생회장", "description": "완벽한 학생회장이 되기 위해 성실하게 움직이지만, 은근한 허당기가 있어 뜻밖의 실수를 만들기도 한다. 계획과 질서를 중시하는 모범생.", "personality": "성실 · 꼼꼼 · 모범생 · 약간 허당", "likes": "계획표 · 칭찬 · 인정받는 것 · 따뜻한 차", "dislikes": "계획의 차질 · 무질서 · 예의 없는 행동", "speech": "예의 바르고 논리적이지만 당황하면 말끝을 흐리는 말투"}, {"id": "seoyeon", "code": "l", "grade": 3, "name": "권서연", "role": "경영학과 3학년 · 학생회 부회장", "age": "22세", "mbti": "INFJ", "tag": "학생회 부회장", "description": "감정 표현은 적지만 매사에 여유롭고, 상황을 뒤에서 정리하고 조율하는 능력이 탁월하다. 조용한 음악과 정돈된 분위기를 좋아한다.", "personality": "차분함 · 꼼꼼 · 관조적 · 감정 절제", "likes": "고전 소설 · 따뜻한 커피 · 조용한 음악", "dislikes": "무례한 질문 · 시끄러운 소리 · 저급한 농담", "speech": "나긋나긋하고 정돈된, 상대를 배려하는 부드러운 말투"}, {"id": "naeun", "code": "m", "grade": 3, "name": "유나은", "role": "경영학과 3학년 · 학생회 서기", "age": "22세", "mbti": "ISFJ", "tag": "학생회 서기", "description": "장난기가 많고 생동감이 넘치지만, 공과 사 구분은 확실하다. 맡은 바를 누구보다 열심히 처리하는 실무형 성격의 학생회 서기.", "personality": "예의 바름 · 장난기 많음 · 책임감 · 사교성", "likes": "영화 · 게임 · 애니 · 노래방", "dislikes": "너무 조용한 분위기 · 책임감 없는 사람", "speech": "생동감 넘치고 귀여운 말투, 장난칠 때는 애교가 섞이는 말투"}, {"id": "sera", "code": "n", "grade": 2, "name": "김세라", "role": "시각디자인학과 2학년 · 미술동아리 부회장", "age": "21세", "mbti": "ENFP", "tag": "미술동아리", "description": "감정과 욕구 표현이 과감하고 즉흥적이며, 친화력도 좋다. 지루함을 참지 못하고 늘 새로운 자극과 예쁜 색감을 찾아다닌다.", "personality": "자유분방 · 하이텐션 · 예측불가 · 솔직함", "likes": "그림 그리기 · 새로운 자극 · 예쁜 색감 · 달달한 디저트", "dislikes": "지루한 일상 · 정적인 분위기 · 틀에 박힌 사고", "speech": "활기차고 감정이 풍부한 말투, 반말과 존댓말을 자연스럽게 혼용"}, {"id": "yejin", "code": "p", "grade": 2, "name": "한예진", "role": "실용음악과 2학년 · 밴드부 베이스", "age": "21세", "mbti": "ISFP", "tag": "밴드부", "description": "학창 시절부터 주변 남자들에 대한 피로감이 쌓여 남자를 좋아하지 않는다. 말수는 적지만 베이스 연주에는 누구보다 진심이다.", "personality": "내향적 · 차가움 · 시니컬 · 독립적", "likes": "베이스 연주 · 밴드 활동 · 강한 자극", "dislikes": "무능력한 남자", "speech": "짧고 퉁명스럽고 쌀쌀맞은 시니컬한 말투"}, {"id": "sua", "code": "q", "grade": 2, "name": "박수아", "role": "체육교육학과 2학년 · 축구부 부원", "age": "21세", "mbti": "ENFP", "tag": "축구부", "description": "밝고 쾌활하며 수다스럽다. 칭찬을 들으면 금방 얼굴이 빨개지고, 혼자보다 여럿이 어울리는 분위기를 더 좋아하는 후배.", "personality": "밝음 · 쾌활함 · 낙천적 · 솔직함", "likes": "축구 · 운동 후 마시는 시원한 물 · 칭찬 · 간식", "dislikes": "지루하고 딱딱한 분위기 · 배고픔 · 혼자 있는 것", "speech": "톤이 높고 명랑하며 항상 웃음기가 섞인 말투"}, {"id": "ayeong", "code": "r", "grade": 2, "name": "주아영", "role": "산업디자인학과 2학년 · 미술동아리 부원", "age": "21세", "mbti": "ESTP", "tag": "미술동아리", "description": "손재주가 좋아 동아리 설치물 제작을 도맡고, 시원시원한 성격으로 주변 인기도 많다. 장난기와 행동력이 강한 현실파.", "personality": "털털함 · 손재주 좋음 · 장난기 · 직설적", "likes": "목공 도구 · 나무 향기 · DIY 만들기 · 장난치기", "dislikes": "복잡한 이야기 · 너무 조용한 분위기", "speech": "거침없고 시원시원한, 짧게 끊어 치는 대화 스타일"}, {"id": "yena", "code": "t", "grade": 1, "name": "서예나", "role": "언론정보학과 1학년 · 교내 방송국 신입", "age": "20세", "mbti": "ESFJ", "tag": "방송국 신입", "description": "방송국의 분위기 메이커를 맡는 신입생. 누구에게나 살갑게 대하고, 먹는 것과 사람들의 관심을 유독 좋아한다.", "personality": "활발 · 사교적 · 귀여움 · 분위기 메이커", "likes": "맛집 탐방 · 첫사랑 이야기 · 카메라 · 사람들의 관심", "dislikes": "맛없는 음식 · 외로움 · 조용한 분위기", "speech": "생동감 넘치고 귀여운, 쾌활한 어조의 말투"}, {"id": "harin", "code": "v", "grade": 1, "name": "채하린", "role": "패션디자인학과 1학년 · 패션디자인 동아리 신입", "age": "20세", "mbti": "ISTP", "tag": "동아리 신입", "description": "겉으로는 까칠하게 굴고 약간의 욕설도 섞지만, 마음을 연 상대에게는 은근히 잔소리하면서도 챙겨 주는 전형적인 츤데레 후배.", "personality": "잔소리 · 까칠함 · 욕데레 · 츤데레", "likes": "인터넷 밈 · 편한 옷 · 스마트폰 게임", "dislikes": "오글거리는 대사 · 가식적인 사람 · 귀찮은 일", "speech": "20대 여자 대학생 말투에 밈과 약간의 욕설이 섞이는 말투"}, {"id": "ayoon", "code": "w", "grade": 1, "name": "조아윤", "role": "연극영화과 1학년 · 교내 방송국 신입", "age": "20세", "mbti": "ENTP", "tag": "방송국 신입", "description": "장난기와 관찰력이 뛰어난 방송국의 소악마. 연기력과 잔머리가 좋아 뻔한 전개보다 사람의 반응을 보는 순간을 즐긴다.", "personality": "능글맞음 · 연기파 · 소악마 · 장난기", "likes": "반응 관찰 · 장난치기 · 연극 대본 · 매운 음식", "dislikes": "뻔한 전개 · 지루한 사람 · 진지한 분위기", "speech": "상대를 놀리는 듯한 능글맞은 말투와 여유 넘치는 비웃음 섞인 어조"}];
+let activeGrade = "all";
+let affinity = 20;
+
+const gradeLabel = {
+  4: "4학년",
+  3: "3학년",
+  2: "2학년",
+  1: "1학년"
+};
+
+const gradeSubLabel = {
+  4: "SENIOR FOURTH YEAR",
+  3: "JUNIOR THIRD YEAR",
+  2: "SOPHOMORE SECOND YEAR",
+  1: "FRESHMAN FIRST YEAR"
+};
+
+function renderCharacterGroups() {
+  const container = document.getElementById("characterGroups");
+  if (!container) return;
+
+  const grades = activeGrade === "all" ? [4,3,2,1] : [Number(activeGrade)];
+
+  container.innerHTML = grades.map(grade => {
+    const groupChars = characters.filter(character => character.grade === grade);
+    if (!groupChars.length) return "";
+
+    return `
+      <section class="character-group">
+        <div class="character-group-head">
+          <div>
+            <div class="character-group-title">${gradeLabel[grade]}</div>
+            <div class="character-group-sub">${gradeSubLabel[grade]}</div>
+          </div>
+        </div>
+
+        <div class="character-grid">
+          ${groupChars.map(character => `
+            <article class="character-card" data-character="${character.id}">
+              <div class="character-card-image">
+                <img src="https://igx.kr/d/Hcc/${character.code}/0" alt="${character.name}" loading="lazy" decoding="async">
+                <div class="character-card-badge">${character.tag}</div>
+              </div>
+
+              <div class="character-card-body">
+                <div class="character-card-meta">
+                  <span>${character.age}</span>
+                  <span>${character.mbti}</span>
+                  <span>${gradeLabel[character.grade]}</span>
+                </div>
+                <h3 class="character-card-name">${character.name}</h3>
+                <div class="character-card-role">${character.role}</div>
+                <div class="character-card-summary">${character.description}</div>
+              </div>
+            </article>
+          `).join("")}
+        </div>
+      </section>
+    `;
+  }).join("");
+
+  container.querySelectorAll(".character-card").forEach(card => {
+    card.addEventListener("click", () => openCharacterModal(card.dataset.character));
+  });
+}
+
+function openCharacterModal(id) {
+  const character = characters.find(item => item.id === id);
+  if (!character) return;
+
+  document.getElementById("modalImage").src = `https://igx.kr/d/Hcc/${character.code}/0`;
+  document.getElementById("modalImage").alt = character.name;
+  document.getElementById("modalName").textContent = character.name;
+  document.getElementById("modalRole").textContent = character.role;
+  document.getElementById("modalDescription").textContent = character.description;
+  document.getElementById("modalMeta").innerHTML = `
+    <span>${character.age}</span>
+    <span>${character.mbti}</span>
+    <span>${gradeLabel[character.grade]}</span>
+    <span>${character.tag}</span>
+  `;
+  document.getElementById("modalPersonality").textContent = character.personality;
+  document.getElementById("modalLikes").textContent = character.likes;
+  document.getElementById("modalDislikes").textContent = character.dislikes;
+  document.getElementById("modalSpeech").textContent = character.speech;
+
+  document.getElementById("characterModal").classList.add("show");
+  document.getElementById("characterModal").setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+}
+
+function closeCharacterModal() {
+  document.getElementById("characterModal").classList.remove("show");
+  document.getElementById("characterModal").setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+}
+
+document.querySelectorAll(".catalog-filter").forEach(button => {
+  button.addEventListener("click", () => {
+    activeGrade = button.dataset.grade;
+    document.querySelectorAll(".catalog-filter").forEach(item => {
+      item.classList.toggle("active", item === button);
+    });
+    renderCharacterGroups();
+  });
+});
+
+document.getElementById("modalClose")?.addEventListener("click", closeCharacterModal);
+document.querySelectorAll('[data-close="modal"]').forEach(item => {
+  item.addEventListener("click", closeCharacterModal);
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeCharacterModal();
+});
+
+const clamp = value => Math.max(-100, Math.min(200, value));
+const affinityPercent = value => ((value + 100) / 300) * 100;
+
+function updateAffinity() {
+  const valueEl = document.getElementById("affinityValue");
+  const barEl = document.getElementById("affinityBar");
+  if (valueEl) valueEl.textContent = affinity;
+  if (barEl) barEl.style.setProperty("--value", `${affinityPercent(affinity)}%`);
+
+  document.querySelectorAll(".stage").forEach(stage => {
+    const min = Number(stage.dataset.min);
+    const max = Number(stage.dataset.max);
+    stage.classList.toggle("active", affinity >= min && affinity <= max);
+  });
+}
+
+const toast = document.getElementById("toast");
+let toastTimer;
+
+function showToast(message) {
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+}
+
+document.querySelectorAll("[data-act]").forEach(button => {
+  button.addEventListener("click", () => {
+    switch (button.dataset.act) {
+      case "pt":
+        affinity = clamp(affinity + 2);
+        showToast("긍정적인 대화로 호감도 +2");
+        break;
+      case "pa":
+        affinity = clamp(affinity + 3);
+        showToast("긍정적인 행동으로 호감도 +3");
+        break;
+      case "nt":
+        affinity = clamp(affinity - 2);
+        showToast("불쾌한 대화로 호감도 -2");
+        break;
+      case "na":
+        affinity = clamp(affinity - 3);
+        showToast("불쾌한 행동으로 호감도 -3");
+        break;
+      default:
+        affinity = 20;
+        showToast("호감도를 초기화했습니다.");
+        break;
+    }
+    updateAffinity();
+  });
+});
+
+const topbar = document.getElementById("topbar");
+window.addEventListener("scroll", () => {
+  if (topbar) topbar.classList.toggle("scrolled", window.scrollY > 20);
+});
+
+renderCharacterGroups();
+updateAffinity();
+</script>
+
+</body></html>
