@@ -73,22 +73,41 @@ button{font:inherit}
 .kicker{font-size:12px;letter-spacing:.14em;color:var(--accent);font-weight:900;text-transform:uppercase}
 .section h2{font-size:clamp(34px,4vw,58px);line-height:1.02;letter-spacing:-.055em;margin:8px 0 0}
 .section-copy{color:var(--muted);font-size:16px;max-width:760px}
-.system-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.system-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));padding:24px;min-height:220px;position:relative;overflow:hidden}
 .card-number{font-size:12px;color:var(--muted);font-weight:900;letter-spacing:.12em}
 .card h3{font-size:25px;letter-spacing:-.04em;margin:42px 0 10px}
 .card p{margin:0;color:var(--muted)}
 .card strong{color:var(--text)}
-.tier-list{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:18px}
-.tier{padding:12px 8px;text-align:center;border:1px solid var(--line);font-weight:1000}
-.tier small{display:block;color:var(--muted);font-weight:600;font-size:10px;margin-top:2px}
-.system-core{min-height:340px}
-.system-core h3{margin-top:30px}
-.system-detail-list{display:grid;gap:8px;margin-top:18px}
-.system-detail{display:grid;grid-template-columns:74px minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid var(--line);align-items:start}
-.system-detail:first-child{border-top:0;padding-top:0}
-.system-detail span{font-size:10px;font-weight:900;letter-spacing:.08em;color:var(--accent2)}
-.system-detail p{font-size:12px;line-height:1.55;color:var(--soft);margin:0}
+.system-core{min-height:430px;padding:26px}
+.system-core:before{content:"";position:absolute;right:-72px;top:-72px;width:190px;height:190px;border:1px solid rgba(255,255,255,.045);transform:rotate(35deg)}
+.system-core-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin:28px 0 20px}
+.system-core h3{font-size:30px;margin:0;letter-spacing:-.045em}
+.system-key{font-size:10px;font-weight:900;letter-spacing:.1em;color:var(--accent2);white-space:nowrap}
+.system-summary{font-size:14px;line-height:1.65;color:var(--soft);max-width:560px}
+.system-summary strong{color:var(--text)}
+.system-quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:22px}
+.system-quick{border:1px solid var(--line);background:rgba(255,255,255,.018);padding:14px;min-height:118px}
+.system-quick .quick-label{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;color:var(--accent2);margin-bottom:10px}
+.system-quick b{display:block;font-size:15px;letter-spacing:-.02em;margin-bottom:6px}
+.system-quick p{font-size:11px;line-height:1.5;color:var(--muted)}
+.point-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:17px}
+.point-tag{padding:7px 10px;border:1px solid var(--line);font-size:10px;font-weight:800;color:var(--soft);background:#10141b}
+.tier-list{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:18px}
+.tier{padding:12px 7px;text-align:center;border:1px solid var(--line);font-weight:1000;background:rgba(255,255,255,.016)}
+.tier b{display:block;font-size:17px}
+.tier small{display:block;color:var(--muted);font-weight:600;font-size:9px;margin-top:3px;line-height:1.35}
+.class-rule-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}
+.class-rule{border:1px solid var(--line);padding:12px 13px;background:rgba(255,255,255,.018)}
+.class-rule span{display:block;color:var(--accent2);font-size:9px;font-weight:900;letter-spacing:.08em;margin-bottom:5px}
+.class-rule b{display:block;font-size:13px;line-height:1.45}
+.payout-strip{display:grid;grid-template-columns:auto repeat(5,1fr);gap:0;margin-top:10px;border:1px solid var(--line);background:#10141b}
+.payout-strip>span{display:grid;place-items:center;min-height:48px;padding:6px 8px;border-left:1px solid var(--line);font-size:10px;color:var(--soft);text-align:center}
+.payout-strip>span:first-child{border-left:0;color:var(--accent2);font-weight:900;letter-spacing:.04em}
+.proof-card{grid-column:1/-1;min-height:0;display:grid;grid-template-columns:170px minmax(0,1fr);gap:24px;align-items:center;padding:20px 24px}
+.proof-card .card-number{align-self:start;padding-top:4px}
+.proof-card h3{margin:0 0 5px;font-size:22px}
+.proof-card p{font-size:13px;line-height:1.55}
 .system-flow{margin-top:18px;border:1px solid var(--line);background:rgba(255,255,255,.02);padding:18px}
 .system-flow-label{font-size:10px;font-weight:900;letter-spacing:.14em;color:var(--muted);margin-bottom:12px}
 .system-flow-track{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;align-items:stretch}
@@ -176,10 +195,10 @@ body.modal-open{overflow:hidden}
 .footer{padding:26px 0 40px;color:#6f7886;font-size:12px;text-align:center}
 @media (max-width:900px){
   .char-stage-inner{grid-template-columns:1fr}.char-portrait{max-width:100%}
-  .nav-links{display:none}.hero-grid,.section-head,.character-layout{grid-template-columns:1fr}.hero-card{min-height:430px}.rank-big{font-size:125px}.system-grid{grid-template-columns:1fr}.system-flow-track{grid-template-columns:repeat(3,1fr)}.timeline{grid-template-columns:repeat(3,1fr)}.facilities{grid-template-columns:repeat(2,1fr)}.char-tabs{display:grid;grid-template-columns:repeat(2,1fr)}.char-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.char-dialog-grid{grid-template-columns:1fr}
+  .nav-links{display:none}.hero-grid,.section-head,.character-layout{grid-template-columns:1fr}.hero-card{min-height:430px}.rank-big{font-size:125px}.system-grid{grid-template-columns:1fr}.proof-card{grid-column:auto}.system-quick-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.system-flow-track{grid-template-columns:repeat(3,1fr)}.timeline{grid-template-columns:repeat(3,1fr)}.facilities{grid-template-columns:repeat(2,1fr)}.char-tabs{display:grid;grid-template-columns:repeat(2,1fr)}.char-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.char-dialog-grid{grid-template-columns:1fr}
 }
 @media (max-width:560px){
-  .container{width:min(100% - 24px,1180px)}.hero{padding-top:62px}.hero-card{min-height:380px}.rank-panel{inset:24px}.mini-stats{grid-template-columns:1fr}.system-flow-track{grid-template-columns:1fr}.system-detail{grid-template-columns:64px minmax(0,1fr)}.timeline{grid-template-columns:repeat(2,1fr)}.facilities{grid-template-columns:1fr}.char-tabs{grid-template-columns:1fr}.char-grid{grid-template-columns:1fr}.char-card-grid{grid-template-columns:1fr}.char-detail-grid{grid-template-columns:1fr}.char-detail.wide{grid-column:auto}.char-modal-copy{padding:20px}.section{padding:66px 0}
+  .container{width:min(100% - 24px,1180px)}.hero{padding-top:62px}.hero-card{min-height:380px}.rank-panel{inset:24px}.mini-stats{grid-template-columns:1fr}.system-quick-grid{grid-template-columns:1fr}.class-rule-grid{grid-template-columns:1fr}.payout-strip{grid-template-columns:repeat(3,1fr)}.payout-strip>span{border-top:1px solid var(--line)}.proof-card{grid-template-columns:1fr;gap:8px}.system-flow-track{grid-template-columns:1fr}.timeline{grid-template-columns:repeat(2,1fr)}.facilities{grid-template-columns:1fr}.char-tabs{grid-template-columns:1fr}.char-grid{grid-template-columns:1fr}.char-card-grid{grid-template-columns:1fr}.char-detail-grid{grid-template-columns:1fr}.char-detail.wide{grid-column:auto}.char-modal-copy{padding:20px}.section{padding:66px 0}
 }
 </style>
 </head>
@@ -233,38 +252,45 @@ body.modal-open{overflow:hidden}
     <div class="system-grid">
       <article class="card system-core">
         <div class="card-number">POINT</div>
-        <h3>포인트 P</h3>
-        <p><strong>교내 화폐이자 계급을 결정하는 개인 자산.</strong> 많이 벌기만 하는 것이 아니라 언제 쓰고, 누구와 거래하고, 얼마나 남기는지가 곧 전략이 된다.</p>
-        <div class="system-detail-list">
-          <div class="system-detail"><span>조회</span><p>전용 앱에서 같은 학년 학생들의 <strong>현재 순위·계급·보유 P</strong>를 언제든 확인할 수 있다.</p></div>
-          <div class="system-detail"><span>획득</span><p>정규시험·증명시험·교내평가·대회·프로젝트·지정 활동·개인 성과 등으로 획득한다.</p></div>
-          <div class="system-detail"><span>사용</span><p>시설 이용, 징계, 거래·양도 등으로 감소하며 정보·협력·계약·보상·동맹을 위해 학생 간 자유롭게 주고받을 수 있다.</p></div>
+        <div class="system-core-head">
+          <h3>포인트 P</h3>
+          <span class="system-key">CURRENCY × ASSET</span>
         </div>
+        <p class="system-summary"><strong>교내 화폐이자 계급을 결정하는 개인 자산.</strong><br>P를 얼마나 버느냐뿐 아니라 어디에 쓰고, 누구와 거래하고, 얼마를 남기느냐가 곧 전략이 된다.</p>
+        <div class="system-quick-grid">
+          <div class="system-quick"><span class="quick-label">조회</span><b>전용 앱 공개</b><p>같은 학년의 현재 순위·계급·보유 P를 언제든 확인.</p></div>
+          <div class="system-quick"><span class="quick-label">획득</span><b>시험 · 성과</b><p>정규·증명시험, 평가, 대회, 프로젝트, 개인 성과 등.</p></div>
+          <div class="system-quick"><span class="quick-label">사용</span><b>소비 · 거래</b><p>시설·징계·양도뿐 아니라 정보, 협력, 계약, 동맹에도 사용.</p></div>
+        </div>
+        <div class="point-tags"><span class="point-tag">정보 거래</span><span class="point-tag">협력 보상</span><span class="point-tag">P 양도</span><span class="point-tag">계약·동맹</span></div>
       </article>
 
       <article class="card system-core">
         <div class="card-number">CLASS</div>
-        <h3>계급과 순위</h3>
-        <p>계급은 성적표가 아니라 <strong>같은 학년의 현재 보유 P를 기준으로 한 상대평가</strong>다. P가 움직이면 순위도 즉시 달라진다.</p>
+        <div class="system-core-head">
+          <h3>계급과 순위</h3>
+          <span class="system-key">LIVE RANKING</span>
+        </div>
+        <p class="system-summary">성적표가 아니라 <strong>같은 학년의 현재 보유 P를 기준으로 한 상대평가.</strong><br>P가 변하는 순간 순위도 함께 움직인다.</p>
         <div class="tier-list">
-          <div class="tier">S<small>상위 10%</small></div>
-          <div class="tier">A<small>다음 20%</small></div>
-          <div class="tier">B<small>다음 30%</small></div>
-          <div class="tier">C<small>나머지</small></div>
-          <div class="tier">D<small>최하위 5명</small></div>
+          <div class="tier"><b>S</b><small>상위 10%</small></div>
+          <div class="tier"><b>A</b><small>다음 20%</small></div>
+          <div class="tier"><b>B</b><small>다음 30%</small></div>
+          <div class="tier"><b>C</b><small>나머지</small></div>
+          <div class="tier"><b>D</b><small>최하위 5명</small></div>
         </div>
-        <div class="system-detail-list">
-          <div class="system-detail"><span>순위</span><p>현재 보유 P에 따라 <strong>학년 내 순위가 실시간으로 갱신</strong>된다.</p></div>
-          <div class="system-detail"><span>재평가</span><p><strong>매월 말</strong> P를 집계해 다음 달의 계급을 결정한다.</p></div>
-          <div class="system-detail"><span>월 지급</span><p>매월 1일 S 50만 / A 40만 / B 30만 / C 20만 / D 10만 P를 지급한다.</p></div>
-          <div class="system-detail"><span>퇴학</span><p>학년말 최종 계급에서 <strong>D급 5명은 전원 퇴학</strong>한다.</p></div>
+        <div class="class-rule-grid">
+          <div class="class-rule"><span>순위</span><b>P 변동 즉시 실시간 갱신</b></div>
+          <div class="class-rule"><span>재평가</span><b>매월 말 → 다음 달 계급 확정</b></div>
+          <div class="class-rule"><span>월 지급</span><b>매월 1일 계급별 기본 P 지급</b></div>
+          <div class="class-rule"><span>퇴학</span><b>학년말 최종 D급 5명 전원 퇴학</b></div>
         </div>
+        <div class="payout-strip"><span>월 지급</span><span>S 50만</span><span>A 40만</span><span>B 30만</span><span>C 20만</span><span>D 10만 P</span></div>
       </article>
 
-      <article class="card">
+      <article class="card proof-card">
         <div class="card-number">PROOF</div>
-        <h3>증명시험</h3>
-        <p>정답을 고르는 시험이 아니다. <strong>재능·자원·인간관계</strong>를 활용해 주어진 목표를 달성하는 실습형 평가다.</p>
+        <div><h3>증명시험</h3><p>정답을 고르는 시험이 아니다. <strong>재능·자원·인간관계</strong>를 활용해 주어진 목표를 달성하는 실습형 평가다.</p></div>
       </article>
     </div>
 
@@ -298,7 +324,7 @@ body.modal-open{overflow:hidden}
 <section class="section" id="campus">
   <div class="container">
     <div class="section-head"><div><div class="kicker">04 / Campus</div><h2>학교이자,<br>하나의 도시.</h2></div><p class="section-copy">수업, 경쟁, 휴식, 거래, 데이트까지 모든 생활이 교내에서 이루어진다. 익숙한 학교 공간과 비일상적인 엘리트 시스템이 동시에 존재하는 것이 세현고 캠퍼스의 핵심이다.</p></div>
-    <div class="facilities"><button type="button" class="facility" data-place-id="1" data-place-name="교실" data-place-desc="정규 수업과 시험, 담임과의 공지가 이루어지는 가장 기본적인 학습 공간." style="background-image:url('https://igx.kr/d/Tgc/G/1')" aria-label="교실 자세히 보기"><span>01</span><b>교실</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="3" data-place-name="대강당" data-place-desc="입학식과 전교 공지, 증명시험 설명과 결과 발표가 열리는 대형 행사 공간." style="background-image:url('https://igx.kr/d/Tgc/G/3')" aria-label="대강당 자세히 보기"><span>02</span><b>대강당</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="4" data-place-name="운동장" data-place-desc="체육 수업과 체육대회, 야외 활동과 신체 능력을 겨루는 시험이 펼쳐지는 장소." style="background-image:url('https://igx.kr/d/Tgc/G/4')" aria-label="운동장 자세히 보기"><span>03</span><b>운동장</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="5" data-place-name="체육관" data-place-desc="실내 스포츠와 훈련, 다양한 실습형 평가에 활용되는 대형 체육 시설." style="background-image:url('https://igx.kr/d/Tgc/G/5')" aria-label="체육관 자세히 보기"><span>04</span><b>체육관</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="6" data-place-name="수영장" data-place-desc="수영 수업과 자유 활동에 사용되는 교내 실내 수영 시설." style="background-image:url('https://igx.kr/d/Tgc/G/6')" aria-label="수영장 자세히 보기"><span>05</span><b>수영장</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="9" data-place-name="도서관" data-place-desc="정규시험 준비와 자료 조사, 조용한 대화와 정보 교환이 이루어지는 학습 공간." style="background-image:url('https://igx.kr/d/Tgc/G/9')" aria-label="도서관 자세히 보기"><span>06</span><b>도서관</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="11" data-place-name="기숙사" data-place-desc="전교생이 생활하는 1인 1실 기숙 시설. 수업이 끝난 뒤의 일상이 이어지는 장소." style="background-image:url('https://igx.kr/d/Tgc/G/11')" aria-label="기숙사 자세히 보기"><span>07</span><b>기숙사</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="12" data-place-name="교무실" data-place-desc="교사들이 근무하며 학생 상담, 공지, 평가와 각종 행정 업무가 이루어지는 공간." style="background-image:url('https://igx.kr/d/Tgc/G/12')" aria-label="교무실 자세히 보기"><span>08</span><b>교무실</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="13" data-place-name="쇼핑시설" data-place-desc="의류와 생필품 등 다양한 상품을 P로 구매할 수 있는 교내 상업 시설." style="background-image:url('https://igx.kr/d/Tgc/G/13')" aria-label="쇼핑시설 자세히 보기"><span>09</span><b>쇼핑시설</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="14" data-place-name="노래방" data-place-desc="학생들이 자유시간에 친목과 휴식을 즐기는 교내 여가 시설." style="background-image:url('https://igx.kr/d/Tgc/G/14')" aria-label="노래방 자세히 보기"><span>10</span><b>노래방</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="15" data-place-name="카페" data-place-desc="음료와 간단한 먹거리를 즐기며 대화, 거래, 만남이 자주 이루어지는 공간." style="background-image:url('https://igx.kr/d/Tgc/G/15')" aria-label="카페 자세히 보기"><span>11</span><b>카페</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="16" data-place-name="영화관" data-place-desc="교내에서 영화를 관람할 수 있는 여가 시설. 휴식이나 약속 장소로도 이용된다." style="background-image:url('https://igx.kr/d/Tgc/G/16')" aria-label="영화관 자세히 보기"><span>12</span><b>영화관</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="17" data-place-name="산책로" data-place-desc="캠퍼스 안을 따라 조성된 조용한 산책 공간. 휴식과 사적인 대화에 적합하다." style="background-image:url('https://igx.kr/d/Tgc/G/17')" aria-label="산책로 자세히 보기"><span>13</span><b>산책로</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="18" data-place-name="레스토랑" data-place-desc="일반 식사보다 여유로운 식사와 특별한 약속에 이용되는 교내 식당 시설." style="background-image:url('https://igx.kr/d/Tgc/G/18')" aria-label="레스토랑 자세히 보기"><span>14</span><b>레스토랑</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="7" data-place-name="보건실" data-place-desc="부상이나 컨디션 이상을 치료하고 휴식할 수 있는 교내 의료 공간." style="background-image:url('https://igx.kr/d/Tgc/G/7')" aria-label="보건실 자세히 보기"><span>15</span><b>보건실</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="10" data-place-name="동아리실" data-place-desc="동아리 활동과 소규모 모임, 학생들끼리의 회의가 이루어지는 자율 활동 공간." style="background-image:url('https://igx.kr/d/Tgc/G/10')" aria-label="동아리실 자세히 보기"><span>16</span><b>동아리실</b><span class="facility-hint">클릭하여 자세히 보기</span></button></div>
+    <div class="facilities"><button type="button" class="facility" data-place-id="1" data-place-name="교실" data-place-desc="정규 수업과 시험, 담임과의 공지가 이루어지는 가장 기본적인 학습 공간." style="background-image:url('https://igx.kr/d/Tgc/J/1')" aria-label="교실 자세히 보기"><span>01</span><b>교실</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="3" data-place-name="대강당" data-place-desc="입학식과 전교 공지, 증명시험 설명과 결과 발표가 열리는 대형 행사 공간." style="background-image:url('https://igx.kr/d/Tgc/J/3')" aria-label="대강당 자세히 보기"><span>02</span><b>대강당</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="4" data-place-name="운동장" data-place-desc="체육 수업과 체육대회, 야외 활동과 신체 능력을 겨루는 시험이 펼쳐지는 장소." style="background-image:url('https://igx.kr/d/Tgc/J/4')" aria-label="운동장 자세히 보기"><span>03</span><b>운동장</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="5" data-place-name="체육관" data-place-desc="실내 스포츠와 훈련, 다양한 실습형 평가에 활용되는 대형 체육 시설." style="background-image:url('https://igx.kr/d/Tgc/J/5')" aria-label="체육관 자세히 보기"><span>04</span><b>체육관</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="6" data-place-name="수영장" data-place-desc="수영 수업과 자유 활동에 사용되는 교내 실내 수영 시설." style="background-image:url('https://igx.kr/d/Tgc/J/6')" aria-label="수영장 자세히 보기"><span>05</span><b>수영장</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="9" data-place-name="도서관" data-place-desc="정규시험 준비와 자료 조사, 조용한 대화와 정보 교환이 이루어지는 학습 공간." style="background-image:url('https://igx.kr/d/Tgc/J/9')" aria-label="도서관 자세히 보기"><span>06</span><b>도서관</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="11" data-place-name="기숙사" data-place-desc="전교생이 생활하는 1인 1실 기숙 시설. 수업이 끝난 뒤의 일상이 이어지는 장소." style="background-image:url('https://igx.kr/d/Tgc/J/11')" aria-label="기숙사 자세히 보기"><span>07</span><b>기숙사</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="12" data-place-name="교무실" data-place-desc="교사들이 근무하며 학생 상담, 공지, 평가와 각종 행정 업무가 이루어지는 공간." style="background-image:url('https://igx.kr/d/Tgc/J/12')" aria-label="교무실 자세히 보기"><span>08</span><b>교무실</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="13" data-place-name="쇼핑시설" data-place-desc="의류와 생필품 등 다양한 상품을 P로 구매할 수 있는 교내 상업 시설." style="background-image:url('https://igx.kr/d/Tgc/J/13')" aria-label="쇼핑시설 자세히 보기"><span>09</span><b>쇼핑시설</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="14" data-place-name="노래방" data-place-desc="학생들이 자유시간에 친목과 휴식을 즐기는 교내 여가 시설." style="background-image:url('https://igx.kr/d/Tgc/J/14')" aria-label="노래방 자세히 보기"><span>10</span><b>노래방</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="15" data-place-name="카페" data-place-desc="음료와 간단한 먹거리를 즐기며 대화, 거래, 만남이 자주 이루어지는 공간." style="background-image:url('https://igx.kr/d/Tgc/J/15')" aria-label="카페 자세히 보기"><span>11</span><b>카페</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="16" data-place-name="영화관" data-place-desc="교내에서 영화를 관람할 수 있는 여가 시설. 휴식이나 약속 장소로도 이용된다." style="background-image:url('https://igx.kr/d/Tgc/J/16')" aria-label="영화관 자세히 보기"><span>12</span><b>영화관</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="17" data-place-name="산책로" data-place-desc="캠퍼스 안을 따라 조성된 조용한 산책 공간. 휴식과 사적인 대화에 적합하다." style="background-image:url('https://igx.kr/d/Tgc/J/17')" aria-label="산책로 자세히 보기"><span>13</span><b>산책로</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="18" data-place-name="레스토랑" data-place-desc="일반 식사보다 여유로운 식사와 특별한 약속에 이용되는 교내 식당 시설." style="background-image:url('https://igx.kr/d/Tgc/J/18')" aria-label="레스토랑 자세히 보기"><span>14</span><b>레스토랑</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="7" data-place-name="보건실" data-place-desc="부상이나 컨디션 이상을 치료하고 휴식할 수 있는 교내 의료 공간." style="background-image:url('https://igx.kr/d/Tgc/J/7')" aria-label="보건실 자세히 보기"><span>15</span><b>보건실</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="10" data-place-name="동아리실" data-place-desc="동아리 활동과 소규모 모임, 학생들끼리의 회의가 이루어지는 자율 활동 공간." style="background-image:url('https://igx.kr/d/Tgc/J/10')" aria-label="동아리실 자세히 보기"><span>16</span><b>동아리실</b><span class="facility-hint">클릭하여 자세히 보기</span></button></div>
   </div>
 </section>
 
@@ -346,26 +372,26 @@ body.modal-open{overflow:hidden}
 
 <script>
 const characters = [
-  {id:'c',group:'1학년',name:'한서윤',rank:'S급 · 1위',talent:'전략',role:'세계 최연소 체스 그랜드마스터',desc:'변수와 승리조건을 분석해 최적의 전략을 설계하는 최상위 엘리트. 감정보다 논리를 신뢰하며, 진짜 실력자라면 경쟁자라도 인정한다.',appearance:'적안 · 흑발 긴 생머리 · 눈물점 · 차가운 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'침착 · 합리적 · 자신감 · 승부욕 강함',weak:'감정적·비합리적 변수',style:'차분하고 확신에 찬 반말'},
-  {id:'d',group:'1학년',name:'유민재',rank:'A급 · 4위',talent:'스포츠',role:'운동계 인싸 · 상위권 일진',desc:'뛰어난 운동신경과 신체능력으로 다양한 종목을 빠르게 습득한다. 거침없는 성격과 강한 서열의식으로 D급을 노골적으로 무시한다.',appearance:'흑안 · 짧은 금발 · 탄탄한 운동체형 · 불량한 인상',outfit:'흰 셔츠 · 느슨한 검은색 넥타이 · 걷은 소매 · 슬랙스',personality:'자신감 · 직설적 · 거침 · 서열의식 강함',weak:'학업·장기계략',style:'거칠고 능글맞은 반말'},
-  {id:'g',group:'1학년',name:'윤채린',rank:'A급 · 6위',talent:'경영',role:'P 시장을 움직이는 재벌가 금수저',desc:'사람·정보·자원의 가치를 계산해 효율적으로 운용한다. 대출, 투자, 거래를 통해 교내 경제의 영향력을 키운다.',appearance:'녹안 · 갈색 웨이브 장발 · 입가점 · 화려한 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 베이지색 가디건 · 펜슬 스커트',personality:'사교적 · 계산적 · 영리함 · 자신감 강함',weak:'대가 없는 호의',style:'친근하고 능청스러운 반말'},
-  {id:'h',group:'1학년',name:'백하린',rank:'B급 · 10위',talent:'기억',role:'정규시험으로 올라가는 악바리 모범생',desc:'한번 접한 정보를 거의 잊지 않고 정확하게 재현한다. 어려운 환경에서도 성실함과 완벽주의로 상위권을 노린다.',appearance:'흑안 · 흑색 단발 · 모범생 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'성실 · 완벽주의 · 원칙주의 · 자존심 강함',weak:'정치·협상·즉흥상황',style:'딱딱한 존댓말, 친해지면 반말'},
-  {id:'j',group:'1학년',name:'서지아',rank:'B급 · 12위',talent:'정치',role:'파벌과 여론을 움직이는 정치가형',desc:'세력과 이해관계를 읽고 사람을 결집하거나 분열시킨다. 서예린의 동생으로, 개인전보다 판을 만들고 사람을 움직이는 데 강하다.',appearance:'보라색 눈 · 앞머리를 내린 은발 긴 생머리 · 눈물점 · 속을 읽기 힘든 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트 · 검은 스타킹',personality:'침착 · 사교적 · 관찰적 · 야심 있음',weak:'혼자 해결하는 개인전',style:'부드럽고 여유로운 반존대'},
-  {id:'k',group:'1학년',name:'강유진',rank:'B급 · 15위',talent:'미술',role:'폭넓은 인간관계를 가진 미술천재',desc:'형태·색채·공간을 뛰어나게 관찰하고 표현한다. 누구에게나 친절하고 밝아 학교 안에서 자연스럽게 넓은 인간관계를 만든다.',appearance:'호박색 눈 · 갈색 높은 포니테일 · 밝은 인상',outfit:'흰 셔츠 · 느슨한 검은색 넥타이 · 검은색 트랙 재킷 · 펜슬 스커트',personality:'활발 · 사교적 · 솔직함 · 호기심 많음',weak:'사람을 쉽게 믿고 계략에 둔감',style:'밝고 편한 반말, 친하면 장난 많음'},
-  {id:'l',group:'1학년',name:'최아린',rank:'C급 · 20위',talent:'연기',role:'유명 아역배우 출신 셀럽',desc:'표정·목소리·행동·감정을 원하는 모습으로 연출한다. 생존을 위해 친분과 호감까지 전략적으로 활용하지만 자신의 진짜 감정과 연기를 혼동하기도 한다.',appearance:'적안 · 핑크색 높은 포니테일 · 눈물점 · 사랑스러운 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'밝고 친절해 보이나 현실적 · 계산적 · 불안감 강함',weak:'자신의 진짜 감정을 헷갈림',style:'상대 취향에 맞춰 자연스럽게 변화'},
-  {id:'m',group:'1학년',name:'정다은',rank:'C급 · 22위',talent:'음악',role:'필요한 만큼만 움직이는 비경쟁형',desc:'뛰어난 작곡과 연주 능력을 지녔지만 계급 상승 자체에는 큰 관심이 없다. 실력에 비해 낮은 위치에서 자신의 속도로 학교생활을 즐긴다.',appearance:'녹안 · 검은색 단발 · 나른한 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 검은색 트랙 재킷 · 목에 건 헤드폰 · 펜슬 스커트',personality:'느긋 · 마이페이스 · 온화함 · 귀찮음 많음',weak:'승부욕과 계급상승 의지가 낮음',style:'느리고 부드러운 반말'},
-  {id:'n',group:'1학년',name:'이시우',rank:'D급 · 27위',talent:'프로그래밍',role:'D급 정보보안 천재',desc:'소프트웨어·알고리즘·정보보안 실력은 뛰어나지만 대인관계와 협업에서 약점을 보인다. 낮은 계급 때문에 무시받으며 방어적인 태도가 강하다.',appearance:'노란 눈 · 눈을 가리는 검은 단발 · 아담한 체형',outfit:'흰 셔츠 · 검은색 넥타이 · 검은색 V넥 니트 · 슬랙스',personality:'소극적 · 냉소적 · 낯가림 심함',weak:'대인관계·발표·협업',style:'작고 건조한 반말, 위축되면 말을 흐림'},
-  {id:'p',group:'1학년',name:'김나연',rank:'D급 · 29위',talent:'공학',role:'친구를 원하지만 무리에 못 끼는 공학천재',desc:'기계와 전자장치의 구조를 이해하고 설계·제작하는 데 뛰어나다. 성실하지만 사람들의 시선이 몰리면 쉽게 위축된다.',appearance:'검은색 눈 · 갈색 양갈래 땋은 머리 · 아담한 체형',outfit:'흰 셔츠 · 검은색 넥타이 · 검은색 V넥 니트 · 펜슬 스커트',personality:'소심 · 내향적 · 성실함 · 눈치를 많이 봄',weak:'시선이 몰리면 긴장해 의견을 못 냄',style:'작은 목소리의 조심스러운 반말, 당황하면 더듬음'},
-  {id:'q',group:'2학년',name:'서예린',rank:'S급 · 2위',talent:'심리',role:'사람의 속내를 읽는 2학년 강자',desc:'표정과 말투, 행동에서 상대의 감정과 욕구를 읽고 원하는 반응을 유도한다. 서지아의 언니이자 개인 심리전에 특히 강한 상위권 학생.',appearance:'보라색 눈 · 은발 앞머리 깐 장발 · 눈물점 · 여유로운 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'여유 · 사교적 · 자신감 · 관찰력 강함',weak:'감정을 거의 드러내지 않는 상대',style:'부드럽고 여유로운 존댓말'},
-  {id:'r',group:'2학년',name:'차수현',rank:'A급 · 5위',talent:'법률',role:'규칙의 허점을 합법적으로 이용하는 법률천재',desc:'규칙과 계약의 의미를 빠르게 파악하고 빈틈을 찾아낸다. 법조계 명문가 출신답게 교칙과 시험규정 자체를 자신의 무기로 사용한다.',appearance:'흑안 · 깔끔한 짧은 흑발 · 냉정한 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 슬랙스 · 금속테 안경',personality:'논리적 · 냉정 · 원칙적 · 계산적',weak:'감정적 판단과 돌발행동',style:'건조하고 정중한 존댓말'},
-  {id:'t',group:'2학년',name:'오유리',rank:'D급 · 23위',talent:'의학',role:'사람을 돕다 D급으로 추락한 의학천재',desc:'진단과 응급처치 능력이 뛰어나지만 위험에 처한 사람을 외면하지 못한다. 자신의 P를 희생하면서까지 타인을 도운 결과 D급까지 내려왔다.',appearance:'청안 · 금발 앞머리 깐 장발 · 다정한 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'온화 · 책임감 · 희생적 · 단호함',weak:'위험에 처한 사람을 외면하지 못함',style:'부드러운 존댓말, 위급할 때 단호'},
-  {id:'v',group:'3학년',name:'채가은',rank:'S급 · 1위',talent:'모방',role:'세현고 3학년 최강자',desc:'타인의 기술·동작·행동방식을 관찰해 빠르게 이해하고 재현한다. 수많은 천재의 장점을 자신의 방식으로 흡수하며 정상에 올라섰다.',appearance:'적안 · 은색 단발 · 차분하고 성숙한 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'침착 · 여유 · 겸손 · 자신감 강함',weak:'전문지식·신체조건·타고난 감각 자체는 모방 불가',style:'차분하고 부드러운 존댓말'},
-  {id:'w',group:'3학년',name:'문세림',rank:'A급 · 4위',talent:'건축',role:'공간과 환경을 무기로 쓰는 건축천재',desc:'공간·구조·동선을 직관적으로 파악하고 최적의 공간을 설계한다. 계획된 상황에서는 강하지만 즉흥적인 변수에는 약하다.',appearance:'보라색 눈 · 검은색 울프컷 · 눈물점 · 차분하고 지적인 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'신중 · 섬세 · 완벽주의 · 관찰적',weak:'즉흥적이고 계획 없는 상황',style:'조용하고 정중한 존댓말'},
-  {id:'y',group:'3학년',name:'장해원',rank:'C급 · 14위',talent:'요리',role:'재능 활용 기회가 적은 요리천재',desc:'뛰어난 미각·후각과 조리감각을 지녔지만 학교의 모든 시험이 요리와 연결되지는 않는다. 자신의 분야에서는 누구보다 강한 실력자다.',appearance:'갈색 눈 · 짧은 갈색 머리 · 탄탄한 체형 · 차분한 인상',outfit:'흰 셔츠 · 느슨한 검은색 넥타이 · 걷은 소매 · 슬랙스',personality:'과묵 · 성실 · 정직 · 무뚝뚝함',weak:'자신의 재능을 활용할 수 없는 시험',style:'짧고 담백한 반말'},
-  {id:'z',group:'교직원',name:'이현아',rank:'1학년 담임',talent:'지도',role:'학생들과 가장 가까운 교사',desc:'답을 직접 알려주기보다 학생이 스스로 선택하도록 유도한다. 친근한 태도 속에서 중요한 힌트를 자연스럽게 흘리는 타입.',appearance:'노란색 눈 · 검은색 낮은 포니테일 · 친근한 인상',outfit:'흰 셔츠 · 검은색 가디건 · 검은색 곱창밴드 · 펜슬 스커트',personality:'밝음 · 다정함 · 눈치 빠름 · 은근히 짓궂음',weak:'—',style:'친근한 반말, 공식 상황에서는 존댓말'},
-  {id:'B',group:'교직원',name:'권태준',rank:'2학년 담임',talent:'성과주의',role:'계급경쟁을 적극 지지하는 교사',desc:'과정보다 결과를 중시하며 규칙 안의 수단은 모두 능력으로 인정한다. 학생의 실패에도 쉽게 개입하지 않는 현실적인 지도자.',appearance:'검은색 눈 · 깔끔한 짧은 은발 · 사각 안경 · 넓고 단단한 체격 · 엄격한 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 슬랙스',personality:'냉정 · 현실적 · 성과주의 · 공정함',weak:'—',style:'딱딱하고 단정한 존댓말'},
-  {id:'C',group:'교직원',name:'윤서진',rank:'3학년 담임',talent:'생존',role:'D급에서 살아남은 세현고 졸업생',desc:'학교의 이상보다 학생이 실제로 살아남는 방법을 중시한다. 과묵하고 냉정하지만 자신의 경험 때문에 학생들에게 은근히 정이 많다.',appearance:'적안 · 검은색 접은 포니테일 · 무표정한 인상',outfit:'검은색 오프숄더 스웨터 · 펜슬 스커트',personality:'과묵 · 현실적 · 냉정함 · 은근히 정 많음',weak:'—',style:'짧고 무뚝뚝한 반말'},
-  {id:'D',group:'교직원',name:'강세린',rank:'교장',talent:'제도',role:'현재 세현고 제도를 만든 인물',desc:'재능은 결과로 증명될 때만 가치가 있다고 믿는다. 학생을 끊임없이 시험하지만 개인적인 감정으로 누군가를 차별하지 않는다.',appearance:'적안 · 은색 높은 포니테일 · 눈물점 · 차가운 무표정',outfit:'검은색 셔츠 · 검은색 정장 재킷 · 검은색 넥타이 · 펜슬 스커트',personality:'침착 · 냉정 · 품위 · 확고한 신념',weak:'—',style:'차분하고 격식 있는 존댓말'}
+  {id:'0',group:'1학년',name:'한서윤',rank:'S급 · 1위',talent:'전략',role:'세계 최연소 체스 그랜드마스터',desc:'변수와 승리조건을 분석해 최적의 전략을 설계하는 최상위 엘리트. 감정보다 논리를 신뢰하며, 진짜 실력자라면 경쟁자라도 인정한다.',appearance:'적안 · 흑발 긴 생머리 · 눈물점 · 차가운 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'침착 · 합리적 · 자신감 · 승부욕 강함',weak:'감정적·비합리적 변수',style:'차분하고 확신에 찬 반말'},
+  {id:'1',group:'1학년',name:'유민재',rank:'A급 · 4위',talent:'스포츠',role:'운동계 인싸 · 상위권 일진',desc:'뛰어난 운동신경과 신체능력으로 다양한 종목을 빠르게 습득한다. 거침없는 성격과 강한 서열의식으로 D급을 노골적으로 무시한다.',appearance:'흑안 · 짧은 금발 · 탄탄한 운동체형 · 불량한 인상',outfit:'흰 셔츠 · 느슨한 검은색 넥타이 · 걷은 소매 · 슬랙스',personality:'자신감 · 직설적 · 거침 · 서열의식 강함',weak:'학업·장기계략',style:'거칠고 능글맞은 반말'},
+  {id:'2',group:'1학년',name:'윤채린',rank:'A급 · 6위',talent:'경영',role:'P 시장을 움직이는 재벌가 금수저',desc:'사람·정보·자원의 가치를 계산해 효율적으로 운용한다. 대출, 투자, 거래를 통해 교내 경제의 영향력을 키운다.',appearance:'녹안 · 갈색 웨이브 장발 · 입가점 · 화려한 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 베이지색 가디건 · 펜슬 스커트',personality:'사교적 · 계산적 · 영리함 · 자신감 강함',weak:'대가 없는 호의',style:'친근하고 능청스러운 반말'},
+  {id:'3',group:'1학년',name:'백하린',rank:'B급 · 10위',talent:'기억',role:'정규시험으로 올라가는 악바리 모범생',desc:'한번 접한 정보를 거의 잊지 않고 정확하게 재현한다. 어려운 환경에서도 성실함과 완벽주의로 상위권을 노린다.',appearance:'흑안 · 흑색 단발 · 모범생 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'성실 · 완벽주의 · 원칙주의 · 자존심 강함',weak:'정치·협상·즉흥상황',style:'딱딱한 존댓말, 친해지면 반말'},
+  {id:'4',group:'1학년',name:'서지아',rank:'B급 · 12위',talent:'정치',role:'파벌과 여론을 움직이는 정치가형',desc:'세력과 이해관계를 읽고 사람을 결집하거나 분열시킨다. 서예린의 동생으로, 개인전보다 판을 만들고 사람을 움직이는 데 강하다.',appearance:'보라색 눈 · 앞머리를 내린 은발 긴 생머리 · 눈물점 · 속을 읽기 힘든 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트 · 검은 스타킹',personality:'침착 · 사교적 · 관찰적 · 야심 있음',weak:'혼자 해결하는 개인전',style:'부드럽고 여유로운 반존대'},
+  {id:'5',group:'1학년',name:'강유진',rank:'B급 · 15위',talent:'미술',role:'폭넓은 인간관계를 가진 미술천재',desc:'형태·색채·공간을 뛰어나게 관찰하고 표현한다. 누구에게나 친절하고 밝아 학교 안에서 자연스럽게 넓은 인간관계를 만든다.',appearance:'호박색 눈 · 갈색 높은 포니테일 · 밝은 인상',outfit:'흰 셔츠 · 느슨한 검은색 넥타이 · 검은색 트랙 재킷 · 펜슬 스커트',personality:'활발 · 사교적 · 솔직함 · 호기심 많음',weak:'사람을 쉽게 믿고 계략에 둔감',style:'밝고 편한 반말, 친하면 장난 많음'},
+  {id:'6',group:'1학년',name:'최아린',rank:'C급 · 20위',talent:'연기',role:'유명 아역배우 출신 셀럽',desc:'표정·목소리·행동·감정을 원하는 모습으로 연출한다. 생존을 위해 친분과 호감까지 전략적으로 활용하지만 자신의 진짜 감정과 연기를 혼동하기도 한다.',appearance:'적안 · 핑크색 높은 포니테일 · 눈물점 · 사랑스러운 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'밝고 친절해 보이나 현실적 · 계산적 · 불안감 강함',weak:'자신의 진짜 감정을 헷갈림',style:'상대 취향에 맞춰 자연스럽게 변화'},
+  {id:'7',group:'1학년',name:'정다은',rank:'C급 · 22위',talent:'음악',role:'필요한 만큼만 움직이는 비경쟁형',desc:'뛰어난 작곡과 연주 능력을 지녔지만 계급 상승 자체에는 큰 관심이 없다. 실력에 비해 낮은 위치에서 자신의 속도로 학교생활을 즐긴다.',appearance:'녹안 · 검은색 단발 · 나른한 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 검은색 트랙 재킷 · 목에 건 헤드폰 · 펜슬 스커트',personality:'느긋 · 마이페이스 · 온화함 · 귀찮음 많음',weak:'승부욕과 계급상승 의지가 낮음',style:'느리고 부드러운 반말'},
+  {id:'8',group:'1학년',name:'이시우',rank:'D급 · 27위',talent:'프로그래밍',role:'D급 정보보안 천재',desc:'소프트웨어·알고리즘·정보보안 실력은 뛰어나지만 대인관계와 협업에서 약점을 보인다. 낮은 계급 때문에 무시받으며 방어적인 태도가 강하다.',appearance:'노란 눈 · 눈을 가리는 검은 단발 · 아담한 체형',outfit:'흰 셔츠 · 검은색 넥타이 · 검은색 V넥 니트 · 슬랙스',personality:'소극적 · 냉소적 · 낯가림 심함',weak:'대인관계·발표·협업',style:'작고 건조한 반말, 위축되면 말을 흐림'},
+  {id:'9',group:'1학년',name:'김나연',rank:'D급 · 29위',talent:'공학',role:'친구를 원하지만 무리에 못 끼는 공학천재',desc:'기계와 전자장치의 구조를 이해하고 설계·제작하는 데 뛰어나다. 성실하지만 사람들의 시선이 몰리면 쉽게 위축된다.',appearance:'검은색 눈 · 갈색 양갈래 땋은 머리 · 아담한 체형',outfit:'흰 셔츠 · 검은색 넥타이 · 검은색 V넥 니트 · 펜슬 스커트',personality:'소심 · 내향적 · 성실함 · 눈치를 많이 봄',weak:'시선이 몰리면 긴장해 의견을 못 냄',style:'작은 목소리의 조심스러운 반말, 당황하면 더듬음'},
+  {id:'10',group:'2학년',name:'서예린',rank:'S급 · 2위',talent:'심리',role:'사람의 속내를 읽는 2학년 강자',desc:'표정과 말투, 행동에서 상대의 감정과 욕구를 읽고 원하는 반응을 유도한다. 서지아의 언니이자 개인 심리전에 특히 강한 상위권 학생.',appearance:'보라색 눈 · 은발 앞머리 깐 장발 · 눈물점 · 여유로운 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'여유 · 사교적 · 자신감 · 관찰력 강함',weak:'감정을 거의 드러내지 않는 상대',style:'부드럽고 여유로운 존댓말'},
+  {id:'11',group:'2학년',name:'차수현',rank:'A급 · 5위',talent:'법률',role:'규칙의 허점을 합법적으로 이용하는 법률천재',desc:'규칙과 계약의 의미를 빠르게 파악하고 빈틈을 찾아낸다. 법조계 명문가 출신답게 교칙과 시험규정 자체를 자신의 무기로 사용한다.',appearance:'흑안 · 깔끔한 짧은 흑발 · 냉정한 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 슬랙스 · 금속테 안경',personality:'논리적 · 냉정 · 원칙적 · 계산적',weak:'감정적 판단과 돌발행동',style:'건조하고 정중한 존댓말'},
+  {id:'12',group:'2학년',name:'오유리',rank:'D급 · 23위',talent:'의학',role:'사람을 돕다 D급으로 추락한 의학천재',desc:'진단과 응급처치 능력이 뛰어나지만 위험에 처한 사람을 외면하지 못한다. 자신의 P를 희생하면서까지 타인을 도운 결과 D급까지 내려왔다.',appearance:'청안 · 금발 앞머리 깐 장발 · 다정한 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'온화 · 책임감 · 희생적 · 단호함',weak:'위험에 처한 사람을 외면하지 못함',style:'부드러운 존댓말, 위급할 때 단호'},
+  {id:'13',group:'3학년',name:'채가은',rank:'S급 · 1위',talent:'모방',role:'세현고 3학년 최강자',desc:'타인의 기술·동작·행동방식을 관찰해 빠르게 이해하고 재현한다. 수많은 천재의 장점을 자신의 방식으로 흡수하며 정상에 올라섰다.',appearance:'적안 · 은색 단발 · 차분하고 성숙한 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'침착 · 여유 · 겸손 · 자신감 강함',weak:'전문지식·신체조건·타고난 감각 자체는 모방 불가',style:'차분하고 부드러운 존댓말'},
+  {id:'14',group:'3학년',name:'문세림',rank:'A급 · 4위',talent:'건축',role:'공간과 환경을 무기로 쓰는 건축천재',desc:'공간·구조·동선을 직관적으로 파악하고 최적의 공간을 설계한다. 계획된 상황에서는 강하지만 즉흥적인 변수에는 약하다.',appearance:'보라색 눈 · 검은색 울프컷 · 눈물점 · 차분하고 지적인 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 펜슬 스커트',personality:'신중 · 섬세 · 완벽주의 · 관찰적',weak:'즉흥적이고 계획 없는 상황',style:'조용하고 정중한 존댓말'},
+  {id:'15',group:'3학년',name:'장해원',rank:'C급 · 14위',talent:'요리',role:'재능 활용 기회가 적은 요리천재',desc:'뛰어난 미각·후각과 조리감각을 지녔지만 학교의 모든 시험이 요리와 연결되지는 않는다. 자신의 분야에서는 누구보다 강한 실력자다.',appearance:'갈색 눈 · 짧은 갈색 머리 · 탄탄한 체형 · 차분한 인상',outfit:'흰 셔츠 · 느슨한 검은색 넥타이 · 걷은 소매 · 슬랙스',personality:'과묵 · 성실 · 정직 · 무뚝뚝함',weak:'자신의 재능을 활용할 수 없는 시험',style:'짧고 담백한 반말'},
+  {id:'16',group:'교직원',name:'이현아',rank:'1학년 담임',talent:'자율',role:'학생들과 가장 가까운 교사',desc:'답을 직접 알려주기보다 학생이 스스로 선택하도록 유도한다. 친근한 태도 속에서 중요한 힌트를 자연스럽게 흘리는 타입.',appearance:'노란색 눈 · 검은색 낮은 포니테일 · 친근한 인상',outfit:'흰 셔츠 · 검은색 가디건 · 검은색 곱창밴드 · 펜슬 스커트',personality:'밝음 · 다정함 · 눈치 빠름 · 은근히 짓궂음',weak:'—',style:'친근한 반말, 공식 상황에서는 존댓말'},
+  {id:'17',group:'교직원',name:'권태준',rank:'2학년 담임',talent:'성과',role:'계급경쟁을 적극 지지하는 교사',desc:'과정보다 결과를 중시하며 규칙 안의 수단은 모두 능력으로 인정한다. 학생의 실패에도 쉽게 개입하지 않는 현실적인 지도자.',appearance:'검은색 눈 · 깔끔한 짧은 은발 · 사각 안경 · 넓고 단단한 체격 · 엄격한 인상',outfit:'흰 셔츠 · 검은색 넥타이 · 슬랙스',personality:'냉정 · 현실적 · 성과주의 · 공정함',weak:'—',style:'딱딱하고 단정한 존댓말'},
+  {id:'18',group:'교직원',name:'윤서진',rank:'3학년 담임',talent:'생존',role:'D급에서 살아남은 세현고 졸업생',desc:'학교의 이상보다 학생이 실제로 살아남는 방법을 중시한다. 과묵하고 냉정하지만 자신의 경험 때문에 학생들에게 은근히 정이 많다.',appearance:'적안 · 검은색 접은 포니테일 · 무표정한 인상',outfit:'검은색 오프숄더 스웨터 · 펜슬 스커트',personality:'과묵 · 현실적 · 냉정함 · 은근히 정 많음',weak:'—',style:'짧고 무뚝뚝한 반말'},
+  {id:'19',group:'교직원',name:'강세린',rank:'교장',talent:'경쟁',role:'현재 세현고 제도를 만든 인물',desc:'재능은 결과로 증명될 때만 가치가 있다고 믿는다. 학생을 끊임없이 시험하지만 개인적인 감정으로 누군가를 차별하지 않는다.',appearance:'적안 · 은색 높은 포니테일 · 눈물점 · 차가운 무표정',outfit:'검은색 셔츠 · 검은색 정장 재킷 · 검은색 넥타이 · 펜슬 스커트',personality:'침착 · 냉정 · 품위 · 확고한 신념',weak:'—',style:'차분하고 격식 있는 존댓말'}
 ];
 const filter = document.getElementById('charFilter');
 const cards = document.getElementById('charCards');
@@ -379,7 +405,7 @@ function renderGroup(group){
     button.type='button';
     button.className='char-card';
     button.setAttribute('aria-label',`${c.name} 상세 정보 보기`);
-    button.innerHTML=`<div class="char-card-image-wrap"><img class="char-card-image" src="https://igx.kr/d/Tgc/${c.id}/0" alt="${c.name}"><span class="char-card-rank">${c.rank}</span></div><div class="char-card-body"><div class="char-card-top"><span class="char-card-name">${c.name}</span><span class="char-card-talent">${c.talent}</span></div><div class="char-card-role">${c.role}</div><span class="char-card-hint">클릭하여 상세 설정 보기</span></div>`;
+    button.innerHTML=`<div class="char-card-image-wrap"><img class="char-card-image" src="https://igx.kr/d/Tgc/H/${c.id}" alt="${c.name}"><span class="char-card-rank">${c.rank}</span></div><div class="char-card-body"><div class="char-card-top"><span class="char-card-name">${c.name}</span><span class="char-card-talent">${c.talent}</span></div><div class="char-card-role">${c.role}</div><span class="char-card-hint">클릭하여 상세 설정 보기</span></div>`;
     button.addEventListener('click',()=>openCharModal(c,button));
     cards.appendChild(button);
   });
@@ -401,7 +427,7 @@ const charModalClose=document.getElementById('charModalClose');
 let lastCharTrigger=null;
 function openCharModal(c,trigger){
   lastCharTrigger=trigger;
-  charModalImage.src=`https://igx.kr/d/Tgc/${c.id}/0`;
+  charModalImage.src=`https://igx.kr/d/Tgc/H/${c.id}`;
   charModalImage.alt=`${c.name} 캐릭터 이미지`;
   charModalMeta.innerHTML=`<span class="badge">${c.group}</span><span class="badge rank">${c.rank}</span><span class="badge">재능 · ${c.talent}</span>`;
   charModalTitle.textContent=c.name;
@@ -439,7 +465,7 @@ function openPlaceModal(button){
   lastPlaceTrigger=button;
   const id=button.dataset.placeId;
   const name=button.dataset.placeName;
-  placeModalImage.src=`https://igx.kr/d/Tgc/G/${id}`;
+  placeModalImage.src=`https://igx.kr/d/Tgc/J/${id}`;
   placeModalImage.alt=`${name} 배경 이미지`;
   placeModalTitle.textContent=name;
   placeModalDesc.textContent=button.dataset.placeDesc;
