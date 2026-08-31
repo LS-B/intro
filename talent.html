@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>재능지상주의 학교 | 세현고등학교</title>
+<style>
+:root{
+  --bg:#0b0d12;
+  --panel:#11151d;
+  --panel2:#151a24;
+  --line:rgba(255,255,255,.10);
+  --text:#f4f7fb;
+  --muted:#9ea7b5;
+  --soft:#cfd5df;
+  --accent:#e7ff57;
+  --accent2:#7be0ff;
+  --danger:#ff6f7d;
+  --shadow:0 24px 80px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter, Pretendard, "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 15% 10%, rgba(123,224,255,.09), transparent 28%),
+    radial-gradient(circle at 85% 5%, rgba(231,255,87,.09), transparent 24%),
+    var(--bg);
+  line-height:1.65;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.container{width:min(1180px, calc(100% - 40px));margin:0 auto}
+.nav{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(18px);
+  background:rgba(11,13,18,.76);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.03em}
+.brand-mark{width:34px;height:34px;border:1px solid var(--line);display:grid;place-items:center;background:var(--accent);color:#0a0d11;font-weight:1000}
+.nav-links{display:flex;gap:22px;color:var(--muted);font-size:14px}
+.nav-links a:hover{color:var(--text)}
+.hero{padding:96px 0 70px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:46px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 11px;border:1px solid var(--line);background:rgba(255,255,255,.025);font-size:12px;font-weight:800;color:var(--soft);letter-spacing:.12em;text-transform:uppercase}
+.eyebrow-dot{width:7px;height:7px;background:var(--accent);box-shadow:0 0 18px var(--accent)}
+.hero h1{font-size:clamp(52px,7.2vw,104px);line-height:.94;margin:26px 0 24px;letter-spacing:-.07em;font-weight:1000}
+.hero h1 .thin{font-weight:300;color:#b9c1cc}
+.hero-desc{font-size:18px;color:var(--soft);max-width:650px;margin:0 0 30px}
+.hero-quote{font-size:26px;font-weight:900;letter-spacing:-.04em;margin:32px 0 0}
+.hero-quote span{color:var(--accent)}
+.hero-actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.btn{padding:13px 18px;border:1px solid var(--line);background:#161b24;color:white;font-weight:800;cursor:pointer;transition:.18s}
+.btn:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.25)}
+.btn.primary{background:var(--accent);color:#0b0d12;border-color:var(--accent)}
+.hero-card{position:relative;min-height:560px;border:1px solid var(--line);background:linear-gradient(145deg,#141a22,#0e1117);box-shadow:var(--shadow);overflow:hidden}
+.hero-card:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,black,transparent 78%)}
+.rank-panel{position:absolute;inset:38px;display:flex;flex-direction:column;justify-content:space-between}
+.rank-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.school-chip{font-size:12px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase}
+.rank-big{font-size:170px;line-height:.8;font-weight:1000;letter-spacing:-.1em;color:var(--accent);text-shadow:0 0 55px rgba(231,255,87,.16)}
+.rank-caption{font-weight:800;font-size:15px;color:var(--soft)}
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mini-stat{padding:14px;border:1px solid var(--line);background:rgba(255,255,255,.025)}
+.mini-stat b{display:block;font-size:20px}
+.mini-stat span{color:var(--muted);font-size:12px}
+.section{padding:88px 0;border-top:1px solid var(--line)}
+.section-head{display:grid;grid-template-columns:.65fr 1.35fr;gap:44px;align-items:end;margin-bottom:34px}
+.kicker{font-size:12px;letter-spacing:.14em;color:var(--accent);font-weight:900;text-transform:uppercase}
+.section h2{font-size:clamp(34px,4vw,58px);line-height:1.02;letter-spacing:-.055em;margin:8px 0 0}
+.section-copy{color:var(--muted);font-size:16px;max-width:760px}
+.system-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));padding:24px;min-height:220px;position:relative;overflow:hidden}
+.card-number{font-size:12px;color:var(--muted);font-weight:900;letter-spacing:.12em}
+.card h3{font-size:25px;letter-spacing:-.04em;margin:42px 0 10px}
+.card p{margin:0;color:var(--muted)}
+.card strong{color:var(--text)}
+.tier-list{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:22px}
+.tier{padding:12px 8px;text-align:center;border:1px solid var(--line);font-weight:1000}
+.tier small{display:block;color:var(--muted);font-weight:600;font-size:10px;margin-top:2px}
+.timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.month{border-top:2px solid var(--line);padding:14px 10px 0;min-height:92px}
+.month.active{border-color:var(--accent)}
+.month b{font-size:13px;color:var(--soft)}
+.month span{display:block;margin-top:7px;color:var(--muted);font-size:12px}
+.character-layout{display:grid;grid-template-columns:280px 1fr;gap:24px}
+.char-tabs{display:flex;flex-direction:column;gap:8px}
+.char-tab{width:100%;text-align:left;padding:14px 16px;border:1px solid var(--line);background:#10141b;color:var(--muted);cursor:pointer;transition:.18s;font-weight:800}
+.char-tab.active,.char-tab:hover{background:var(--accent);color:#0b0d12;border-color:var(--accent)}
+.char-stage{border:1px solid var(--line);background:linear-gradient(140deg,#121722,#0c0f14);min-height:540px;padding:34px;position:relative;overflow:hidden}
+.char-stage-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,1fr);gap:32px;align-items:center;position:relative;z-index:2}
+.char-portrait{width:100%;aspect-ratio:1.462/1;object-fit:cover;object-position:center;border:1px solid var(--line);background:#0c0f14;box-shadow:var(--shadow)}
+.char-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.filter-btn{padding:9px 12px;border:1px solid var(--line);background:#10141b;color:var(--muted);font-weight:800;cursor:pointer}.filter-btn.active{background:var(--accent);border-color:var(--accent);color:#0b0d12}
+.char-stage:after{content:"TALENT";position:absolute;right:-14px;bottom:-42px;font-size:130px;font-weight:1000;color:rgba(255,255,255,.025);letter-spacing:-.08em}
+.char-meta{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px}
+.badge{font-size:11px;font-weight:900;border:1px solid var(--line);padding:6px 9px;color:var(--soft)}
+.badge.rank{background:var(--accent);color:#0b0d12;border-color:var(--accent)}
+.char-name{font-size:46px;letter-spacing:-.055em;margin:0 0 4px}
+.char-role{color:var(--accent2);font-weight:800;margin-bottom:20px}
+.char-desc{color:var(--soft);max-width:760px;font-size:17px}
+.char-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:28px;max-width:760px}
+.char-box{padding:14px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
+.char-box small{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.char-box b{font-size:14px}
+.facilities{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.facility{appearance:none;width:100%;aspect-ratio:19/7;border:1px solid var(--line);background:#10141b;padding:16px;color:var(--text);text-align:left;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;background-size:cover;background-position:center;cursor:pointer;transition:transform .18s ease,border-color .18s ease}
+.facility:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(5,7,10,.92),rgba(5,7,10,.15) 70%)}.facility>*{position:relative;z-index:2}
+.facility:before{content:"";position:absolute;width:100px;height:100px;border:1px solid rgba(255,255,255,.06);right:-35px;top:-35px;transform:rotate(35deg)}
+.facility:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.28)}
+.facility:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.facility b{font-size:17px}.facility span{font-size:11px;color:var(--muted)}
+.facility .facility-hint{font-size:10px;color:rgba(255,255,255,.72);letter-spacing:.04em}
+.place-modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(3,5,8,.82);backdrop-filter:blur(12px)}
+.place-modal.open{display:flex}
+.place-dialog{width:min(980px,100%);max-height:calc(100vh - 48px);overflow:auto;border:1px solid var(--line);background:#0d1118;box-shadow:var(--shadow)}
+.place-image{display:block;width:100%;aspect-ratio:19/7;object-fit:cover;background:#090c11}
+.place-info{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:start;padding:22px 24px 24px}
+.place-info h3{margin:0 0 7px;font-size:28px;letter-spacing:-.04em}
+.place-info p{margin:0;color:var(--muted);max-width:720px}
+.place-close{width:44px;height:44px;border:1px solid var(--line);background:#151a22;color:var(--text);cursor:pointer;font-size:22px;line-height:1}
+.place-close:hover{border-color:rgba(255,255,255,.28)}
+body.modal-open{overflow:hidden}
+.cta{padding:100px 0 110px;text-align:center;border-top:1px solid var(--line)}
+.cta-box{border:1px solid var(--line);padding:66px 28px;background:linear-gradient(145deg,rgba(231,255,87,.08),rgba(123,224,255,.04));box-shadow:var(--shadow)}
+.cta h2{font-size:clamp(38px,5vw,72px);line-height:1;letter-spacing:-.06em;margin:0 0 16px}.cta p{color:var(--muted);max-width:700px;margin:0 auto 28px}
+.footer{padding:26px 0 40px;color:#6f7886;font-size:12px;text-align:center}
+@media (max-width:900px){
+  .char-stage-inner{grid-template-columns:1fr}.char-portrait{max-width:100%}
+  .nav-links{display:none}.hero-grid,.section-head,.character-layout{grid-template-columns:1fr}.hero-card{min-height:430px}.rank-big{font-size:125px}.system-grid{grid-template-columns:1fr}.timeline{grid-template-columns:repeat(3,1fr)}.facilities{grid-template-columns:repeat(2,1fr)}.char-tabs{display:grid;grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  .container{width:min(100% - 24px,1180px)}.hero{padding-top:62px}.hero-card{min-height:380px}.rank-panel{inset:24px}.mini-stats{grid-template-columns:1fr}.timeline{grid-template-columns:repeat(2,1fr)}.facilities{grid-template-columns:1fr}.char-tabs{grid-template-columns:1fr}.char-grid{grid-template-columns:1fr}.section{padding:66px 0}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="#top"><span class="brand-mark">S</span><span>SEHYEON HIGH</span></a>
+    <div class="nav-links">
+      <a href="#world">세계관</a><a href="#system">시스템</a><a href="#characters">인물</a><a href="#campus">캠퍼스</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow"><span class="eyebrow-dot"></span> Elite Talent Survival Campus</div>
+      <h1>재능은<br><span class="thin">증명이다.</span></h1>
+      <p class="hero-desc">각 분야의 천재만이 모이는 초엘리트 사립고, 세현고등학교. 이곳에서 재능은 가능성이 아니라 결과로 평가된다. 포인트를 얻고, 순위를 올리고, 살아남아라.</p>
+      <div class="hero-quote">30명으로 시작해, <span>15명만 졸업한다.</span></div>
+      <div class="hero-actions"><a class="btn primary" href="#system">시스템 보기</a><a class="btn" href="#characters">주요 인물 보기</a></div>
+    </div>
+    <div class="hero-card" aria-label="세현고 랭킹 시스템 비주얼">
+      <div class="rank-panel">
+        <div class="rank-top"><div><div class="school-chip">SEHYEON HIGH SCHOOL</div><div class="rank-caption">CURRENT CLASS</div></div><div class="badge rank">S CLASS</div></div>
+        <div class="rank-big">01</div>
+        <div class="mini-stats">
+          <div class="mini-stat"><b>30</b><span>1학년 입학 정원</span></div>
+          <div class="mini-stat"><b>5</b><span>매년 최종 퇴학</span></div>
+          <div class="mini-stat"><b>15</b><span>최종 졸업 인원</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="world">
+  <div class="container">
+    <div class="section-head"><div><div class="kicker">01 / World</div><h2>천재들의 학교는<br>평범하게 굴러가지 않는다.</h2></div><p class="section-copy">세현고등학교는 서울 인근 신도시에 자리한 대규모 사유 캠퍼스다. 학생 전원이 기숙사에서 생활하며, 학교 안에는 수업시설뿐 아니라 수영장·쇼핑시설·노래방 등 도시 수준의 생활 인프라가 갖춰져 있다. 단, 편안한 환경과 생존은 별개의 문제다.</p></div>
+    <div class="system-grid">
+      <article class="card"><div class="card-number">SELECTION</div><h3>천재만 입학</h3><p>실기·필기·면접 종합평가로 입학생을 선발하고, 입학 순간부터 <strong>P·순위·계급</strong>이 부여된다.</p></article>
+      <article class="card"><div class="card-number">SURVIVAL</div><h3>매년 5명 퇴학</h3><p>학년 말 최종 D급 5명은 전원 퇴학. 재학생은 <strong>30 → 25 → 20 → 15명</strong>으로 줄어든다.</p></article>
+      <article class="card"><div class="card-number">REWARD</div><h3>졸업생 진로 100%</h3><p>끝까지 살아남은 졸업생은 대학·기업·기관 등 <strong>희망 진로 진출을 보장</strong>받는다.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="system">
+  <div class="container">
+    <div class="section-head"><div><div class="kicker">02 / System</div><h2>돈이 곧 계급이고,<br>계급이 곧 생존이다.</h2></div><p class="section-copy">P는 교내 화폐이면서 동시에 개인 자산이며, 같은 학년 안에서의 실시간 순위를 결정한다. 시험 성적만으로는 부족하다. 거래, 협력, 계약, 정보전까지 모두 실력이다.</p></div>
+    <div class="system-grid">
+      <article class="card"><div class="card-number">POINT</div><h3>포인트 P</h3><p>시험·대회·프로젝트·개인 성과로 획득하고 시설 이용·징계·거래 등으로 감소한다. 학생 간 자유로운 양도와 계약도 가능하다.</p></article>
+      <article class="card"><div class="card-number">CLASS</div><h3>5단계 계급</h3><div class="tier-list"><div class="tier">S<small>상위 10%</small></div><div class="tier">A<small>다음 20%</small></div><div class="tier">B<small>다음 30%</small></div><div class="tier">C<small>생존권</small></div><div class="tier">D<small>최하위 5명</small></div></div></article>
+      <article class="card"><div class="card-number">PROOF</div><h3>증명시험</h3><p>정답을 고르는 시험이 아니다. <strong>재능·자원·인간관계</strong>를 활용해 주어진 목표를 달성하는 실습형 평가다.</p></article>
+    </div>
+    <div style="height:30px"></div>
+    <div class="timeline">
+      <div class="month active"><b>3월</b><span>입학·OT·제1 증명시험</span></div><div class="month"><b>4월</b><span>중간고사</span></div><div class="month"><b>5월</b><span>체육대회</span></div><div class="month active"><b>6월</b><span>제2 증명시험</span></div><div class="month"><b>7월</b><span>기말고사</span></div><div class="month"><b>8월</b><span>여름방학</span></div>
+      <div class="month active"><b>9월</b><span>개학·제3 증명시험</span></div><div class="month"><b>10월</b><span>중간고사·축제</span></div><div class="month"><b>11월</b><span>기말고사</span></div><div class="month active"><b>12월</b><span>최종 증명시험</span></div><div class="month"><b>1월</b><span>겨울방학</span></div><div class="month"><b>2월</b><span>퇴학·진급·졸업</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="characters">
+  <div class="container">
+    <div class="section-head"><div><div class="kicker">03 / Characters</div><h2>각자의 재능,<br>각자의 생존 방식.</h2></div><p class="section-copy">시험을 지배하는 전략가부터 규칙의 허점을 노리는 법률 천재, 사람의 마음을 읽는 심리 천재까지. 세현고에서는 같은 재능보다 그것을 언제, 어떻게 쓰느냐가 더 중요하다.</p></div>
+    <div class="char-filter" id="charFilter"></div>
+    <div class="character-layout">
+      <div class="char-tabs" id="charTabs"></div>
+      <div class="char-stage" id="charStage"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="campus">
+  <div class="container">
+    <div class="section-head"><div><div class="kicker">04 / Campus</div><h2>학교이자,<br>하나의 작은 도시.</h2></div><p class="section-copy">수업, 경쟁, 휴식, 거래, 데이트까지 모든 생활이 교내에서 이루어진다. 익숙한 학교 공간과 비일상적인 엘리트 시스템이 동시에 존재하는 것이 세현고 캠퍼스의 핵심이다.</p></div>
+    <div class="facilities"><button type="button" class="facility" data-place-id="1" data-place-name="교실" data-place-desc="정규 수업과 시험, 담임과의 공지가 이루어지는 가장 기본적인 학습 공간." style="background-image:url('https://igx.kr/d/Tgc/y/1')" aria-label="교실 자세히 보기"><span>01</span><b>교실</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="3" data-place-name="대강당" data-place-desc="입학식과 전교 공지, 증명시험 설명과 결과 발표가 열리는 대형 행사 공간." style="background-image:url('https://igx.kr/d/Tgc/y/3')" aria-label="대강당 자세히 보기"><span>02</span><b>대강당</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="4" data-place-name="운동장" data-place-desc="체육 수업과 체육대회, 야외 활동과 신체 능력을 겨루는 시험이 펼쳐지는 장소." style="background-image:url('https://igx.kr/d/Tgc/y/4')" aria-label="운동장 자세히 보기"><span>03</span><b>운동장</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="5" data-place-name="체육관" data-place-desc="실내 스포츠와 훈련, 다양한 실습형 평가에 활용되는 대형 체육 시설." style="background-image:url('https://igx.kr/d/Tgc/y/5')" aria-label="체육관 자세히 보기"><span>04</span><b>체육관</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="6" data-place-name="수영장" data-place-desc="수영 수업과 자유 활동에 사용되는 교내 실내 수영 시설." style="background-image:url('https://igx.kr/d/Tgc/y/6')" aria-label="수영장 자세히 보기"><span>05</span><b>수영장</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="9" data-place-name="도서관" data-place-desc="정규시험 준비와 자료 조사, 조용한 대화와 정보 교환이 이루어지는 학습 공간." style="background-image:url('https://igx.kr/d/Tgc/y/9')" aria-label="도서관 자세히 보기"><span>06</span><b>도서관</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="11" data-place-name="기숙사" data-place-desc="전교생이 생활하는 1인 1실 기숙 시설. 수업이 끝난 뒤의 일상이 이어지는 장소." style="background-image:url('https://igx.kr/d/Tgc/y/11')" aria-label="기숙사 자세히 보기"><span>07</span><b>기숙사</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="12" data-place-name="교무실" data-place-desc="교사들이 근무하며 학생 상담, 공지, 평가와 각종 행정 업무가 이루어지는 공간." style="background-image:url('https://igx.kr/d/Tgc/y/12')" aria-label="교무실 자세히 보기"><span>08</span><b>교무실</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="13" data-place-name="쇼핑시설" data-place-desc="의류와 생필품 등 다양한 상품을 P로 구매할 수 있는 교내 상업 시설." style="background-image:url('https://igx.kr/d/Tgc/y/13')" aria-label="쇼핑시설 자세히 보기"><span>09</span><b>쇼핑시설</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="14" data-place-name="노래방" data-place-desc="학생들이 자유시간에 친목과 휴식을 즐기는 교내 여가 시설." style="background-image:url('https://igx.kr/d/Tgc/y/14')" aria-label="노래방 자세히 보기"><span>10</span><b>노래방</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="15" data-place-name="카페" data-place-desc="음료와 간단한 먹거리를 즐기며 대화, 거래, 만남이 자주 이루어지는 공간." style="background-image:url('https://igx.kr/d/Tgc/y/15')" aria-label="카페 자세히 보기"><span>11</span><b>카페</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="16" data-place-name="영화관" data-place-desc="교내에서 영화를 관람할 수 있는 여가 시설. 휴식이나 약속 장소로도 이용된다." style="background-image:url('https://igx.kr/d/Tgc/y/16')" aria-label="영화관 자세히 보기"><span>12</span><b>영화관</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="17" data-place-name="산책로" data-place-desc="캠퍼스 안을 따라 조성된 조용한 산책 공간. 휴식과 사적인 대화에 적합하다." style="background-image:url('https://igx.kr/d/Tgc/y/17')" aria-label="산책로 자세히 보기"><span>13</span><b>산책로</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="18" data-place-name="레스토랑" data-place-desc="일반 식사보다 여유로운 식사와 특별한 약속에 이용되는 교내 식당 시설." style="background-image:url('https://igx.kr/d/Tgc/y/18')" aria-label="레스토랑 자세히 보기"><span>14</span><b>레스토랑</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="7" data-place-name="보건실" data-place-desc="부상이나 컨디션 이상을 치료하고 휴식할 수 있는 교내 의료 공간." style="background-image:url('https://igx.kr/d/Tgc/y/7')" aria-label="보건실 자세히 보기"><span>15</span><b>보건실</b><span class="facility-hint">클릭하여 자세히 보기</span></button><button type="button" class="facility" data-place-id="10" data-place-name="동아리실" data-place-desc="동아리 활동과 소규모 모임, 학생들끼리의 회의가 이루어지는 자율 활동 공간." style="background-image:url('https://igx.kr/d/Tgc/y/10')" aria-label="동아리실 자세히 보기"><span>16</span><b>동아리실</b><span class="facility-hint">클릭하여 자세히 보기</span></button></div>
+  </div>
+</section>
+
+<div class="place-modal" id="placeModal" aria-hidden="true">
+  <div class="place-dialog" role="dialog" aria-modal="true" aria-labelledby="placeModalTitle">
+    <img class="place-image" id="placeModalImage" src="" alt="" />
+    <div class="place-info">
+      <div><h3 id="placeModalTitle"></h3><p id="placeModalDesc"></p></div>
+      <button type="button" class="place-close" id="placeModalClose" aria-label="장소 상세 닫기">×</button>
+    </div>
+  </div>
+</div>
+
+<section class="cta">
+  <div class="container"><div class="cta-box"><div class="kicker">SEHYEON HIGH SCHOOL</div><h2>당신의 재능을<br>증명할 차례다.</h2><p>누구와 손을 잡고, 누구를 밀어내며, 어떤 방식으로 자신의 가치를 증명할 것인가. 세현고에서의 순위는 언제든 바뀐다.</p><a class="btn primary" href="#top">세현고 입학하기</a></div></div>
+</section>
+
+<footer class="footer">재능지상주의 학교 · 세현고등학교 소개 페이지</footer>
+
+<script>
+const characters = [
+  {id:'a',group:'1학년',name:'한서윤',rank:'S급 · 1위',talent:'전략',role:'세계 최연소 체스 그랜드마스터',desc:'변수와 승리조건을 분석해 최적의 전략을 설계하는 최상위 엘리트. 감정보다 논리를 신뢰하며, 진짜 실력자라면 경쟁자라도 인정한다.',personality:'침착 · 합리적 · 자신감',weak:'감정적·비합리적 변수',style:'차분하고 확신에 찬 반말'},
+  {id:'b',group:'1학년',name:'유민재',rank:'A급 · 4위',talent:'스포츠',role:'운동계 인싸 · 상위권 일진',desc:'뛰어난 운동신경과 신체능력으로 다양한 종목을 빠르게 습득한다. 거침없는 성격과 강한 서열의식으로 D급을 노골적으로 무시한다.',personality:'자신감 · 직설적 · 거침',weak:'학업·장기계략',style:'거칠고 능글맞은 반말'},
+  {id:'c',group:'1학년',name:'윤채린',rank:'A급 · 6위',talent:'경영',role:'P 시장을 움직이는 재벌가 금수저',desc:'사람·정보·자원의 가치를 계산해 효율적으로 운용한다. 대출, 투자, 거래를 통해 교내 경제의 영향력을 키운다.',personality:'사교적 · 계산적 · 영리함',weak:'대가 없는 호의',style:'친근하고 능청스러운 반말'},
+  {id:'d',group:'1학년',name:'백하린',rank:'B급 · 10위',talent:'기억',role:'정규시험으로 올라가는 악바리 모범생',desc:'한번 접한 정보를 거의 잊지 않고 정확하게 재현한다. 어려운 환경에서도 성실함과 완벽주의로 상위권을 노린다.',personality:'성실 · 완벽주의 · 원칙주의',weak:'정치·협상·즉흥상황',style:'딱딱한 존댓말, 친해지면 반말'},
+  {id:'e',group:'1학년',name:'서지아',rank:'B급 · 12위',talent:'정치',role:'파벌과 여론을 움직이는 정치가형',desc:'세력과 이해관계를 읽고 사람을 결집하거나 분열시킨다. 서예린의 동생으로, 개인전보다 판을 만들고 사람을 움직이는 데 강하다.',personality:'침착 · 사교적 · 야심',weak:'혼자 해결하는 개인전',style:'부드럽고 여유로운 반존대'},
+  {id:'f',group:'1학년',name:'강유진',rank:'B급 · 15위',talent:'미술',role:'폭넓은 인간관계를 가진 미술천재',desc:'형태·색채·공간을 뛰어나게 관찰하고 표현한다. 누구에게나 친절하고 밝아 학교 안에서 자연스럽게 넓은 인간관계를 만든다.',personality:'활발 · 사교적 · 솔직함',weak:'사람을 쉽게 믿음',style:'밝고 편한 반말'},
+  {id:'g',group:'1학년',name:'최아린',rank:'C급 · 20위',talent:'연기',role:'유명 아역배우 출신 셀럽',desc:'표정·목소리·행동·감정을 원하는 모습으로 연출한다. 생존을 위해 친분과 호감까지 전략적으로 활용하지만 자신의 진짜 감정과 연기를 혼동하기도 한다.',personality:'밝음 · 현실적 · 불안감',weak:'진짜 감정과 연기의 경계',style:'상대 취향에 따라 자연스럽게 변화'},
+  {id:'h',group:'1학년',name:'정다은',rank:'C급 · 22위',talent:'음악',role:'필요한 만큼만 움직이는 비경쟁형',desc:'뛰어난 작곡과 연주 능력을 지녔지만 계급 상승 자체에는 큰 관심이 없다. 실력에 비해 낮은 위치에서 자신의 속도로 학교생활을 즐긴다.',personality:'느긋 · 마이페이스 · 온화함',weak:'낮은 승부욕',style:'느리고 부드러운 반말'},
+  {id:'i',group:'1학년',name:'이시우',rank:'D급 · 27위',talent:'프로그래밍',role:'D급 정보보안 천재',desc:'소프트웨어·알고리즘·정보보안 실력은 뛰어나지만 대인관계와 협업에서 약점을 보인다. 낮은 계급 때문에 무시받으며 방어적인 태도가 강하다.',personality:'소극적 · 냉소적 · 낯가림',weak:'발표·협업·대인관계',style:'작고 건조한 반말'},
+  {id:'j',group:'1학년',name:'김나연',rank:'D급 · 29위',talent:'공학',role:'친구를 원하지만 무리에 못 끼는 공학천재',desc:'기계와 전자장치의 구조를 이해하고 설계·제작하는 데 뛰어나다. 성실하지만 사람들의 시선이 몰리면 쉽게 위축된다.',personality:'소심 · 내향적 · 성실함',weak:'시선과 발표 상황',style:'작고 조심스러운 반말'},
+  {id:'k',group:'2학년',name:'서예린',rank:'S급 · 2위',talent:'심리',role:'사람의 속내를 읽는 2학년 강자',desc:'표정과 말투, 행동에서 상대의 감정과 욕구를 읽고 원하는 반응을 유도한다. 서지아의 언니이자 개인 심리전에 특히 강한 상위권 학생.',personality:'여유 · 사교적 · 관찰력',weak:'감정을 거의 드러내지 않는 상대',style:'부드럽고 여유로운 존댓말'},
+  {id:'l',group:'2학년',name:'차수현',rank:'A급 · 5위',talent:'법률',role:'규칙의 허점을 합법적으로 이용하는 법률천재',desc:'규칙과 계약의 의미를 빠르게 파악하고 빈틈을 찾아낸다. 법조계 명문가 출신답게 교칙과 시험규정 자체를 자신의 무기로 사용한다.',personality:'논리적 · 냉정 · 원칙적',weak:'감정적 판단·돌발행동',style:'건조하고 정중한 존댓말'},
+  {id:'m',group:'2학년',name:'오유리',rank:'D급 · 23위',talent:'의학',role:'사람을 돕다 D급으로 추락한 의학천재',desc:'진단과 응급처치 능력이 뛰어나지만 위험에 처한 사람을 외면하지 못한다. 자신의 P를 희생하면서까지 타인을 도운 결과 D급까지 내려왔다.',personality:'온화 · 책임감 · 희생적',weak:'도움이 필요한 사람을 외면하지 못함',style:'부드러운 존댓말'},
+  {id:'n',group:'3학년',name:'채가은',rank:'S급 · 1위',talent:'모방',role:'세현고 3학년 최강자',desc:'타인의 기술·동작·행동방식을 관찰해 빠르게 이해하고 재현한다. 수많은 천재의 장점을 자신의 방식으로 흡수하며 정상에 올라섰다.',personality:'침착 · 여유 · 겸손 · 자신감',weak:'전문지식·신체조건·타고난 감각',style:'차분하고 부드러운 존댓말'},
+  {id:'o',group:'3학년',name:'문세림',rank:'A급 · 4위',talent:'건축',role:'공간과 환경을 무기로 쓰는 건축천재',desc:'공간·구조·동선을 직관적으로 파악하고 최적의 공간을 설계한다. 계획된 상황에서는 강하지만 즉흥적인 변수에는 약하다.',personality:'신중 · 섬세 · 완벽주의',weak:'즉흥적이고 계획 없는 상황',style:'조용하고 정중한 존댓말'},
+  {id:'p',group:'3학년',name:'장해원',rank:'C급 · 14위',talent:'요리',role:'재능 활용 기회가 적은 요리천재',desc:'뛰어난 미각·후각과 조리감각을 지녔지만 학교의 모든 시험이 요리와 연결되지는 않는다. 자신의 분야에서는 누구보다 강한 실력자다.',personality:'과묵 · 성실 · 정직',weak:'재능을 활용할 수 없는 시험',style:'짧고 담백한 반말'},
+  {id:'q',group:'교직원',name:'이현아',rank:'1학년 담임',talent:'지도',role:'학생들과 가장 가까운 교사',desc:'답을 직접 알려주기보다 학생이 스스로 선택하도록 유도한다. 친근한 태도 속에서 중요한 힌트를 자연스럽게 흘리는 타입.',personality:'밝음 · 다정함 · 눈치 빠름',weak:'—',style:'친근한 반말, 공식 상황에서는 존댓말'},
+  {id:'r',group:'교직원',name:'권태준',rank:'2학년 담임',talent:'성과주의',role:'계급경쟁을 적극 지지하는 교사',desc:'과정보다 결과를 중시하며 규칙 안의 수단은 모두 능력으로 인정한다. 학생의 실패에도 쉽게 개입하지 않는 현실적인 지도자.',personality:'냉정 · 현실적 · 공정함',weak:'—',style:'딱딱하고 단정한 존댓말'},
+  {id:'s',group:'교직원',name:'윤서진',rank:'3학년 담임',talent:'생존',role:'D급에서 살아남은 세현고 졸업생',desc:'학교의 이상보다 학생이 실제로 살아남는 방법을 중시한다. 과묵하고 냉정하지만 자신의 경험 때문에 학생들에게 은근히 정이 많다.',personality:'과묵 · 현실적 · 냉정함',weak:'—',style:'짧고 무뚝뚝한 반말'},
+  {id:'t',group:'교직원',name:'강세린',rank:'교장',talent:'제도',role:'현재 세현고 제도를 만든 인물',desc:'재능은 결과로 증명될 때만 가치가 있다고 믿는다. 학생을 끊임없이 시험하지만 개인적인 감정으로 누군가를 차별하지 않는다.',personality:'침착 · 냉정 · 품위',weak:'—',style:'차분하고 격식 있는 존댓말'}
+];
+const tabs = document.getElementById('charTabs');
+const filter = document.getElementById('charFilter');
+const stage = document.getElementById('charStage');
+let currentGroup='1학년';
+let currentList=[];
+function renderCharacter(i){
+  const c=currentList[i];
+  [...tabs.children].forEach((el,idx)=>el.classList.toggle('active',idx===i));
+  stage.innerHTML=`<div class="char-stage-inner"><div><div class="char-meta"><span class="badge">${c.group}</span><span class="badge rank">${c.rank}</span><span class="badge">재능 · ${c.talent}</span></div><h3 class="char-name">${c.name}</h3><div class="char-role">${c.role}</div><p class="char-desc">${c.desc}</p><div class="char-grid"><div class="char-box"><small>성격</small><b>${c.personality}</b></div><div class="char-box"><small>약점</small><b>${c.weak}</b></div><div class="char-box"><small>말투</small><b>${c.style}</b></div><div class="char-box"><small>핵심 재능</small><b>${c.talent}</b></div></div></div><img class="char-portrait" src="https://igx.kr/d/Tgc/${c.id}/0" alt="${c.name}"></div>`;
+}
+function renderGroup(group){
+  currentGroup=group; currentList=characters.filter(c=>c.group===group); tabs.innerHTML='';
+  [...filter.children].forEach(el=>el.classList.toggle('active',el.dataset.group===group));
+  currentList.forEach((c,i)=>{const b=document.createElement('button');b.className='char-tab';b.textContent=`${c.name} · ${c.talent}`;b.onclick=()=>renderCharacter(i);tabs.appendChild(b)});
+  renderCharacter(0);
+}
+['1학년','2학년','3학년','교직원'].forEach(g=>{const b=document.createElement('button');b.className='filter-btn';b.dataset.group=g;b.textContent=g;b.onclick=()=>renderGroup(g);filter.appendChild(b)});
+renderGroup('1학년');
+
+const placeModal=document.getElementById('placeModal');
+const placeModalImage=document.getElementById('placeModalImage');
+const placeModalTitle=document.getElementById('placeModalTitle');
+const placeModalDesc=document.getElementById('placeModalDesc');
+const placeModalClose=document.getElementById('placeModalClose');
+let lastPlaceTrigger=null;
+function openPlaceModal(button){
+  lastPlaceTrigger=button;
+  const id=button.dataset.placeId;
+  const name=button.dataset.placeName;
+  placeModalImage.src=`https://igx.kr/d/Tgc/y/${id}`;
+  placeModalImage.alt=`${name} 배경 이미지`;
+  placeModalTitle.textContent=name;
+  placeModalDesc.textContent=button.dataset.placeDesc;
+  placeModal.classList.add('open');
+  placeModal.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
+  placeModalClose.focus();
+}
+function closePlaceModal(){
+  if(!placeModal.classList.contains('open')) return;
+  placeModal.classList.remove('open');
+  placeModal.setAttribute('aria-hidden','true');
+  document.body.classList.remove('modal-open');
+  placeModalImage.src='';
+  if(lastPlaceTrigger) lastPlaceTrigger.focus();
+}
+document.querySelectorAll('.facility').forEach(button=>button.addEventListener('click',()=>openPlaceModal(button)));
+placeModalClose.addEventListener('click',closePlaceModal);
+placeModal.addEventListener('click',event=>{if(event.target===placeModal) closePlaceModal();});
+document.addEventListener('keydown',event=>{if(event.key==='Escape') closePlaceModal();});
+</script>
+</body>
+</html>
