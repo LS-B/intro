@@ -79,9 +79,23 @@ button{font:inherit}
 .card h3{font-size:25px;letter-spacing:-.04em;margin:42px 0 10px}
 .card p{margin:0;color:var(--muted)}
 .card strong{color:var(--text)}
-.tier-list{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:22px}
+.tier-list{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:18px}
 .tier{padding:12px 8px;text-align:center;border:1px solid var(--line);font-weight:1000}
 .tier small{display:block;color:var(--muted);font-weight:600;font-size:10px;margin-top:2px}
+.system-core{min-height:340px}
+.system-core h3{margin-top:30px}
+.system-detail-list{display:grid;gap:8px;margin-top:18px}
+.system-detail{display:grid;grid-template-columns:74px minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid var(--line);align-items:start}
+.system-detail:first-child{border-top:0;padding-top:0}
+.system-detail span{font-size:10px;font-weight:900;letter-spacing:.08em;color:var(--accent2)}
+.system-detail p{font-size:12px;line-height:1.55;color:var(--soft);margin:0}
+.system-flow{margin-top:18px;border:1px solid var(--line);background:rgba(255,255,255,.02);padding:18px}
+.system-flow-label{font-size:10px;font-weight:900;letter-spacing:.14em;color:var(--muted);margin-bottom:12px}
+.system-flow-track{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;align-items:stretch}
+.flow-step{padding:11px 10px;border:1px solid var(--line);background:#10141b;min-height:74px}
+.flow-step b{display:block;font-size:11px;color:var(--text);margin-bottom:5px}
+.flow-step span{font-size:10px;color:var(--muted);line-height:1.45}
+.flow-step.emphasis{border-color:rgba(231,255,87,.35);background:rgba(231,255,87,.055)}
 .timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 .month{border-top:2px solid var(--line);padding:14px 10px 0;min-height:92px}
 .month.active{border-color:var(--accent)}
@@ -162,10 +176,10 @@ body.modal-open{overflow:hidden}
 .footer{padding:26px 0 40px;color:#6f7886;font-size:12px;text-align:center}
 @media (max-width:900px){
   .char-stage-inner{grid-template-columns:1fr}.char-portrait{max-width:100%}
-  .nav-links{display:none}.hero-grid,.section-head,.character-layout{grid-template-columns:1fr}.hero-card{min-height:430px}.rank-big{font-size:125px}.system-grid{grid-template-columns:1fr}.timeline{grid-template-columns:repeat(3,1fr)}.facilities{grid-template-columns:repeat(2,1fr)}.char-tabs{display:grid;grid-template-columns:repeat(2,1fr)}.char-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.char-dialog-grid{grid-template-columns:1fr}
+  .nav-links{display:none}.hero-grid,.section-head,.character-layout{grid-template-columns:1fr}.hero-card{min-height:430px}.rank-big{font-size:125px}.system-grid{grid-template-columns:1fr}.system-flow-track{grid-template-columns:repeat(3,1fr)}.timeline{grid-template-columns:repeat(3,1fr)}.facilities{grid-template-columns:repeat(2,1fr)}.char-tabs{display:grid;grid-template-columns:repeat(2,1fr)}.char-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.char-dialog-grid{grid-template-columns:1fr}
 }
 @media (max-width:560px){
-  .container{width:min(100% - 24px,1180px)}.hero{padding-top:62px}.hero-card{min-height:380px}.rank-panel{inset:24px}.mini-stats{grid-template-columns:1fr}.timeline{grid-template-columns:repeat(2,1fr)}.facilities{grid-template-columns:1fr}.char-tabs{grid-template-columns:1fr}.char-grid{grid-template-columns:1fr}.char-card-grid{grid-template-columns:1fr}.char-detail-grid{grid-template-columns:1fr}.char-detail.wide{grid-column:auto}.char-modal-copy{padding:20px}.section{padding:66px 0}
+  .container{width:min(100% - 24px,1180px)}.hero{padding-top:62px}.hero-card{min-height:380px}.rank-panel{inset:24px}.mini-stats{grid-template-columns:1fr}.system-flow-track{grid-template-columns:1fr}.system-detail{grid-template-columns:64px minmax(0,1fr)}.timeline{grid-template-columns:repeat(2,1fr)}.facilities{grid-template-columns:1fr}.char-tabs{grid-template-columns:1fr}.char-grid{grid-template-columns:1fr}.char-card-grid{grid-template-columns:1fr}.char-detail-grid{grid-template-columns:1fr}.char-detail.wide{grid-column:auto}.char-modal-copy{padding:20px}.section{padding:66px 0}
 }
 </style>
 </head>
@@ -217,9 +231,53 @@ body.modal-open{overflow:hidden}
   <div class="container">
     <div class="section-head"><div><div class="kicker">02 / System</div><h2>돈이 곧 계급,<br>계급이 곧 생존.</h2></div><p class="section-copy">P는 교내 화폐이면서 동시에 개인 자산이며, 같은 학년 안에서의 실시간 순위를 결정한다. 시험 성적만으로는 부족하다. 거래, 협력, 계약, 정보전까지 모두 실력이다.</p></div>
     <div class="system-grid">
-      <article class="card"><div class="card-number">POINT</div><h3>포인트 P</h3><p>시험·대회·프로젝트·개인 성과로 획득하고 시설 이용·징계·거래 등으로 감소한다. 학생 간 자유로운 양도와 계약도 가능하다.</p></article>
-      <article class="card"><div class="card-number">CLASS</div><h3>5단계 계급</h3><div class="tier-list"><div class="tier">S<small>상위 10%</small></div><div class="tier">A<small>다음 20%</small></div><div class="tier">B<small>다음 30%</small></div><div class="tier">C<small>생존권</small></div><div class="tier">D<small>최하위 5명</small></div></div></article>
-      <article class="card"><div class="card-number">PROOF</div><h3>증명시험</h3><p>정답을 고르는 시험이 아니다. <strong>재능·자원·인간관계</strong>를 활용해 주어진 목표를 달성하는 실습형 평가다.</p></article>
+      <article class="card system-core">
+        <div class="card-number">POINT</div>
+        <h3>포인트 P</h3>
+        <p><strong>교내 화폐이자 계급을 결정하는 개인 자산.</strong> 많이 벌기만 하는 것이 아니라 언제 쓰고, 누구와 거래하고, 얼마나 남기는지가 곧 전략이 된다.</p>
+        <div class="system-detail-list">
+          <div class="system-detail"><span>조회</span><p>전용 앱에서 같은 학년 학생들의 <strong>현재 순위·계급·보유 P</strong>를 언제든 확인할 수 있다.</p></div>
+          <div class="system-detail"><span>획득</span><p>정규시험·증명시험·교내평가·대회·프로젝트·지정 활동·개인 성과 등으로 획득한다.</p></div>
+          <div class="system-detail"><span>사용</span><p>시설 이용, 징계, 거래·양도 등으로 감소하며 정보·협력·계약·보상·동맹을 위해 학생 간 자유롭게 주고받을 수 있다.</p></div>
+        </div>
+      </article>
+
+      <article class="card system-core">
+        <div class="card-number">CLASS</div>
+        <h3>계급과 순위</h3>
+        <p>계급은 성적표가 아니라 <strong>같은 학년의 현재 보유 P를 기준으로 한 상대평가</strong>다. P가 움직이면 순위도 즉시 달라진다.</p>
+        <div class="tier-list">
+          <div class="tier">S<small>상위 10%</small></div>
+          <div class="tier">A<small>다음 20%</small></div>
+          <div class="tier">B<small>다음 30%</small></div>
+          <div class="tier">C<small>나머지</small></div>
+          <div class="tier">D<small>최하위 5명</small></div>
+        </div>
+        <div class="system-detail-list">
+          <div class="system-detail"><span>순위</span><p>현재 보유 P에 따라 <strong>학년 내 순위가 실시간으로 갱신</strong>된다.</p></div>
+          <div class="system-detail"><span>재평가</span><p><strong>매월 말</strong> P를 집계해 다음 달의 계급을 결정한다.</p></div>
+          <div class="system-detail"><span>월 지급</span><p>매월 1일 S 50만 / A 40만 / B 30만 / C 20만 / D 10만 P를 지급한다.</p></div>
+          <div class="system-detail"><span>퇴학</span><p>학년말 최종 계급에서 <strong>D급 5명은 전원 퇴학</strong>한다.</p></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-number">PROOF</div>
+        <h3>증명시험</h3>
+        <p>정답을 고르는 시험이 아니다. <strong>재능·자원·인간관계</strong>를 활용해 주어진 목표를 달성하는 실습형 평가다.</p>
+      </article>
+    </div>
+
+    <div class="system-flow">
+      <div class="system-flow-label">RANKING CYCLE / 세현고의 한 달</div>
+      <div class="system-flow-track">
+        <div class="flow-step"><b>01 · P 획득/소비</b><span>시험·성과·거래·시설 이용으로 보유 P가 계속 변한다.</span></div>
+        <div class="flow-step emphasis"><b>02 · 순위 즉시 변동</b><span>현재 P가 바뀌는 순간 학년 내 순위도 실시간으로 갱신된다.</span></div>
+        <div class="flow-step"><b>03 · 앱으로 공개</b><span>학생들은 언제든 서로의 순위·계급·보유 P를 확인할 수 있다.</span></div>
+        <div class="flow-step emphasis"><b>04 · 월말 집계</b><span>월말 보유 P를 기준으로 다음 달 계급이 재평가된다.</span></div>
+        <div class="flow-step"><b>05 · 1일 계급 P 지급</b><span>새 계급에 따라 매월 기본 P가 차등 지급된다.</span></div>
+        <div class="flow-step"><b>06 · 학년말 생존</b><span>마지막까지 D급에 남은 최하위 5명은 퇴학한다.</span></div>
+      </div>
     </div>
     <div style="height:30px"></div>
     <div class="timeline">
